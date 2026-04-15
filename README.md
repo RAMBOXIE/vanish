@@ -1,0 +1,55 @@
+# holmes-cleanup
+
+Privacy cleanup and anti-piracy workflow skill (manual-first, safety-gated).
+
+> **Mission**: Help users reduce harmful digital exposure and piracy-related repost spread through a clear, auditable, user-controlled process.
+>
+> **使命（中文）**：通过清晰、可审计、由用户控制的流程，帮助用户减少隐私泄露与盗版扩散带来的伤害。
+
+## Why this matters
+In today’s internet environment, privacy abuse, data broker exposure, and unauthorized reposting can rapidly amplify personal harm. This project is designed to provide **practical workflow capability** while keeping final truth judgment and irreversible decisions in user hands.
+
+在当下环境中，隐私泄露与盗版扩散会被平台和搜索快速放大。本项目提供“工具能力 + 流程安全”，但真实性与最终决策始终由用户掌握。
+
+## Current status (2026-04-15)
+- ✅ P0 complete: manual trigger gate, triple-confirm risk gate, pre-delete export prompt, notification branching, credential policy guardrails.
+- ✅ P1 complete: sample intake (keywords + user sample file), sample normalization/dedup, dry-run runner, unit tests.
+- ✅ Flowchart available for review.
+- 🔜 P2 next: pluggable mock executor, platform strategy templates, multilingual prompt packs.
+
+## Core rules (must-not-break)
+1. **Manual trigger only** (`--manual` required), no scheduler mode.
+2. **No cooldown period**, but high-risk actions require **3 confirmations**.
+3. **Ask export decision before delete**.
+4. **Notification is user-selected**; no clawbot => no notification is acceptable.
+5. Piracy sample authenticity is **user-judged**; tool provides workflow and capability only.
+6. Credentials follow **minimum scope + shortest TTL + post-task wipe**.
+
+## Repository structure
+- `SKILL.md` — Skill definition and operating guidance.
+- `IMPLEMENTATION_PLAN.md` — MVP architecture and checkpoints.
+- `FLOWCHART.md` — Review-friendly process flow (Mermaid).
+- `TODO.md` — Prioritized backlog and validation records.
+- `scripts/holmes-cleanup.mjs` — Dry-run orchestration entry.
+- `references/` — Risk gate and input schema docs.
+- `tests/` — Node test coverage for guardrails.
+- `examples/sample.json` — Sample input payload.
+
+## Quick run
+```bash
+cd D:\Projects\holmes-cleanup
+npm run dry
+npm test
+```
+
+## Example command
+```bash
+npm run run -- --manual --keywords "mirror,reupload" --sample-file ./examples/sample.json \
+  --confirm1 YES --confirm2 YES --confirm3 YES \
+  --export-before-delete ask --export-answer no --notify none
+```
+
+## Scope disclaimer
+This project does **not** currently call real external APIs in this phase. It is a safe dry-run foundation designed for iterative hardening before production integrations.
+
+当前阶段不会调用真实外部 API。现版本是可验证的安全骨架，用于后续稳健接入生产执行器。

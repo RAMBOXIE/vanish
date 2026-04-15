@@ -1,73 +1,41 @@
 ---
 name: holmes-cleanup
-description: 手动触发的福尔摩斯清理 Skill。用于发起一次性 cleanup 会话，支持盗版样本关键词自动收集与用户自提供样本汇总，并在高风险动作前执行三次确认；删除前强制询问是否导出数据；通知方式由用户选择（无 clawbot 可不通知）；真实性由用户判断；凭据策略遵循最短TTL、最小权限、任务后擦除。适用于用户明确提出“手动清理/下架/删除/处理盗版样本/一次性 cleanup”场景。
+description: Manual-first privacy and anti-piracy cleanup skill for one-off sessions. Use when users explicitly request manual cleanup/takedown/delete workflows, need keyword + user-provided sample intake, require strict 3-step confirmation for high-risk actions, must decide export-before-delete, and want user-selected notification behavior. Authenticity judgment remains with the user; tool provides process capability only. Credential handling follows minimum scope, shortest TTL, and post-task wipe.
 ---
 
 # holmes-cleanup
 
-## 执行原则
-1. 仅手动触发，不做定时巡检。
-2. 无冷静期，但高风险动作必须三次确认。
-3. 删除前必须询问是否导出数据。
-4. 通知方式由用户选择；用户无 clawbot 时可不通知。
-5. 盗版样本真实性由用户判断；工具仅提供收集与整理能力。
-6. 凭据使用最短 TTL、最小权限，并在任务结束后擦除。
+## Operating principles / 执行原则
+1. Manual trigger only (no scheduled scan mode).
+2. No cooldown period; high-risk actions require triple confirmation.
+3. Always ask export decision before delete.
+4. Notification is user-selected; no clawbot => no notification is acceptable.
+5. User judges authenticity; tool provides workflow and organization only.
+6. Credentials: shortest TTL, minimum scope, wipe after task.
 
-## 标准执行流程（MVP）
-1. **启动会话**
-   - 接收用户手动触发命令。
-   - 记录本次范围（平台、对象、动作意图）和通知偏好。
+## Standard flow (MVP)
+1. Start session from explicit manual request.
+2. Ingest samples from keywords + user-provided evidence.
+3. Show responsibility note (user decides authenticity).
+4. Build action plan and classify risk level.
+5. Run 3-step confirmation for high-risk actions.
+6. Ask export decision before any delete action.
+7. Execute dry-run actions and produce structured result.
+8. Apply notification preference.
+9. End session and enforce credential wipe policy.
 
-2. **样本收集**
-   - 启动关键词自动收集（候选样本）。
-   - 接收用户自提供样本（URL/ID/文本/证据索引）。
-   - 合并并去重，生成候选列表。
-
-3. **真实性提示**
-   - 明确提示：工具不裁定真伪，真实性由用户最终判断。
-
-4. **动作规划**
-   - 让用户选择动作（标记、忽略、删除等）。
-   - 识别高风险动作（删除/下架/封禁等）。
-
-5. **三次确认（仅高风险）**
-   - 确认1：动作摘要 + 影响范围。
-   - 确认2：目标清单 + 不可逆后果。
-   - 确认3：最终口令式确认。
-   - 任一确认失败，终止高风险执行。
-
-6. **删除前导出询问**
-   - 若含删除动作，先询问是否导出。
-   - 记录用户选择（导出 / 不导出）。
-
-7. **执行与通知**
-   - 执行动作（当前可为占位实现）。
-   - 按用户选择通知；若无 clawbot 且用户选择不通知，则跳过通知。
-
-8. **收尾与安全擦除**
-   - 输出执行报告（对象、结果、未执行原因）。
-   - 擦除会话凭据与临时敏感数据。
-
-## 运行命令示例
+## Run examples
 ```bash
-# 1) 失败示例：缺少三次确认
+# failure: missing confirmations
 npm run run -- --manual --keywords "k1,k2" --export-before-delete ask --export-answer yes
 
-# 2) 成功示例：完整 dry-run
+# success: full dry-run
 npm run run -- --manual --keywords "k1,k2" --sample-file ./examples/sample.json \
   --confirm1 YES --confirm2 YES --confirm3 YES \
   --export-before-delete ask --export-answer no --notify none
 ```
 
-## 目录说明
-- `scripts/`：放置本地可执行流程脚本（默认 dry-run，不做外部请求）。
-- `references/`：放置输入结构、风险闸门等参考文档。
-
-## 真实性与边界
-- 盗版样本真实性由用户判断，工具仅提供流程与能力，不做事实裁定。
-- 凭据只从环境变量读取，不落盘。
-
-## 当前阶段约束
-- 仅做非破坏性初始化。
-- 不接入真实账号凭据。
-- 不发起外部请求。
+## Boundaries / 边界
+- Current phase is non-destructive dry-run only.
+- No real external API calls.
+- No real credential persistence.
