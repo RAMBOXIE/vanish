@@ -1,3 +1,5 @@
+import { dedupeKey, payloadIdentity } from './dedupe.mjs';
+
 export class RetryQueue {
   constructor(options = {}) {
     this.maxAttempts = Number.isInteger(options.maxAttempts) ? options.maxAttempts : 3;
@@ -5,11 +7,13 @@ export class RetryQueue {
     this.factor = Number.isFinite(options.factor) ? options.factor : 2;
     this.maxDelayMs = Number.isInteger(options.maxDelayMs) ? options.maxDelayMs : 60000;
     this.items = Array.isArray(options.items) ? [...options.items] : [];
+    this.keys = new Map();
     this.attemptCounts = new Map();
     for (const item of this.items) {
       const key = queueKey(item.payload);
       const prev = this.attemptCounts.get(key) || 0;
       this.attemptCounts.set(key, Math.max(prev, item.attempt || 0));
+      if (item.dedupeKey) this.keys.set(item.dedupeKey, item);
     }
     if (options.seedAttempts && typeof options.seedAttempts === 'object') {
       for (const [key, value] of Object.entries(options.seedAttempts)) {
@@ -28,6 +32,19 @@ export class RetryQueue {
   }
 
   enqueue({ reason, payload, error, createdAt = new Date().toISOString() }) {
+    const uniqueKey = dedupeKey(payloadIdentity(payload, reason));
+    const existing = this.keys.get(uniqueKey);
+    if (existing) {
+      const key = queueKey(payload);
+      const attempt = this.getAttemptCount(payload) + 1;
+      this.attemptCounts.set(key, attempt);
+      existing.lastSeenAt = createdAt;
+      existing.seenCount = (existing.seenCount || 1) + 1;
+      existing.attempt = Math.max(existing.attempt || 0, attempt);
+      existing.nextAttemptAt = new Date(Date.parse(createdAt) + existing.backoffMs).toISOString();
+      return { ...existing, deduped: true };
+    }
+
     const key = queueKey(payload);
     const attempt = this.getAttemptCount(payload) + 1;
     this.attemptCounts.set(key, attempt);
@@ -38,18 +55,21 @@ export class RetryQueue {
     );
 
     const item = {
-      id: `${key}:${attempt}`,
+      id: `retry:${uniqueKey}`,
+      dedupeKey: uniqueKey,
       reason,
       payload,
       error: serializeError(error),
       createdAt,
       status: 'queued',
       attempt,
+      seenCount: 1,
       backoffMs,
       nextAttemptAt: new Date(Date.parse(createdAt) + backoffMs).toISOString()
     };
 
     this.items.push(item);
+    this.keys.set(uniqueKey, item);
     return item;
   }
 }

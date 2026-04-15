@@ -3,9 +3,9 @@
 _Last updated: 2026-04-15_
 
 ## 1) Executive summary
-holmes-cleanup now includes a **minimum viable real execution loop** for B1: user input → auth validation → live HTTP submit (Spokeo adapter, configurable endpoint) → persistent queueing (retry/manual review) → proof report.
+holmes-cleanup now includes a **hardened minimum viable real execution loop** for B1: user input → auth validation/secret-store loading → live HTTP submit or official-mode compliance block → persistent queueing (retry/manual review/DLQ) → signed audit trail → proof report.
 
-holmes-cleanup 已完成 B1 “真执行闭环”最小可用版：用户输入 → 授权校验 → 真实 HTTP 提交（Spokeo 适配器，可配置 endpoint）→ 持久化队列（重试/人工复核）→ 证明报告。
+holmes-cleanup 已完成 B1 “真执行闭环”加固版：用户输入 → 授权校验/secret-store 加载 → 真实 HTTP 提交或官方模式合规阻断 → 持久化队列（重试/人工复核/DLQ）→ 签名审计 → 证明报告。
 
 ## 2) Completed milestones
 ### P0 (Completed)
@@ -34,12 +34,19 @@ holmes-cleanup 已完成 B1 “真执行闭环”最小可用版：用户输入 
   - transient error → retry queue
   - over retry threshold → manual review queue
 - Live-capable Spokeo adapter using configurable verifiable endpoint for real HTTP closure validation
+- Phase-next hardening:
+  - Official Spokeo endpoint skeleton with compliance block and anti-bot placeholders
+  - Encrypted local secret store (Windows DPAPI preferred; AES-GCM fallback)
+  - Retry/manual dedupe by broker/request/reason hash
+  - Dead-letter queue for retry-limit and non-retryable failures
+  - HMAC-signed audit events persisted in state
 
 中文：B1 已完成真执行闭环（含持久化队列、授权校验、live 提交、队列重试升级、审计落地）。
 
 ### B2 Workflow Utilities (Completed)
 - Quick Mode (`npm run quick` / `holmes quick` style subcommand) for minimal-input dry-run flow
 - Local static Queue Dashboard with generated retry/manual-review/status JSON
+- Dashboard auto-refresh toggle and `npm run dashboard:watch`
 - Broker presets for Spokeo, Whitepages, BeenVerified
 - DMCA presets for standard, urgent, followup
 - Proof Report generator for Markdown audit reports under `reports/proof-<timestamp>.md`
@@ -59,6 +66,7 @@ holmes-cleanup 已完成 B1 “真执行闭环”最小可用版：用户输入 
 - `npm run dry` ✅
 - `npm run quick` ✅ (expected safety block with nextActions when confirmations are missing)
 - `npm run dashboard:build-data` ✅
+- `npm run dashboard:watch` ✅ (short-run verification)
 - `npm run report:proof` ✅
 - `npm run wizard:demo` ✅ (interactive)
 - `npm test` ✅ (includes wizard engine tests)
@@ -66,14 +74,15 @@ holmes-cleanup 已完成 B1 “真执行闭环”最小可用版：用户输入 
 - `npm run test:b1` ✅ (3/3 pass)
 
 ## 4) Current limitations
-- Live Spokeo path currently uses a verifiable substitute endpoint (default Postman Echo), not official Spokeo production API
+- Official Spokeo endpoint mode is intentionally blocked unless endpoint configuration and compliance fields are complete
+- Live non-official Spokeo path currently uses a verifiable substitute endpoint (default Postman Echo), not official Spokeo production API
 - Notification handlers are placeholders
 - Whitepages/BeenVerified remain dry-run adapters
 - Platform-specific social/DMCA takedown adapters not yet implemented
-- Dashboard is local static JSON export (near-real-time via export script), not push streaming UI.
+- Dashboard is local static JSON export with file-watch rebuild, not push streaming UI.
 
 ## 5) Next phase (P2)
-1. Add mock pluggable executor interfaces.
+1. Complete official broker endpoint contracts and compliance review.
 2. Add platform strategy templates in `references/`.
 3. Improve multilingual review outputs (EN primary / 中文辅助).
 4. Add optional webhook notification mode (if approved).

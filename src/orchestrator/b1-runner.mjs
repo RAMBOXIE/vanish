@@ -1,42 +1,47 @@
 import { getBrokerAdapters, listBrokerAdapters } from '../adapters/registry.mjs';
 import { RetryQueue, queueKey } from '../queue/retry-queue.mjs';
 import { ManualReviewQueue } from '../queue/manual-review-queue.mjs';
+import { DeadLetterQueue } from '../queue/dead-letter-queue.mjs';
 import { createDefaultStore } from '../queue/state-store.mjs';
 import { AuthSession } from '../auth/session-auth.mjs';
+import { signAuditEvents } from '../audit/signature.mjs';
 
 export async function runB1Pipeline({
   brokers = listBrokerAdapters(),
   input,
   retryQueue,
   manualReviewQueue,
+  deadLetterQueue,
   store = createDefaultStore(),
   live = false,
-  auth = AuthSession.fromSources({ input })
+  auth = null
 } = {}) {
   const state = store.read();
   const rq = retryQueue || new RetryQueue({ items: state.retry });
   const mq = manualReviewQueue || new ManualReviewQueue(state.manualReview);
+  const dlq = deadLetterQueue || new DeadLetterQueue(state.deadLetter);
   const completed = [...state.completed];
   const failed = [...state.failed];
   const audit = [...state.audit];
+  const session = auth || await AuthSession.fromSourcesWithSecretStore({ input });
 
-  const validation = auth.validate({ requiredScopes: live ? ['submit:spokeo'] : [], minTtlSeconds: 60 });
+  const validation = session.validate({ requiredScopes: live ? ['submit:spokeo'] : [], minTtlSeconds: 60 });
   if (live && !validation.ok) {
     const payload = {
       status: 'blocked',
       mode: 'live',
       reason: validation.reason,
       detail: validation.detail,
-      queues: { retry: rq.items, manualReview: mq.items, completed, failed }
+      queues: { retry: rq.items, manualReview: mq.items, deadLetter: dlq.items, completed, failed }
     };
     audit.push({ at: new Date().toISOString(), event: 'auth_blocked', payload });
-    await store.mutate(current => ({ ...current, retry: rq.items, manualReview: mq.items, completed, failed, audit }));
-    auth.clear();
+    await store.mutate(current => ({ ...current, retry: rq.items, manualReview: mq.items, deadLetter: dlq.items, completed, failed, audit: signAuditEvents(audit) }));
+    session.clear();
     return payload;
   }
 
   const results = [];
-  const queued = { retry: [], manualReview: [] };
+  const queued = { retry: [], manualReview: [], deadLetter: [] };
 
   try {
     for (const adapter of getBrokerAdapters(brokers)) {
@@ -46,7 +51,7 @@ export async function runB1Pipeline({
         const submission = await adapter.submit(request, {
           ...input,
           live,
-          authHeaders: auth.toHeaders()
+          authHeaders: session.toHeaders()
         });
         const parsed = adapter.parseResult(submission, request);
         results.push(parsed);
@@ -71,16 +76,16 @@ export async function runB1Pipeline({
 
         if (error.transient) {
           if (rq.willReachLimit(payload)) {
-            const item = mq.enqueue({ reason: 'retry_limit_reached', payload });
-            queued.manualReview.push(item);
+            const item = dlq.enqueue({ reason: 'retry_limit_reached', payload, error });
+            queued.deadLetter.push(item);
             failed.push({ broker: adapter.name, requestId: request.requestId, reason: 'retry_limit_reached', at: new Date().toISOString() });
           } else {
             const item = rq.enqueue({ reason: 'transient_submit_error', payload, error });
             queued.retry.push(item);
           }
         } else {
-          const item = mq.enqueue({ reason: 'submit_failed', payload });
-          queued.manualReview.push(item);
+          const item = dlq.enqueue({ reason: 'submit_failed', payload, error });
+          queued.deadLetter.push(item);
           failed.push({ broker: adapter.name, requestId: request.requestId, reason: 'submit_failed', at: new Date().toISOString() });
         }
 
@@ -99,9 +104,10 @@ export async function runB1Pipeline({
       ...current,
       retry: rq.items,
       manualReview: mq.items,
+      deadLetter: dlq.items,
       completed,
       failed,
-      audit
+      audit: signAuditEvents(audit)
     }));
 
     return {
@@ -110,16 +116,17 @@ export async function runB1Pipeline({
       inputRequestId: input?.requestId || null,
       brokers,
       results,
-      queues: { retry: rq.items, manualReview: mq.items, completed, failed },
+      queues: { retry: rq.items, manualReview: mq.items, deadLetter: dlq.items, completed, failed },
       summary: {
         attempted: brokers.length,
         successful: results.length,
         retryQueued: queued.retry.length,
-        manualReviewQueued: queued.manualReview.length
+        manualReviewQueued: queued.manualReview.length,
+        deadLetterQueued: queued.deadLetter.length
       }
     };
   } finally {
-    auth.clear();
+    session.clear();
   }
 }
 
@@ -142,7 +149,8 @@ export async function retryFromQueue({ store = createDefaultStore(), id, live = 
       items: remainingRetry,
       seedAttempts: { [item.payload.queueKey || `${item.payload.broker}:${item.payload.requestId}`]: item.attempt || 0 }
     }),
-    manualReviewQueue: new ManualReviewQueue(state.manualReview)
+    manualReviewQueue: new ManualReviewQueue(state.manualReview),
+    deadLetterQueue: new DeadLetterQueue(state.deadLetter)
   });
 
   return { status: 'retried', id, result };
@@ -161,7 +169,7 @@ export async function resolveManualReview({ store = createDefaultStore(), id, re
     return {
       ...current,
       manualReview: manual,
-      audit: [...current.audit, { at: new Date().toISOString(), event: 'manual_resolved', id, resolution }]
+      audit: signAuditEvents([...current.audit, { at: new Date().toISOString(), event: 'manual_resolved', id, resolution }])
     };
   });
 

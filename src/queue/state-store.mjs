@@ -4,6 +4,7 @@ import path from 'node:path';
 const DEFAULT_STATE = {
   retry: [],
   manualReview: [],
+  deadLetter: [],
   completed: [],
   failed: [],
   audit: []
@@ -28,6 +29,7 @@ export class QueueStateStore {
       ...parsed,
       retry: Array.isArray(parsed.retry) ? parsed.retry : [],
       manualReview: Array.isArray(parsed.manualReview) ? parsed.manualReview : [],
+      deadLetter: Array.isArray(parsed.deadLetter) ? parsed.deadLetter : [],
       completed: Array.isArray(parsed.completed) ? parsed.completed : [],
       failed: Array.isArray(parsed.failed) ? parsed.failed : [],
       audit: Array.isArray(parsed.audit) ? parsed.audit : []

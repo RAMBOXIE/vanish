@@ -1,0 +1,90 @@
+[
+  {
+    "id": "dlq:3a8a95f2993e34ae",
+    "dedupeKey": "3a8a95f2993e34ae",
+    "reason": "retry_limit_reached",
+    "payload": {
+      "broker": "spokeo",
+      "requestId": "queue-hardening-1",
+      "request": {
+        "requestId": "queue-hardening-1",
+        "broker": "spokeo",
+        "adapterType": "broker",
+        "dryRun": true,
+        "action": "remove-data-broker-record",
+        "identityHints": {
+          "fullName": "Queue User",
+          "emails": [],
+          "phones": [],
+          "usernames": [],
+          "jurisdiction": "US"
+        },
+        "preparedAt": "2026-04-15T13:00:31.497Z"
+      },
+      "input": {
+        "requestId": "queue-hardening-1",
+        "person": {
+          "fullName": "Queue User"
+        },
+        "simulate": {
+          "spokeo": "transient-error"
+        }
+      },
+      "errorCode": "BROKER_RATE_LIMITED",
+      "queueKey": "spokeo:queue-hardening-1"
+    },
+    "error": {
+      "name": "Error",
+      "message": "Spokeo dry-run transient submit error",
+      "code": "BROKER_RATE_LIMITED",
+      "transient": true
+    },
+    "createdAt": "2026-04-15T13:00:31.498Z",
+    "status": "open",
+    "seenCount": 1
+  },
+  {
+    "id": "dlq:f0422ad0dd38e206",
+    "dedupeKey": "f0422ad0dd38e206",
+    "reason": "submit_failed",
+    "payload": {
+      "broker": "whitepages",
+      "requestId": "queue-hardening-2",
+      "request": {
+        "requestId": "queue-hardening-2",
+        "broker": "whitepages",
+        "adapterType": "broker",
+        "dryRun": true,
+        "action": "remove-data-broker-record",
+        "identityHints": {
+          "fullName": "Queue User",
+          "emails": [],
+          "phones": [],
+          "usernames": [],
+          "jurisdiction": "US"
+        },
+        "preparedAt": "2026-04-15T13:00:31.500Z"
+      },
+      "input": {
+        "requestId": "queue-hardening-2",
+        "person": {
+          "fullName": "Queue User"
+        },
+        "simulate": {
+          "whitepages": "permanent-error"
+        }
+      },
+      "errorCode": "BROKER_SUBMISSION_REJECTED",
+      "queueKey": "whitepages:queue-hardening-2"
+    },
+    "error": {
+      "name": "Error",
+      "message": "Whitepages dry-run permanent submit error",
+      "code": "BROKER_SUBMISSION_REJECTED",
+      "transient": false
+    },
+    "createdAt": "2026-04-15T13:00:31.500Z",
+    "status": "open",
+    "seenCount": 1
+  }
+]

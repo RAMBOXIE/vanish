@@ -19,6 +19,21 @@ header {
   margin-bottom: 28px;
 }
 
+.refresh-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin: 18px 0 0;
+  padding: 12px 0 0;
+  border: 0;
+  border-top: 1px solid #d7dee5;
+}
+
+.refresh-controls legend {
+  padding: 0;
+  font-weight: 700;
+}
+
 h1,
 h2,
 p {

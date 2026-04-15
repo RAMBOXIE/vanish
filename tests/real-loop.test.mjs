@@ -44,7 +44,7 @@ test('auth TTL validation blocks expired credentials', () => {
   assert.equal(verdict.reason, 'ttl_too_short');
 });
 
-test('retry escalation to manual review after threshold', async () => {
+test('retry escalation to dead letter queue after threshold', async () => {
   const statePath = tmpState('escalate');
   const store = createDefaultStore({ filePath: statePath });
 
@@ -70,6 +70,6 @@ test('retry escalation to manual review after threshold', async () => {
   });
 
   const state = store.read();
-  assert.equal(state.manualReview.length, 1);
-  assert.equal(state.manualReview[0].reason, 'retry_limit_reached');
+  assert.equal(state.deadLetter.length, 1);
+  assert.equal(state.deadLetter[0].reason, 'retry_limit_reached');
 });

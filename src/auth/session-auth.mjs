@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { createSecretStore } from './secret-store.mjs';
 
 export class AuthSession {
   constructor({ token = null, cookie = null, scopes = [], expiresAt = null, source = 'none', tempFilePath = null } = {}) {
@@ -37,6 +38,24 @@ export class AuthSession {
         : 'environment';
 
     return new AuthSession({ token, cookie, scopes, expiresAt, source, tempFilePath });
+  }
+
+  static async fromSourcesWithSecretStore({ input = {}, env = process.env, secretStore = createSecretStore() } = {}) {
+    const session = AuthSession.fromSources({ input, env });
+    const tokenSecretName = input.authTokenSecretName || env.HOLMES_AUTH_TOKEN_SECRET_NAME || null;
+    const cookieSecretName = input.authCookieSecretName || env.HOLMES_AUTH_COOKIE_SECRET_NAME || null;
+
+    if (!session.token && tokenSecretName) {
+      session.token = await secretStore.getSecret(tokenSecretName);
+      session.source = 'secret-store';
+    }
+
+    if (!session.cookie && cookieSecretName) {
+      session.cookie = await secretStore.getSecret(cookieSecretName);
+      session.source = 'secret-store';
+    }
+
+    return session;
   }
 
   validate({ requiredScopes = [], minTtlSeconds = 120 } = {}) {

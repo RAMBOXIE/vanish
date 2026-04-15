@@ -17,8 +17,9 @@ In today’s internet environment, privacy abuse, data broker exposure, and unau
 - ✅ Quick Mode, local Queue Dashboard, preset templates, and Proof Report generation are available.
 - ✅ Conversation Wizard v1 state machine + prompt pack + CLI demo are available.
 - ✅ B1 real-loop MVP available: persisted queues (JSON + file lock), auth TTL/scope guard, live-mode Spokeo adapter, queue CLI (list/retry/resolve).
+- ✅ Phase-next hardening available: local encrypted secret store, retry/manual dedupe, dead-letter queue, signed audit events, Spokeo official endpoint compliance block, dashboard watch.
 - ✅ Flowchart available for review.
-- 🔜 P2 next: broker-specific production integrations (official endpoints), stronger credential vaulting, richer dashboard UX.
+- 🔜 P2 next: broker-specific production contracts, official endpoint enablement, notification handlers, richer dashboard operations.
 
 ## Core rules (must-not-break)
 1. **Manual trigger only** (`--manual` required), no scheduler mode.
@@ -47,6 +48,7 @@ In today’s internet environment, privacy abuse, data broker exposure, and unau
 - `TODO.md` — Prioritized backlog and validation records.
 - `scripts/holmes-cleanup.mjs` — Dry-run orchestration entry.
 - `scripts/build-dashboard-data.mjs` — Generates local dashboard demo JSON.
+- `scripts/dashboard-watch.mjs` — Watches queue state and rebuilds dashboard JSON.
 - `scripts/generate-proof-report.mjs` — Builds Markdown proof reports from execution JSON.
 - `dashboard/` — Local static queue dashboard.
 - `templates/` — Broker and DMCA preset JSON files.
@@ -60,6 +62,7 @@ cd D:\Projects\holmes-cleanup
 npm run quick
 npm run dry
 npm run wizard:demo
+npm run dashboard:watch
 npm test
 ```
 
@@ -127,16 +130,22 @@ node scripts/queue-cli.mjs retry --id <retryItemId> --auth-token <token> --auth-
 node scripts/queue-cli.mjs resolve --id <manualReviewId> --resolution resolved
 ```
 
+Credentials may also be supplied from the encrypted secret store by setting `HOLMES_AUTH_TOKEN_SECRET_NAME` or passing `authTokenSecretName` into runner input. The store prefers Windows DPAPI and falls back to AES-GCM when `HOLMES_SECRET_MASTER_KEY` is set.
+
+Official broker mode is compliance-blocked by default. Spokeo configuration lives in `src/adapters/brokers/config/official-endpoints.json`; live official execution requires a configured endpoint plus logged `termsAccepted`, `lawfulBasis`, and `operatorId`.
+
 ## Queue Dashboard
 Export dashboard data from persisted queue state:
 
 ```bash
 npm run dashboard:build-data -- data/queue-state.json
+npm run dashboard:watch -- data/queue-state.json
 ```
 
 Files are written to `dashboard/data/*.json`. The dashboard reads:
 - `dashboard/data/retry-queue.json`
 - `dashboard/data/manual-review-queue.json`
+- `dashboard/data/dead-letter-queue.json`
 - `dashboard/data/completed.json`
 - `dashboard/data/failed.json`
 - `dashboard/data/status.json`
@@ -157,10 +166,10 @@ node scripts/generate-proof-report.mjs ./path/to/execution-result.json
 Reports are written to `reports/proof-<timestamp>.md` and include timeline, pass/fail status, reasons not executed, confirmation records, export decision, and queue status.
 
 ## Scope disclaimer
-Current MVP supports **real HTTP submission** in `--live` mode via the Spokeo adapter using a configurable endpoint (default `https://postman-echo.com/post`) for verifiable closed-loop validation.
+Current MVP supports **real HTTP submission** in `--live` mode via the Spokeo adapter using a configurable endpoint (default `https://postman-echo.com/post`) for verifiable closed-loop validation. Official endpoint mode is present as a guarded skeleton and blocks unless compliance and endpoint configuration are complete.
 
-- ✅ Real in MVP: authenticated request construction, live HTTP submit, persisted retry/manual queues, retry escalation and queue operations.
+- ✅ Real in MVP: authenticated request construction, live HTTP submit, persisted retry/manual/DLQ queues, retry escalation, signed audit events, and queue operations.
 - ⚠️ Substitute in MVP: endpoint is a controlled/verifiable HTTP endpoint (not official Spokeo production API).
-- 🔜 Next: replace with official broker endpoint + anti-bot compliant integration.
+- 🔜 Next: enable official broker endpoint credentials/contracts after compliance review.
 
-当前 MVP 在 `--live` 模式下已支持真实 HTTP 提交（默认使用可验证受控 endpoint），用于“真执行闭环”验证；但官方生产接口接入仍属于下一阶段。
+当前 MVP 在 `--live` 模式下已支持真实 HTTP 提交（默认使用可验证受控 endpoint），用于“真执行闭环”验证；官方 endpoint 已有合规阻断骨架，真正启用需要补齐 endpoint 配置与合规确认字段。

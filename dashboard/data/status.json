@@ -1,10 +1,11 @@
 {
-  "generatedAt": "2026-04-15T12:43:11.578Z",
+  "generatedAt": "2026-04-15T13:00:35.184Z",
   "mode": "live-aware",
   "counters": {
     "pendingRetry": 0,
-    "manualReview": 1,
-    "completed": 0,
-    "failed": 1
+    "manualReview": 0,
+    "deadLetter": 2,
+    "completed": 5,
+    "failed": 13
   }
 }

@@ -1,6 +1,6 @@
 import { dedupeKey, payloadIdentity } from './dedupe.mjs';
 
-export class ManualReviewQueue {
+export class DeadLetterQueue {
   constructor(items = []) {
     this.items = [...items];
     this.keys = new Map();
@@ -9,7 +9,7 @@ export class ManualReviewQueue {
     }
   }
 
-  enqueue({ reason, payload, status = 'open', createdAt = new Date().toISOString() }) {
+  enqueue({ reason, payload, error, createdAt = new Date().toISOString(), status = 'open' }) {
     const key = dedupeKey(payloadIdentity(payload, reason));
     const existing = this.keys.get(key);
     if (existing) {
@@ -19,10 +19,11 @@ export class ManualReviewQueue {
     }
 
     const item = {
-      id: `manual:${key}`,
+      id: `dlq:${key}`,
       dedupeKey: key,
       reason,
       payload,
+      error: serializeError(error),
       createdAt,
       status,
       seenCount: 1
@@ -32,4 +33,14 @@ export class ManualReviewQueue {
     this.keys.set(key, item);
     return item;
   }
+}
+
+function serializeError(error) {
+  if (!error) return null;
+  return {
+    name: error.name || 'Error',
+    message: error.message || String(error),
+    code: error.code || 'UNKNOWN',
+    transient: Boolean(error.transient)
+  };
 }

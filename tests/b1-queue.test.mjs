@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { runB1Pipeline } from '../src/orchestrator/b1-runner.mjs';
 import { RetryQueue } from '../src/queue/retry-queue.mjs';
 import { ManualReviewQueue } from '../src/queue/manual-review-queue.mjs';
+import { DeadLetterQueue } from '../src/queue/dead-letter-queue.mjs';
 
 const sampleInput = {
   requestId: 'b1-test-001',
@@ -38,9 +39,10 @@ test('transient submit error enters retry queue', async () => {
   assert.equal(manualReviewQueue.items.length, 0);
 });
 
-test('exceed threshold enters manual review queue', async () => {
+test('exceed threshold enters dead letter queue', async () => {
   const retryQueue = new RetryQueue({ maxAttempts: 1, baseDelayMs: 100 });
   const manualReviewQueue = new ManualReviewQueue();
+  const deadLetterQueue = new DeadLetterQueue();
 
   const result = await runB1Pipeline({
     brokers: ['whitepages'],
@@ -50,17 +52,20 @@ test('exceed threshold enters manual review queue', async () => {
       simulate: { whitepages: 'transient-error' }
     },
     retryQueue,
-    manualReviewQueue
+    manualReviewQueue,
+    deadLetterQueue
   });
 
   assert.equal(result.summary.successful, 0);
   assert.equal(result.summary.retryQueued, 0);
-  assert.equal(result.summary.manualReviewQueued, 1);
+  assert.equal(result.summary.manualReviewQueued, 0);
+  assert.equal(result.summary.deadLetterQueued, 1);
   assert.equal(retryQueue.items.length, 0);
-  assert.equal(manualReviewQueue.items.length, 1);
-  assert.equal(manualReviewQueue.items[0].reason, 'retry_limit_reached');
-  assert.equal(manualReviewQueue.items[0].status, 'open');
-  assert.equal(manualReviewQueue.items[0].payload.broker, 'whitepages');
+  assert.equal(manualReviewQueue.items.length, 0);
+  assert.equal(deadLetterQueue.items.length, 1);
+  assert.equal(deadLetterQueue.items[0].reason, 'retry_limit_reached');
+  assert.equal(deadLetterQueue.items[0].status, 'open');
+  assert.equal(deadLetterQueue.items[0].payload.broker, 'whitepages');
 });
 
 test('success path uses no queue', async () => {

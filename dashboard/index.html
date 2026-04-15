@@ -12,6 +12,12 @@
         <p class="eyebrow">Dry-run local dashboard</p>
         <h1>Queue Dashboard</h1>
         <p>Review retry work, manual review items, and current status counters from local JSON files.</p>
+        <fieldset id="refresh-controls" class="refresh-controls">
+          <legend>Auto refresh</legend>
+          <label><input type="radio" name="refresh" value="0" checked> Off</label>
+          <label><input type="radio" name="refresh" value="5"> 5s</label>
+          <label><input type="radio" name="refresh" value="10"> 10s</label>
+        </fieldset>
       </header>
 
       <section class="counters" id="counters" aria-label="Status counters"></section>
@@ -24,6 +30,10 @@
         <article>
           <h2>Manual Review Queue</h2>
           <div id="manual-review-queue" class="table-wrap"></div>
+        </article>
+        <article>
+          <h2>Dead Letter Queue</h2>
+          <div id="dead-letter-queue" class="table-wrap"></div>
         </article>
         <article>
           <h2>Completed</h2>
