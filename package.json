@@ -6,6 +6,8 @@
   "scripts": {
     "run": "node scripts/holmes-cleanup.mjs",
     "dry": "node scripts/holmes-cleanup.mjs --manual --keywords \"demo\" --sample-file ./examples/sample.json --confirm1 YES --confirm2 YES --confirm3 YES --export-before-delete ask --export-answer no --notify none",
-    "test": "node --test tests/*.test.mjs"
+    "b1:demo": "node scripts/b1-demo.mjs",
+    "test": "node tests/holmes-cleanup.test.mjs && node tests/b1-queue.test.mjs",
+    "test:b1": "node tests/b1-queue.test.mjs"
   }
 }

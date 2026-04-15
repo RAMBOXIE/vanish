@@ -1,17 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { spawnSync } from 'node:child_process';
 import path from 'node:path';
+import { runHolmesCleanup } from '../src/holmes-cleanup-cli.mjs';
 
 const projectRoot = 'D:/Projects/holmes-cleanup';
-const scriptPath = path.join(projectRoot, 'scripts', 'holmes-cleanup.mjs');
 const samplePath = path.join(projectRoot, 'examples', 'sample.json');
 
 function run(args) {
-  return spawnSync(process.execPath, [scriptPath, ...args], {
-    cwd: projectRoot,
-    encoding: 'utf8'
-  });
+  return runHolmesCleanup(args, { cwd: projectRoot });
 }
 
 test('should block when missing manual trigger', () => {
