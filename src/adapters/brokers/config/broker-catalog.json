@@ -796,6 +796,3546 @@
         "notify": "none",
         "exportBeforeDelete": "ask"
       }
+    },
+    "peoplelooker": {
+      "displayName": "PeopleLooker",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.peoplelooker.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Standard form-based opt-out with email confirmation."
+      ],
+      "template": {
+        "keywords": "peoplelooker exposure"
+      }
+    },
+    "publicrecordsnow": {
+      "displayName": "PublicRecordsNow",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.publicrecordsnow.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Requires record URL identification before removal."
+      ],
+      "template": {
+        "keywords": "publicrecordsnow exposure"
+      }
+    },
+    "searchpeoplefree": {
+      "displayName": "SearchPeopleFree",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.searchpeoplefree.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Direct opt-out form available without account."
+      ],
+      "template": {
+        "keywords": "searchpeoplefree exposure"
+      }
+    },
+    "smartbackgroundchecks": {
+      "displayName": "SmartBackgroundChecks",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.smartbackgroundchecks.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Requires specific record selection for removal."
+      ],
+      "template": {
+        "keywords": "smartbackgroundchecks exposure"
+      }
+    },
+    "advancedbackgroundchecks": {
+      "displayName": "AdvancedBackgroundChecks",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.advancedbackgroundchecks.com/removal",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Removal processes within 48 hours of submission."
+      ],
+      "template": {
+        "keywords": "advancedbackgroundchecks exposure"
+      }
+    },
+    "clustrmaps": {
+      "displayName": "ClustrMaps",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://clustrmaps.com/bl/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Direct opt-out form; no account required."
+      ],
+      "template": {
+        "keywords": "clustrmaps exposure"
+      }
+    },
+    "neighbor-report": {
+      "displayName": "Neighbor Report",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://neighbor.report/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Opt-out requires selecting the specific listing to remove."
+      ],
+      "template": {
+        "keywords": "neighbor-report exposure"
+      }
+    },
+    "newenglandfacts": {
+      "displayName": "NewEnglandFacts",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://newenglandfacts.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Standard form-based removal for New England region records."
+      ],
+      "template": {
+        "keywords": "newenglandfacts exposure"
+      }
+    },
+    "officialusa": {
+      "displayName": "OfficialUSA",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.officialusa.com/opt-out",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Requires emailing support with record details for removal."
+      ],
+      "template": {
+        "keywords": "officialusa exposure"
+      }
+    },
+    "ownerly": {
+      "displayName": "Ownerly",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.ownerly.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Property-focused people search; form-based opt-out."
+      ],
+      "template": {
+        "keywords": "ownerly exposure"
+      }
+    },
+    "peoplesearchnow": {
+      "displayName": "PeopleSearchNow",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.peoplesearchnow.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Multi-step opt-out requiring record identification."
+      ],
+      "template": {
+        "keywords": "peoplesearchnow exposure"
+      }
+    },
+    "persopo": {
+      "displayName": "Persopo",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.persopo.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Requires specific listing URL for opt-out submission."
+      ],
+      "template": {
+        "keywords": "persopo exposure"
+      }
+    },
+    "pub360": {
+      "displayName": "Pub360",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://pub360.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Direct opt-out form with email verification."
+      ],
+      "template": {
+        "keywords": "pub360 exposure"
+      }
+    },
+    "quickpeopletrace": {
+      "displayName": "QuickPeopleTrace",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.quickpeopletrace.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Standard opt-out form requiring name and record URL."
+      ],
+      "template": {
+        "keywords": "quickpeopletrace exposure"
+      }
+    },
+    "selfie-systems": {
+      "displayName": "Selfie Systems",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://selfie.systems/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Photo-based people search; requires form submission."
+      ],
+      "template": {
+        "keywords": "selfie-systems exposure"
+      }
+    },
+    "spytox": {
+      "displayName": "Spytox",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.spytox.com/opt_out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Opt-out removes phone and address records."
+      ],
+      "template": {
+        "keywords": "spytox exposure"
+      }
+    },
+    "telephonedirectories": {
+      "displayName": "TelephoneDirectories",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.telephonedirectories.us/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Shared removal system with related directory sites."
+      ],
+      "template": {
+        "keywords": "telephonedirectories exposure"
+      }
+    },
+    "truecaller": {
+      "displayName": "Truecaller",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.truecaller.com/unlisting",
+      "optOutMethod": "account",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Requires deactivating account to unlist phone number."
+      ],
+      "template": {
+        "keywords": "truecaller exposure"
+      }
+    },
+    "usatrace": {
+      "displayName": "USATrace",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.usatrace.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Simple form-based opt-out process."
+      ],
+      "template": {
+        "keywords": "usatrace exposure"
+      }
+    },
+    "verecor": {
+      "displayName": "Verecor",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://verecor.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Opt-out form processes within 72 hours."
+      ],
+      "template": {
+        "keywords": "verecor exposure"
+      }
+    },
+    "vericora": {
+      "displayName": "Vericora",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://vericora.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Standard opt-out with email verification required."
+      ],
+      "template": {
+        "keywords": "vericora exposure"
+      }
+    },
+    "virtory": {
+      "displayName": "Virtory",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://virtory.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Direct form-based opt-out; removal within 48 hours."
+      ],
+      "template": {
+        "keywords": "virtory exposure"
+      }
+    },
+    "voterrecords": {
+      "displayName": "VoterRecords",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://voterrecords.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Voter registration data; form opt-out available."
+      ],
+      "template": {
+        "keywords": "voterrecords exposure"
+      }
+    },
+    "wellnut": {
+      "displayName": "Wellnut",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://wellnut.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Simple opt-out form requiring full name."
+      ],
+      "template": {
+        "keywords": "wellnut exposure"
+      }
+    },
+    "xlek": {
+      "displayName": "Xlek",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://xlek.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Direct opt-out available at listing page."
+      ],
+      "template": {
+        "keywords": "xlek exposure"
+      }
+    },
+    "yellowpages": {
+      "displayName": "YellowPages",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.yellowpages.com/about/privacy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Opt-out via privacy email request with record details."
+      ],
+      "template": {
+        "keywords": "yellowpages exposure"
+      }
+    },
+    "anywho": {
+      "displayName": "AnyWho",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.anywho.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Shared removal system with Intelius network."
+      ],
+      "template": {
+        "keywords": "anywho exposure"
+      }
+    },
+    "cubib": {
+      "displayName": "Cubib",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://cubib.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Standard form-based opt-out process."
+      ],
+      "template": {
+        "keywords": "cubib exposure"
+      }
+    },
+    "dataveria": {
+      "displayName": "Dataveria",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://dataveria.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Opt-out form with identity verification step."
+      ],
+      "template": {
+        "keywords": "dataveria exposure"
+      }
+    },
+    "freepeopledirectory": {
+      "displayName": "FreePeopleDirectory",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.freepeopledirectory.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Free directory with direct opt-out form."
+      ],
+      "template": {
+        "keywords": "freepeopledirectory exposure"
+      }
+    },
+    "gladiknow": {
+      "displayName": "GladIKnow",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://gladiknow.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Form-based removal; processes within 72 hours."
+      ],
+      "template": {
+        "keywords": "gladiknow exposure"
+      }
+    },
+    "idtrue": {
+      "displayName": "IDTrue",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.idtrue.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Requires email verification after opt-out form submission."
+      ],
+      "template": {
+        "keywords": "idtrue exposure"
+      }
+    },
+    "infotrafford": {
+      "displayName": "InfoTracer",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://infotracer.com/optout",
+      "optOutMethod": "account",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Requires free account creation to submit opt-out request."
+      ],
+      "template": {
+        "keywords": "infotrafford exposure"
+      }
+    },
+    "kwold": {
+      "displayName": "Kwold",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://kwold.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Direct opt-out form available on each listing page."
+      ],
+      "template": {
+        "keywords": "kwold exposure"
+      }
+    },
+    "locatepeople": {
+      "displayName": "LocatePeople",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.locatepeople.org/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Simple opt-out form with name and state required."
+      ],
+      "template": {
+        "keywords": "locatepeople exposure"
+      }
+    },
+    "mashpanel": {
+      "displayName": "MashPanel",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://mashpanel.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Aggregated data from multiple sources; form-based removal."
+      ],
+      "template": {
+        "keywords": "mashpanel exposure"
+      }
+    },
+    "peoplebyname": {
+      "displayName": "PeopleByName",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.peoplebyname.com/remove",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Removal via email request with listing details."
+      ],
+      "template": {
+        "keywords": "peoplebyname exposure"
+      }
+    },
+    "peoplesmart": {
+      "displayName": "PeopleSmart",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.peoplesmart.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Form-based opt-out with email verification."
+      ],
+      "template": {
+        "keywords": "peoplesmart exposure"
+      }
+    },
+    "peoplewhiz": {
+      "displayName": "PeopleWhiz",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.peoplewhiz.com/remove-my-info",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Requires CAPTCHA completion during opt-out."
+      ],
+      "template": {
+        "keywords": "peoplewhiz exposure"
+      }
+    },
+    "findpeoplefast": {
+      "displayName": "FindPeopleFast",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.findpeoplefast.net/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Direct form opt-out; no account needed."
+      ],
+      "template": {
+        "keywords": "findpeoplefast exposure"
+      }
+    },
+    "centeda": {
+      "displayName": "Centeda",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://centeda.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Standard removal form processes within 48 hours."
+      ],
+      "template": {
+        "keywords": "centeda exposure"
+      }
+    },
+    "ussearchmore": {
+      "displayName": "USSearchMore",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.ussearchmore.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Form-based opt-out with record URL requirement."
+      ],
+      "template": {
+        "keywords": "ussearchmore exposure"
+      }
+    },
+    "searchquarry": {
+      "displayName": "SearchQuarry",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.searchquarry.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Multi-step removal requiring record search and selection."
+      ],
+      "template": {
+        "keywords": "searchquarry exposure"
+      }
+    },
+    "weinform": {
+      "displayName": "WeInform",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://weinform.org/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Public records aggregator with form opt-out."
+      ],
+      "template": {
+        "keywords": "weinform exposure"
+      }
+    },
+    "rehold": {
+      "displayName": "Rehold",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://rehold.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Property-focused people search; form-based opt-out."
+      ],
+      "template": {
+        "keywords": "rehold exposure"
+      }
+    },
+    "that-info": {
+      "displayName": "That Info",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://thatinfo.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Standard opt-out form with email confirmation required."
+      ],
+      "template": {
+        "keywords": "that-info exposure"
+      }
+    },
+    "revealname": {
+      "displayName": "RevealName",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.revealname.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Reverse lookup service with direct opt-out form."
+      ],
+      "template": {
+        "keywords": "revealname exposure"
+      }
+    },
+    "checksecrets": {
+      "displayName": "CheckSecrets",
+      "category": "background-check",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.checksecrets.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Background check service; requires record URL for removal."
+      ],
+      "template": {
+        "keywords": "checksecrets exposure"
+      }
+    },
+    "backgroundalert": {
+      "displayName": "BackgroundAlert",
+      "category": "background-check",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.backgroundalert.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Opt-out requires account creation and identity verification."
+      ],
+      "template": {
+        "keywords": "backgroundalert exposure"
+      }
+    },
+    "checkthem": {
+      "displayName": "CheckThem",
+      "category": "background-check",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.checkthem.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Standard background check opt-out with email verification."
+      ],
+      "template": {
+        "keywords": "checkthem exposure"
+      }
+    },
+    "criminalwatchdog": {
+      "displayName": "CriminalWatchdog",
+      "category": "background-check",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.criminalwatchdog.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Criminal record focused; opt-out form with verification."
+      ],
+      "template": {
+        "keywords": "criminalwatchdog exposure"
+      }
+    },
+    "goodhire": {
+      "displayName": "GoodHire",
+      "category": "background-check",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.goodhire.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Employment background check provider; FCRA-compliant removal."
+      ],
+      "template": {
+        "keywords": "goodhire exposure"
+      }
+    },
+    "hireright": {
+      "displayName": "HireRight",
+      "category": "background-check",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.hireright.com/legal/privacy-center",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "FCRA-regulated; dispute process for inaccurate records."
+      ],
+      "template": {
+        "keywords": "hireright exposure"
+      }
+    },
+    "publicdatacheck": {
+      "displayName": "PublicDataCheck",
+      "category": "background-check",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.publicdatacheck.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Form-based opt-out with record identification required."
+      ],
+      "template": {
+        "keywords": "publicdatacheck exposure"
+      }
+    },
+    "accuratebackground": {
+      "displayName": "Accurate Background",
+      "category": "background-check",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.accuratebackground.com/privacy",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Employment screening; FCRA dispute process available."
+      ],
+      "template": {
+        "keywords": "accuratebackground exposure"
+      }
+    },
+    "sterlingcheck": {
+      "displayName": "Sterling Check",
+      "category": "background-check",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.sterlingcheck.com/privacy",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Major employment screening firm; formal dispute process."
+      ],
+      "template": {
+        "keywords": "sterlingcheck exposure"
+      }
+    },
+    "verifirst": {
+      "displayName": "Verifirst",
+      "category": "background-check",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.verifirst.com/dispute",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Background screening with FCRA dispute mechanism."
+      ],
+      "template": {
+        "keywords": "verifirst exposure"
+      }
+    },
+    "tenantcheck": {
+      "displayName": "TenantCheck",
+      "category": "background-check",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.tenantcheck.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Tenant screening service; dispute via form submission."
+      ],
+      "template": {
+        "keywords": "tenantcheck exposure"
+      }
+    },
+    "publicdatadigger": {
+      "displayName": "PublicDataDigger",
+      "category": "background-check",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.publicdatadigger.com/removal",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Background aggregator; opt-out form processes within 72 hours."
+      ],
+      "template": {
+        "keywords": "publicdatadigger exposure"
+      }
+    },
+    "veridataresearch": {
+      "displayName": "VeriData Research",
+      "category": "background-check",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.veridataresearch.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Research-oriented background checks; form-based removal."
+      ],
+      "template": {
+        "keywords": "veridataresearch exposure"
+      }
+    },
+    "infobel": {
+      "displayName": "Infobel",
+      "category": "background-check",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.infobel.com/en/privacy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "International directory; removal via privacy email request."
+      ],
+      "template": {
+        "keywords": "infobel exposure"
+      }
+    },
+    "calltruth": {
+      "displayName": "CallTruth",
+      "category": "phone-lookup",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.calltruth.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Reverse phone lookup with direct opt-out form."
+      ],
+      "template": {
+        "keywords": "calltruth exposure"
+      }
+    },
+    "calleridtest": {
+      "displayName": "CallerIDTest",
+      "category": "phone-lookup",
+      "jurisdiction": "US",
+      "optOutUrl": "https://calleridtest.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Caller ID lookup; form-based removal process."
+      ],
+      "template": {
+        "keywords": "calleridtest exposure"
+      }
+    },
+    "numberway": {
+      "displayName": "NumberWay",
+      "category": "phone-lookup",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.numberway.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Phone number directory; standard opt-out form."
+      ],
+      "template": {
+        "keywords": "numberway exposure"
+      }
+    },
+    "oldphonebook": {
+      "displayName": "OldPhoneBook",
+      "category": "phone-lookup",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.oldphonebook.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Historical phone records; opt-out form available."
+      ],
+      "template": {
+        "keywords": "oldphonebook exposure"
+      }
+    },
+    "phoneowner": {
+      "displayName": "PhoneOwner",
+      "category": "phone-lookup",
+      "jurisdiction": "US",
+      "optOutUrl": "https://phoneowner.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Reverse phone owner lookup; form-based removal."
+      ],
+      "template": {
+        "keywords": "phoneowner exposure"
+      }
+    },
+    "reversephonelookup": {
+      "displayName": "ReversePhoneLookup",
+      "category": "phone-lookup",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.reversephonelookup.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Phone directory with standard opt-out form."
+      ],
+      "template": {
+        "keywords": "reversephonelookup exposure"
+      }
+    },
+    "spydialer": {
+      "displayName": "SpyDialer",
+      "category": "phone-lookup",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.spydialer.com/optout.aspx",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Free phone lookup; opt-out requires phone number verification."
+      ],
+      "template": {
+        "keywords": "spydialer exposure"
+      }
+    },
+    "whocalld": {
+      "displayName": "WhoCalld",
+      "category": "phone-lookup",
+      "jurisdiction": "US",
+      "optOutUrl": "https://whocalld.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Caller identification service with form-based opt-out."
+      ],
+      "template": {
+        "keywords": "whocalld exposure"
+      }
+    },
+    "numlookup": {
+      "displayName": "NumLookup",
+      "category": "phone-lookup",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.numlookup.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Phone number validation and lookup; direct opt-out."
+      ],
+      "template": {
+        "keywords": "numlookup exposure"
+      }
+    },
+    "fonefinder": {
+      "displayName": "FoneFinder",
+      "category": "phone-lookup",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.fonefinder.net/opt-out",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Phone carrier lookup; removal via email request."
+      ],
+      "template": {
+        "keywords": "fonefinder exposure"
+      }
+    },
+    "calleridentify": {
+      "displayName": "CallerIdentify",
+      "category": "phone-lookup",
+      "jurisdiction": "US",
+      "optOutUrl": "https://calleridentify.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Caller ID directory with standard opt-out form."
+      ],
+      "template": {
+        "keywords": "calleridentify exposure"
+      }
+    },
+    "phonevalidator": {
+      "displayName": "PhoneValidator",
+      "category": "phone-lookup",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.phonevalidator.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Phone validation service; opt-out via form submission."
+      ],
+      "template": {
+        "keywords": "phonevalidator exposure"
+      }
+    },
+    "publicrecords360": {
+      "displayName": "PublicRecords360",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://publicrecords360.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Public records aggregator with form-based opt-out."
+      ],
+      "template": {
+        "keywords": "publicrecords360 exposure"
+      }
+    },
+    "courtlistener": {
+      "displayName": "CourtListener",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.courtlistener.com/help/removal/",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Court records database; removal request for qualifying cases."
+      ],
+      "template": {
+        "keywords": "courtlistener exposure"
+      }
+    },
+    "judyrecords": {
+      "displayName": "JudyRecords",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.judyrecords.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Court case search engine; opt-out form available."
+      ],
+      "template": {
+        "keywords": "judyrecords exposure"
+      }
+    },
+    "mugshots": {
+      "displayName": "Mugshots.com",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://mugshots.com/opt-out/",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Mugshot removal requires proof of case dismissal or expungement."
+      ],
+      "template": {
+        "keywords": "mugshots exposure"
+      }
+    },
+    "publicdata": {
+      "displayName": "PublicData.com",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.publicdata.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Public records database with form-based opt-out process."
+      ],
+      "template": {
+        "keywords": "publicdata exposure"
+      }
+    },
+    "unicourt": {
+      "displayName": "UniCourt",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://unicourt.com/removal",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Court records platform; removal for sealed or expunged cases."
+      ],
+      "template": {
+        "keywords": "unicourt exposure"
+      }
+    },
+    "arrestfacts": {
+      "displayName": "ArrestFacts",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://arrestfacts.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Arrest record aggregator; opt-out with record details."
+      ],
+      "template": {
+        "keywords": "arrestfacts exposure"
+      }
+    },
+    "brbpublications": {
+      "displayName": "BRB Publications",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.brbpublications.com/opt-out",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Public records directory; email-based removal request."
+      ],
+      "template": {
+        "keywords": "brbpublications exposure"
+      }
+    },
+    "governmentregistry": {
+      "displayName": "GovernmentRegistry",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.governmentregistry.org/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Aggregated government records; form-based opt-out."
+      ],
+      "template": {
+        "keywords": "governmentregistry exposure"
+      }
+    },
+    "courtrecords-org": {
+      "displayName": "CourtRecords.org",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://courtrecords.org/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Court record search engine; standard opt-out form."
+      ],
+      "template": {
+        "keywords": "courtrecords-org exposure"
+      }
+    },
+    "criminalrecordcheck": {
+      "displayName": "CriminalRecordCheck",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.criminalrecordcheck.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Criminal records aggregator; form removal with verification."
+      ],
+      "template": {
+        "keywords": "criminalrecordcheck exposure"
+      }
+    },
+    "docketalarm": {
+      "displayName": "Docket Alarm",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.docketalarm.com/privacy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Legal docket tracking; email privacy team for removal."
+      ],
+      "template": {
+        "keywords": "docketalarm exposure"
+      }
+    },
+    "propublica-nonprofit": {
+      "displayName": "ProPublica Nonprofit Explorer",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": null,
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "IRS 990 data; generally not removable as public tax filings."
+      ],
+      "template": {
+        "keywords": "propublica-nonprofit exposure"
+      }
+    },
+    "voterreg": {
+      "displayName": "VoterReg",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.voterreg.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Voter registration records; state-dependent removal process."
+      ],
+      "template": {
+        "keywords": "voterreg exposure"
+      }
+    },
+    "sealedrecords": {
+      "displayName": "SealedRecords",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://sealedrecords.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Court record database; removal for legitimately sealed records."
+      ],
+      "template": {
+        "keywords": "sealedrecords exposure"
+      }
+    },
+    "recordsfinder": {
+      "displayName": "RecordsFinder",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://recordsfinder.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Public records search; form-based opt-out available."
+      ],
+      "template": {
+        "keywords": "recordsfinder exposure"
+      }
+    },
+    "staterecords-org": {
+      "displayName": "StateRecords.org",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://staterecords.org/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "State-level records aggregator; standard form opt-out."
+      ],
+      "template": {
+        "keywords": "staterecords-org exposure"
+      }
+    },
+    "openrecords": {
+      "displayName": "OpenRecords",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://openrecords.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Open records platform; opt-out with identity verification."
+      ],
+      "template": {
+        "keywords": "openrecords exposure"
+      }
+    },
+    "acxiom": {
+      "displayName": "Acxiom",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://isapps.acxiom.com/optout/optout.aspx",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Major data broker; comprehensive opt-out form available."
+      ],
+      "template": {
+        "keywords": "acxiom exposure"
+      }
+    },
+    "oracle-datacloud": {
+      "displayName": "Oracle Data Cloud",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.oracle.com/legal/privacy/marketing-cloud-data-cloud-privacy-policy.html",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Enterprise marketing data platform; opt-out via privacy portal."
+      ],
+      "template": {
+        "keywords": "oracle-datacloud exposure"
+      }
+    },
+    "epsilon": {
+      "displayName": "Epsilon",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.epsilon.com/privacy/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Major marketing data company; form-based opt-out process."
+      ],
+      "template": {
+        "keywords": "epsilon exposure"
+      }
+    },
+    "nielsen": {
+      "displayName": "Nielsen",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.nielsen.com/us/en/legal/privacy-statement/",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Consumer measurement data; email privacy team for opt-out."
+      ],
+      "template": {
+        "keywords": "nielsen exposure"
+      }
+    },
+    "corelogic": {
+      "displayName": "CoreLogic",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.corelogic.com/privacy-center/",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Property and consumer data; CCPA opt-out form available."
+      ],
+      "template": {
+        "keywords": "corelogic exposure"
+      }
+    },
+    "liveramp": {
+      "displayName": "LiveRamp",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://liveramp.com/opt_out/",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Identity resolution for marketing; direct opt-out form."
+      ],
+      "template": {
+        "keywords": "liveramp exposure"
+      }
+    },
+    "lotame": {
+      "displayName": "Lotame",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.lotame.com/about-lotame/privacy/opt-out/",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Data management platform; cookie and device opt-out available."
+      ],
+      "template": {
+        "keywords": "lotame exposure"
+      }
+    },
+    "merkle": {
+      "displayName": "Merkle",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.merkleinc.com/privacy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Performance marketing data; email-based removal request."
+      ],
+      "template": {
+        "keywords": "merkle exposure"
+      }
+    },
+    "datalogix": {
+      "displayName": "Datalogix",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.oracle.com/legal/privacy/marketing-cloud-data-cloud-privacy-policy.html",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Now part of Oracle Data Cloud; opt-out via Oracle privacy portal."
+      ],
+      "template": {
+        "keywords": "datalogix exposure"
+      }
+    },
+    "kbm-group": {
+      "displayName": "KBM Group",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.kbmg.com/privacy/",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Wunderman Thompson subsidiary; email privacy for opt-out."
+      ],
+      "template": {
+        "keywords": "kbm-group exposure"
+      }
+    },
+    "v12data": {
+      "displayName": "V12 Data",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.v12data.com/privacy/",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Marketing data provider; email opt-out request process."
+      ],
+      "template": {
+        "keywords": "v12data exposure"
+      }
+    },
+    "infogroup": {
+      "displayName": "Infogroup (Data.com)",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.data.com/privacy/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Business and consumer data broker; online opt-out form."
+      ],
+      "template": {
+        "keywords": "infogroup exposure"
+      }
+    },
+    "transunion-marketing": {
+      "displayName": "TransUnion Marketing",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.transunion.com/consumer-privacy",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Marketing solutions division; CCPA opt-out form."
+      ],
+      "template": {
+        "keywords": "transunion-marketing exposure"
+      }
+    },
+    "mxdata": {
+      "displayName": "MX Data",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.mxdata.com/opt-out",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Consumer marketing data; email-based opt-out process."
+      ],
+      "template": {
+        "keywords": "mxdata exposure"
+      }
+    },
+    "towerdata": {
+      "displayName": "TowerData",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.towerdata.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Email intelligence and marketing data; form opt-out."
+      ],
+      "template": {
+        "keywords": "towerdata exposure"
+      }
+    },
+    "eyeota": {
+      "displayName": "Eyeota",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.eyeota.com/privacy-policy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Audience data marketplace; email privacy for opt-out."
+      ],
+      "template": {
+        "keywords": "eyeota exposure"
+      }
+    },
+    "adicom-media": {
+      "displayName": "Adicom Media",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.adicom.com/privacy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Digital marketing data provider; email-based opt-out."
+      ],
+      "template": {
+        "keywords": "adicom-media exposure"
+      }
+    },
+    "exactdata": {
+      "displayName": "ExactData",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.exactdata.com/opt-out",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Mailing list broker; email-based suppression request."
+      ],
+      "template": {
+        "keywords": "exactdata exposure"
+      }
+    },
+    "lexisnexis": {
+      "displayName": "LexisNexis",
+      "category": "financial",
+      "jurisdiction": "US",
+      "optOutUrl": "https://consumer.risk.lexisnexis.com/request",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "FCRA-regulated; consumer file disclosure and dispute process."
+      ],
+      "template": {
+        "keywords": "lexisnexis exposure"
+      }
+    },
+    "equifax": {
+      "displayName": "Equifax",
+      "category": "financial",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.equifax.com/personal/credit-report-services/",
+      "optOutMethod": "mail",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Major credit bureau; disputes via mail or online portal."
+      ],
+      "template": {
+        "keywords": "equifax exposure"
+      }
+    },
+    "experian": {
+      "displayName": "Experian",
+      "category": "financial",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.experian.com/disputes/main.html",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Major credit bureau; online dispute center available."
+      ],
+      "template": {
+        "keywords": "experian exposure"
+      }
+    },
+    "transunion": {
+      "displayName": "TransUnion",
+      "category": "financial",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.transunion.com/credit-disputes/dispute-your-credit",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Major credit bureau; dispute via online portal or mail."
+      ],
+      "template": {
+        "keywords": "transunion exposure"
+      }
+    },
+    "chexsystems": {
+      "displayName": "ChexSystems",
+      "category": "financial",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.chexsystems.com/web/chexsystems/consumerdebit/page/requestreports/",
+      "optOutMethod": "mail",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Banking history reports; dispute via mail with documentation."
+      ],
+      "template": {
+        "keywords": "chexsystems exposure"
+      }
+    },
+    "innovis": {
+      "displayName": "Innovis",
+      "category": "financial",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.innovis.com/personal/securityFreeze",
+      "optOutMethod": "mail",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Fourth credit bureau; freeze and dispute via mail."
+      ],
+      "template": {
+        "keywords": "innovis exposure"
+      }
+    },
+    "nctue": {
+      "displayName": "NCTUE (National Consumer Telecom)",
+      "category": "financial",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.nctue.com/consumers",
+      "optOutMethod": "mail",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Telecom/utility payment history; dispute via mail request."
+      ],
+      "template": {
+        "keywords": "nctue exposure"
+      }
+    },
+    "sagestream": {
+      "displayName": "SageStream",
+      "category": "financial",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.sagestreamllc.com/consumer-assistance/",
+      "optOutMethod": "mail",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Specialty consumer reporting; dispute and opt-out via mail."
+      ],
+      "template": {
+        "keywords": "sagestream exposure"
+      }
+    },
+    "clarity-services": {
+      "displayName": "Clarity Services",
+      "category": "financial",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.clarityservices.com/consumer-assistance/",
+      "optOutMethod": "mail",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Subprime credit reporting; Experian subsidiary; mail dispute."
+      ],
+      "template": {
+        "keywords": "clarity-services exposure"
+      }
+    },
+    "teletrack": {
+      "displayName": "TeleTrack",
+      "category": "financial",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.teletrack.com/consumer-assistance",
+      "optOutMethod": "mail",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Specialty credit bureau; dispute via mail with documentation."
+      ],
+      "template": {
+        "keywords": "teletrack exposure"
+      }
+    },
+    "coreiq": {
+      "displayName": "CoreIQ",
+      "category": "financial",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.coreiq.com/privacy",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Financial data analytics; opt-out via privacy form."
+      ],
+      "template": {
+        "keywords": "coreiq exposure"
+      }
+    },
+    "microbilt": {
+      "displayName": "MicroBilt",
+      "category": "financial",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.microbilt.com/consumer-assistance",
+      "optOutMethod": "mail",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Consumer credit data; FCRA dispute process via mail."
+      ],
+      "template": {
+        "keywords": "microbilt exposure"
+      }
+    },
+    "geolocation-db": {
+      "displayName": "Geolocation DB",
+      "category": "location-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://geolocation-db.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "IP geolocation database; opt-out via form submission."
+      ],
+      "template": {
+        "keywords": "geolocation-db exposure"
+      }
+    },
+    "ip2location": {
+      "displayName": "IP2Location",
+      "category": "location-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.ip2location.com/privacy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "IP-based geolocation; email privacy team for data concerns."
+      ],
+      "template": {
+        "keywords": "ip2location exposure"
+      }
+    },
+    "maxmind": {
+      "displayName": "MaxMind",
+      "category": "location-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.maxmind.com/en/privacy-policy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "GeoIP database provider; contact privacy for corrections."
+      ],
+      "template": {
+        "keywords": "maxmind exposure"
+      }
+    },
+    "digital-element": {
+      "displayName": "Digital Element",
+      "category": "location-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.digitalelement.com/privacy-policy/",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "IP intelligence provider; email privacy for data inquiries."
+      ],
+      "template": {
+        "keywords": "digital-element exposure"
+      }
+    },
+    "foursquare-places": {
+      "displayName": "Foursquare Places",
+      "category": "location-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://foursquare.com/privacy/",
+      "optOutMethod": "account",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Location data platform; account deletion removes data."
+      ],
+      "template": {
+        "keywords": "foursquare-places exposure"
+      }
+    },
+    "placer-ai": {
+      "displayName": "Placer.ai",
+      "category": "location-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.placer.ai/privacy-policy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Foot traffic analytics; email privacy for opt-out."
+      ],
+      "template": {
+        "keywords": "placer-ai exposure"
+      }
+    },
+    "gravy-analytics": {
+      "displayName": "Gravy Analytics",
+      "category": "location-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://gravyanalytics.com/privacy-policy/",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Location intelligence platform; email for data opt-out."
+      ],
+      "template": {
+        "keywords": "gravy-analytics exposure"
+      }
+    },
+    "safegraph": {
+      "displayName": "SafeGraph",
+      "category": "location-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.safegraph.com/privacy-policy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "POI and mobility data; email privacy for data removal."
+      ],
+      "template": {
+        "keywords": "safegraph exposure"
+      }
+    },
+    "haveibeenpwned": {
+      "displayName": "Have I Been Pwned",
+      "category": "email-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://haveibeenpwned.com/OptOut",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Breach notification service; opt-out suppresses email from search."
+      ],
+      "template": {
+        "keywords": "haveibeenpwned exposure"
+      }
+    },
+    "dehashed": {
+      "displayName": "DeHashed",
+      "category": "email-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.dehashed.com/removal",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Breach search engine; form-based removal of leaked data."
+      ],
+      "template": {
+        "keywords": "dehashed exposure"
+      }
+    },
+    "hunter-io": {
+      "displayName": "Hunter.io",
+      "category": "email-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://hunter.io/claim",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Email finder tool; claim and remove your email address."
+      ],
+      "template": {
+        "keywords": "hunter-io exposure"
+      }
+    },
+    "voilanorbert": {
+      "displayName": "Voila Norbert",
+      "category": "email-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.voilanorbert.com/privacy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Email lookup service; email privacy team for removal."
+      ],
+      "template": {
+        "keywords": "voilanorbert exposure"
+      }
+    },
+    "snov-io": {
+      "displayName": "Snov.io",
+      "category": "email-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://snov.io/privacy-policy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Email discovery platform; GDPR/CCPA removal via email."
+      ],
+      "template": {
+        "keywords": "snov-io exposure"
+      }
+    },
+    "rocketreach": {
+      "displayName": "RocketReach",
+      "category": "email-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://rocketreach.co/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Professional contact finder; direct opt-out form."
+      ],
+      "template": {
+        "keywords": "rocketreach exposure"
+      }
+    },
+    "clearbit": {
+      "displayName": "Clearbit",
+      "category": "email-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://clearbit.com/privacy",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Business intelligence email enrichment; privacy form opt-out."
+      ],
+      "template": {
+        "keywords": "clearbit exposure"
+      }
+    },
+    "emailrep": {
+      "displayName": "EmailRep",
+      "category": "email-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://emailrep.io/privacy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Email reputation API; email support for data removal."
+      ],
+      "template": {
+        "keywords": "emailrep exposure"
+      }
+    },
+    "verify-email": {
+      "displayName": "Verify-Email",
+      "category": "email-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://verify-email.org/privacy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Email verification service; email support for opt-out."
+      ],
+      "template": {
+        "keywords": "verify-email exposure"
+      }
+    },
+    "emailsherlock": {
+      "displayName": "EmailSherlock",
+      "category": "email-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.emailsherlock.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Reverse email lookup; form-based opt-out process."
+      ],
+      "template": {
+        "keywords": "emailsherlock exposure"
+      }
+    },
+    "findemails": {
+      "displayName": "FindEmails",
+      "category": "email-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.findemails.com/privacy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Email finding service; email privacy team for removal."
+      ],
+      "template": {
+        "keywords": "findemails exposure"
+      }
+    },
+    "anymailfinder": {
+      "displayName": "AnyMailFinder",
+      "category": "email-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://anymailfinder.com/privacy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Email discovery tool; GDPR/CCPA removal via email request."
+      ],
+      "template": {
+        "keywords": "anymailfinder exposure"
+      }
+    },
+    "lusha": {
+      "displayName": "Lusha",
+      "category": "email-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.lusha.com/opt-out/",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "B2B contact data; direct opt-out form for personal data."
+      ],
+      "template": {
+        "keywords": "lusha exposure"
+      }
+    },
+    "contactout": {
+      "displayName": "ContactOut",
+      "category": "email-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://contactout.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Professional email finder; form-based opt-out available."
+      ],
+      "template": {
+        "keywords": "contactout exposure"
+      }
+    },
+    "socialmediaprofiles": {
+      "displayName": "Social Media Profiles",
+      "category": "social-media",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.social-searcher.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Social media aggregator; form-based profile removal."
+      ],
+      "template": {
+        "keywords": "socialmediaprofiles exposure"
+      }
+    },
+    "socialcatfish": {
+      "displayName": "SocialCatfish",
+      "category": "social-media",
+      "jurisdiction": "US",
+      "optOutUrl": "https://socialcatfish.com/opt-out/",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Identity verification via social profiles; opt-out form."
+      ],
+      "template": {
+        "keywords": "socialcatfish exposure"
+      }
+    },
+    "lullar": {
+      "displayName": "Lullar",
+      "category": "social-media",
+      "jurisdiction": "US",
+      "optOutUrl": "https://com.lullar.com/opt-out",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Social profile search engine; email-based removal request."
+      ],
+      "template": {
+        "keywords": "lullar exposure"
+      }
+    },
+    "usersearch": {
+      "displayName": "UserSearch",
+      "category": "social-media",
+      "jurisdiction": "US",
+      "optOutUrl": "https://usersearch.org/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Username search across platforms; form-based opt-out."
+      ],
+      "template": {
+        "keywords": "usersearch exposure"
+      }
+    },
+    "namechk": {
+      "displayName": "Namechk",
+      "category": "social-media",
+      "jurisdiction": "US",
+      "optOutUrl": "https://namechk.com/privacy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Username availability checker; email privacy for data removal."
+      ],
+      "template": {
+        "keywords": "namechk exposure"
+      }
+    },
+    "knowem": {
+      "displayName": "KnowEm",
+      "category": "social-media",
+      "jurisdiction": "US",
+      "optOutUrl": "https://knowem.com/privacy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Social media brand monitoring; email for data opt-out."
+      ],
+      "template": {
+        "keywords": "knowem exposure"
+      }
+    },
+    "socialsearcher": {
+      "displayName": "Social Searcher",
+      "category": "social-media",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.social-searcher.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Social mention monitoring tool; opt-out form available."
+      ],
+      "template": {
+        "keywords": "socialsearcher exposure"
+      }
+    },
+    "profilesearcher": {
+      "displayName": "ProfileSearcher",
+      "category": "social-media",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.profilesearcher.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Dating profile aggregator; opt-out via web form."
+      ],
+      "template": {
+        "keywords": "profilesearcher exposure"
+      }
+    },
+    "reputation-com": {
+      "displayName": "Reputation.com",
+      "category": "reputation",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.reputation.com/privacy",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Online reputation management; contact via privacy form."
+      ],
+      "template": {
+        "keywords": "reputation-com exposure"
+      }
+    },
+    "brandyourself": {
+      "displayName": "BrandYourself",
+      "category": "reputation",
+      "jurisdiction": "US",
+      "optOutUrl": "https://brandyourself.com/privacy",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Personal branding platform; account-based data removal."
+      ],
+      "template": {
+        "keywords": "brandyourself exposure"
+      }
+    },
+    "ripoffreport": {
+      "displayName": "Ripoff Report",
+      "category": "reputation",
+      "jurisdiction": "US",
+      "optOutUrl": null,
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Complaint platform; VIP arbitration program for removal."
+      ],
+      "template": {
+        "keywords": "ripoffreport exposure"
+      }
+    },
+    "complaintsboard": {
+      "displayName": "ComplaintsBoard",
+      "category": "reputation",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.complaintsboard.com/removal",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Consumer complaint site; form-based removal request."
+      ],
+      "template": {
+        "keywords": "complaintsboard exposure"
+      }
+    },
+    "glassdoor": {
+      "displayName": "Glassdoor",
+      "category": "reputation",
+      "jurisdiction": "US",
+      "optOutUrl": "https://help.glassdoor.com/s/article/Privacy-and-data",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Employer review site; profile removal via support request."
+      ],
+      "template": {
+        "keywords": "glassdoor exposure"
+      }
+    },
+    "sitejabber": {
+      "displayName": "Sitejabber",
+      "category": "reputation",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.sitejabber.com/privacy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Business review platform; email privacy for data removal."
+      ],
+      "template": {
+        "keywords": "sitejabber exposure"
+      }
+    },
+    "fullcontact": {
+      "displayName": "FullContact",
+      "category": "identity-resolution",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.fullcontact.com/privacy/opt-out/",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Identity resolution API; direct opt-out form available."
+      ],
+      "template": {
+        "keywords": "fullcontact exposure"
+      }
+    },
+    "tealium": {
+      "displayName": "Tealium",
+      "category": "identity-resolution",
+      "jurisdiction": "US",
+      "optOutUrl": "https://tealium.com/privacy/",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Customer data platform; email privacy for CCPA opt-out."
+      ],
+      "template": {
+        "keywords": "tealium exposure"
+      }
+    },
+    "tapad": {
+      "displayName": "Tapad",
+      "category": "identity-resolution",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.tapad.com/privacy",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Cross-device identity graph; opt-out via privacy form."
+      ],
+      "template": {
+        "keywords": "tapad exposure"
+      }
+    },
+    "zeotap": {
+      "displayName": "Zeotap",
+      "category": "identity-resolution",
+      "jurisdiction": "US",
+      "optOutUrl": "https://zeotap.com/privacy-policy/",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Customer intelligence platform; GDPR/CCPA email opt-out."
+      ],
+      "template": {
+        "keywords": "zeotap exposure"
+      }
+    },
+    "signal-co": {
+      "displayName": "Signal (TransUnion)",
+      "category": "identity-resolution",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.signal.co/privacy/",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Real-time identity resolution; TransUnion subsidiary; form opt-out."
+      ],
+      "template": {
+        "keywords": "signal-co exposure"
+      }
+    },
+    "neustar": {
+      "displayName": "Neustar",
+      "category": "identity-resolution",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.home.neustar/privacy/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 2,
+        "jitterMsMin": 1000,
+        "jitterMsMax": 3000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Identity and analytics platform; online opt-out form."
+      ],
+      "template": {
+        "keywords": "neustar exposure"
+      }
+    },
+    "peoplefinders": {
+      "displayName": "PeopleFinders",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.peoplefinders.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Direct opt-out form with email verification required."
+      ],
+      "template": {
+        "keywords": "peoplefinders exposure"
+      }
+    },
+    "privateeye": {
+      "displayName": "PrivateEye",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.privateeye.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "People search with form-based opt-out process."
+      ],
+      "template": {
+        "keywords": "privateeye exposure"
+      }
+    },
+    "peoplewise": {
+      "displayName": "PeopleWise",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.peoplewise.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Standard people search opt-out form."
+      ],
+      "template": {
+        "keywords": "peoplewise exposure"
+      }
+    },
+    "lookupanyone": {
+      "displayName": "LookupAnyone",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.lookupanyone.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Direct form opt-out; no account needed."
+      ],
+      "template": {
+        "keywords": "lookupanyone exposure"
+      }
+    },
+    "findpeoplesearch": {
+      "displayName": "FindPeopleSearch",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.findpeoplesearch.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Form-based opt-out with record URL requirement."
+      ],
+      "template": {
+        "keywords": "findpeoplesearch exposure"
+      }
+    },
+    "addresssearch": {
+      "displayName": "AddressSearch",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.addresssearch.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Address-focused people search; form-based removal."
+      ],
+      "template": {
+        "keywords": "addresssearch exposure"
+      }
+    },
+    "peopledatalab": {
+      "displayName": "People Data Labs",
+      "category": "people-search",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.peopledatalabs.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "B2B data provider; CCPA opt-out form available."
+      ],
+      "template": {
+        "keywords": "peopledatalab exposure"
+      }
+    },
+    "backgroundchecks-org": {
+      "displayName": "BackgroundChecks.org",
+      "category": "background-check",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.backgroundchecks.org/removal",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Background check aggregator; form-based opt-out process."
+      ],
+      "template": {
+        "keywords": "backgroundchecks-org exposure"
+      }
+    },
+    "whoseno": {
+      "displayName": "WhoseNo",
+      "category": "phone-lookup",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.whoseno.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Reverse phone number lookup; form-based removal."
+      ],
+      "template": {
+        "keywords": "whoseno exposure"
+      }
+    },
+    "countyrecords": {
+      "displayName": "CountyRecords",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.countyrecords.com/optout",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "County-level public records; form-based opt-out."
+      ],
+      "template": {
+        "keywords": "countyrecords exposure"
+      }
+    },
+    "publicrecordsearch": {
+      "displayName": "PublicRecordSearch",
+      "category": "public-records",
+      "jurisdiction": "US",
+      "optOutUrl": "https://publicrecordsearch.com/opt-out",
+      "optOutMethod": "form",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Public record aggregator; standard form opt-out."
+      ],
+      "template": {
+        "keywords": "publicrecordsearch exposure"
+      }
+    },
+    "sharedsales": {
+      "displayName": "SharedSales",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.sharedsales.com/privacy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 4,
+        "jitterMsMin": 500,
+        "jitterMsMax": 1500,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Affiliate marketing data; email-based opt-out request."
+      ],
+      "template": {
+        "keywords": "sharedsales exposure"
+      }
+    },
+    "crossix": {
+      "displayName": "Crossix (Veeva)",
+      "category": "marketing-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://www.crossix.com/privacy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "Healthcare marketing analytics; email privacy for opt-out."
+      ],
+      "template": {
+        "keywords": "crossix exposure"
+      }
+    },
+    "skrapp": {
+      "displayName": "Skrapp.io",
+      "category": "email-data",
+      "jurisdiction": "US",
+      "optOutUrl": "https://skrapp.io/privacy",
+      "optOutMethod": "email",
+      "adapterMode": "dry-run",
+      "rateLimitPolicy": {
+        "requestsPerMinute": 3,
+        "jitterMsMin": 500,
+        "jitterMsMax": 2000,
+        "backoff": "exponential"
+      },
+      "complianceNotes": [
+        "B2B email finder; GDPR/CCPA removal via email request."
+      ],
+      "template": {
+        "keywords": "skrapp exposure"
+      }
     }
   }
 }

@@ -9,9 +9,9 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
 
-test('catalog registers exactly 23 brokers', () => {
+test('catalog registers exactly 200 brokers', () => {
   const all = listBrokerAdapters();
-  assert.equal(all.length, 23);
+  assert.equal(all.length, 200);
 });
 
 test('every adapter has required shape', () => {
@@ -40,19 +40,19 @@ test('8 live-capable adapters preserved', () => {
 });
 
 test('dry-run adapters return correct submissions', async () => {
-  const adapter = getBrokerAdapter('whitepages');
+  const adapter = getBrokerAdapter('acxiom');
   const request = adapter.prepareRequest({ requestId: 'cat-test-1', person: { fullName: 'Test' } });
   const submission = await adapter.submit(request, {});
   assert.equal(submission.dryRun, true);
   assert.equal(submission.status, 'submitted');
 });
 
-test('preset loads from catalog for broker', () => {
-  const preset = loadPresetParams('whitepages', { cwd: projectRoot });
-  assert.equal(preset.preset, 'whitepages');
+test('preset loads from catalog for new broker', () => {
+  const preset = loadPresetParams('acxiom', { cwd: projectRoot });
+  assert.equal(preset.preset, 'acxiom');
   assert.equal(preset.type, 'broker');
-  assert.equal(preset.broker, 'whitepages');
-  assert.ok(preset.keywords.includes('whitepages'));
+  assert.equal(preset.broker, 'acxiom');
+  assert.ok(preset.keywords.includes('acxiom'));
 });
 
 test('no duplicate broker names', () => {
@@ -68,6 +68,8 @@ test('category distribution meets targets', () => {
     const cat = a.meta?.category || 'unknown';
     cats[cat] = (cats[cat] || 0) + 1;
   }
-  assert.ok(cats['people-search'] >= 10, `people-search should be >= 10, got ${cats['people-search']}`);
+  assert.ok(cats['people-search'] >= 60, `people-search should be >= 60, got ${cats['people-search']}`);
+  assert.ok(cats['financial'] >= 10, `financial should be >= 10, got ${cats['financial']}`);
+  assert.ok(cats['marketing-data'] >= 15, `marketing-data should be >= 15, got ${cats['marketing-data']}`);
   assert.ok(!cats['unknown'], 'No broker should have unknown category');
 });
