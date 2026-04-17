@@ -1,8 +1,16 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { runHeuristicScan } from '../scanner/scan-engine.mjs';
 
 export const STATES = Object.freeze([
+  // Scan phase (new)
+  'SCAN_WELCOME',
+  'SCAN_INPUT',
+  'SCAN_RUNNING',
+  'SCAN_REPORT',
+  'SCAN_HANDOFF',
+  // Cleanup phase (unchanged)
   'WELCOME',
   'GOAL',
   'SCOPE',
@@ -19,6 +27,13 @@ export const STATES = Object.freeze([
 ]);
 
 const TRANSITIONS = Object.freeze({
+  // Scan phase
+  SCAN_WELCOME: 'SCAN_INPUT',
+  SCAN_INPUT: 'SCAN_RUNNING',
+  SCAN_RUNNING: 'SCAN_REPORT',
+  SCAN_REPORT: 'SCAN_HANDOFF',
+  SCAN_HANDOFF: 'WELCOME',
+  // Cleanup phase (unchanged)
   WELCOME: 'GOAL',
   GOAL: 'SCOPE',
   SCOPE: 'INPUT',
@@ -35,6 +50,9 @@ const TRANSITIONS = Object.freeze({
 });
 
 const REQUIRED_BY_STATE = Object.freeze({
+  SCAN_INPUT: ['scanIdentity'],
+  SCAN_REPORT: ['scanReviewed'],
+  SCAN_HANDOFF: ['handoffDecision'],
   GOAL: ['goal'],
   SCOPE: ['platforms'],
   INPUT: ['inputSummary'],
@@ -54,10 +72,17 @@ const PROMPT_DIR = path.join(PROJECT_ROOT, 'prompts', 'wizard');
 
 export function createSession(seed = {}) {
   return {
-    currentState: 'WELCOME',
+    currentState: seed.skipScan ? 'WELCOME' : 'SCAN_WELCOME',
     paused: false,
     history: [],
     data: {
+      // Scan phase data
+      scanIdentity: seed.scanIdentity || null,
+      scanResult: seed.scanResult || null,
+      scanReviewed: '',
+      handoffDecision: '',
+      privacyScore: null,
+      // Cleanup phase data (unchanged)
       goal: seed.goal || '',
       platforms: seed.platforms || [],
       inputSummary: seed.inputSummary || '',
@@ -117,14 +142,22 @@ export function handleInput(session, userInput = '') {
   if (session.currentState !== 'CLOSE') {
     const previous = session.currentState;
     session.history.push(previous);
-    session.currentState = TRANSITIONS[previous] || previous;
+
+    // SCAN_HANDOFF: early-exit for 'done' decision
+    if (previous === 'SCAN_HANDOFF' && session.data.handoffDecision === 'done') {
+      session.currentState = 'CLOSE';
+    } else if (previous === 'SCAN_HANDOFF' && session.data.handoffDecision === 'export') {
+      session.currentState = 'CLOSE';
+    } else {
+      session.currentState = TRANSITIONS[previous] || previous;
+    }
   }
 
   return toResult(session, true, nextActionHints(session));
 }
 
 export function getCurrentPrompt(session) {
-  const state = session?.currentState || 'WELCOME';
+  const state = session?.currentState || 'SCAN_WELCOME';
   const promptPath = path.join(PROMPT_DIR, `${state}.md`);
   let tpl = `State ${state}: provide required information.`;
 
@@ -133,13 +166,20 @@ export function getCurrentPrompt(session) {
   }
 
   const missing = getRequiredFieldsMissing(session);
+  const scanResult = session?.data?.scanResult;
   const vars = {
     state,
+    // Cleanup phase vars
     goal: session?.data?.goal || '(not set)',
     platforms: Array.isArray(session?.data?.platforms) ? session.data.platforms.join(', ') : '(not set)',
     missing_fields: missing.join(', ') || 'none',
     export_decision: session?.data?.exportDecision || '(not decided)',
-    plan: session?.data?.planSummary || '(not set)'
+    plan: session?.data?.planSummary || '(not set)',
+    // Scan phase vars
+    privacy_score: scanResult?.privacyScore ?? '(not scanned)',
+    risk_level: scanResult?.riskLevel ?? '(not scanned)',
+    likely_count: scanResult?.summary?.likelyExposed ?? 0,
+    top_recommendation: scanResult?.recommendations?.[0]?.action ?? '(none yet)'
   };
 
   return Object.entries(vars).reduce(
@@ -150,9 +190,39 @@ export function getCurrentPrompt(session) {
 
 function applyStateInput(session, text) {
   const state = session.currentState;
-  if (!text && state !== 'WELCOME') return;
+  if (!text && state !== 'WELCOME' && state !== 'SCAN_WELCOME' && state !== 'SCAN_RUNNING') return;
 
   switch (state) {
+    case 'SCAN_WELCOME':
+      break;
+    case 'SCAN_INPUT': {
+      const identity = parseIdentityInput(text);
+      if (identity && identity.fullName) {
+        session.data.scanIdentity = identity;
+        // Run scan synchronously (pure computation, no external calls)
+        try {
+          const result = runHeuristicScan(identity);
+          session.data.scanResult = result;
+          session.data.privacyScore = result.privacyScore;
+        } catch (err) {
+          // If scan fails, clear scanIdentity so state stays blocked
+          session.data.scanIdentity = null;
+        }
+      }
+      break;
+    }
+    case 'SCAN_RUNNING':
+      break;
+    case 'SCAN_REPORT':
+      if (['reviewed', 'yes'].includes(text.toLowerCase())) {
+        session.data.scanReviewed = 'YES';
+      }
+      break;
+    case 'SCAN_HANDOFF':
+      if (['cleanup', 'export', 'done'].includes(text.toLowerCase())) {
+        session.data.handoffDecision = text.toLowerCase();
+      }
+      break;
     case 'WELCOME':
       break;
     case 'GOAL':
@@ -195,6 +265,67 @@ function applyStateInput(session, text) {
     default:
       break;
   }
+}
+
+/**
+ * Parse identity input string like:
+ *   "Name: John Doe, Email: john@example.com, Phone: +15551234567, City: NYC, State: NY"
+ * Returns an identity object, or null if no name found.
+ */
+function parseIdentityInput(text) {
+  if (!text) return null;
+  const identity = {
+    fullName: '',
+    emails: [],
+    phones: [],
+    usernames: [],
+    jurisdiction: 'US',
+    city: null,
+    state: null
+  };
+
+  const pairs = text.split(/[,;]\s*/);
+  for (const pair of pairs) {
+    const [rawKey, ...rest] = pair.split(':');
+    if (!rawKey || rest.length === 0) continue;
+    const key = rawKey.trim().toLowerCase();
+    const value = rest.join(':').trim();
+    if (!value) continue;
+
+    switch (key) {
+      case 'name':
+      case 'fullname':
+      case 'full name':
+        identity.fullName = value;
+        break;
+      case 'email':
+      case 'emails':
+        identity.emails.push(value);
+        break;
+      case 'phone':
+      case 'phones':
+        identity.phones.push(value);
+        break;
+      case 'username':
+      case 'usernames':
+      case 'handle':
+        identity.usernames.push(value);
+        break;
+      case 'city':
+        identity.city = value;
+        break;
+      case 'state':
+        identity.state = value;
+        break;
+      case 'jurisdiction':
+        identity.jurisdiction = value;
+        break;
+      default:
+        break;
+    }
+  }
+
+  return identity.fullName ? identity : null;
 }
 
 function getRequiredFieldsMissing(session) {

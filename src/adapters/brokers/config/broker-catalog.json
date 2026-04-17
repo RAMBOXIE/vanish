@@ -72,7 +72,15 @@
         "keywords": "spokeo exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "whitepages": {
       "displayName": "Whitepages",
@@ -92,7 +100,15 @@
         "keywords": "whitepages exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "beenverified": {
       "displayName": "BeenVerified",
@@ -112,7 +128,15 @@
         "keywords": "beenverified exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "intelius": {
       "displayName": "Intelius",
@@ -145,7 +169,15 @@
         "keywords": "intelius exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "peoplefinder": {
       "displayName": "PeopleFinder",
@@ -178,7 +210,15 @@
         "keywords": "peoplefinder exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "truepeoplesearch": {
       "displayName": "TruePeopleSearch",
@@ -211,7 +251,15 @@
         "keywords": "truepeoplesearch exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "fastpeoplesearch": {
       "displayName": "FastPeopleSearch",
@@ -244,7 +292,15 @@
         "keywords": "fastpeoplesearch exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "radaris": {
       "displayName": "Radaris",
@@ -277,7 +333,15 @@
         "keywords": "radaris exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "mylife": {
       "displayName": "MyLife",
@@ -310,7 +374,12 @@
         "keywords": "mylife exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "social-profiles",
+        "court-records"
+      ]
     },
     "pipl": {
       "displayName": "Pipl",
@@ -344,7 +413,15 @@
         "keywords": "pipl exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "phone",
+        "address",
+        "social-profiles",
+        "username"
+      ]
     },
     "zabasearch": {
       "displayName": "ZabaSearch",
@@ -377,7 +454,15 @@
         "keywords": "zabasearch exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "thatsthem": {
       "displayName": "ThatsThem",
@@ -413,7 +498,15 @@
         "keywords": "thatsthem exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "nuwber": {
       "displayName": "Nuwber",
@@ -446,7 +539,15 @@
         "keywords": "nuwber exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "peekyou": {
       "displayName": "PeekYou",
@@ -482,7 +583,15 @@
         "keywords": "peekyou exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "instantcheckmate": {
       "displayName": "Instant Checkmate",
@@ -515,7 +624,15 @@
         "keywords": "instantcheckmate exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "truthfinder": {
       "displayName": "TruthFinder",
@@ -548,7 +665,15 @@
         "keywords": "truthfinder exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "ussearch": {
       "displayName": "US Search",
@@ -581,7 +706,15 @@
         "keywords": "ussearch exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "addresses": {
       "displayName": "Addresses.com",
@@ -617,7 +750,15 @@
         "keywords": "addresses exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "cocofinder": {
       "displayName": "CocoFinder",
@@ -653,7 +794,15 @@
         "keywords": "cocofinder exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "usphonebook": {
       "displayName": "USPhoneBook",
@@ -690,7 +839,12 @@
         "keywords": "usphonebook exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "phone",
+        "address"
+      ]
     },
     "cyberbackgroundchecks": {
       "displayName": "CyberBackgroundChecks",
@@ -723,7 +877,15 @@
         "keywords": "cyberbackgroundchecks exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "familytreenow": {
       "displayName": "FamilyTreeNow",
@@ -759,7 +921,13 @@
         "keywords": "familytreenow exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "checkpeople": {
       "displayName": "CheckPeople",
@@ -795,7 +963,15 @@
         "keywords": "checkpeople exposure",
         "notify": "none",
         "exportBeforeDelete": "ask"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "peoplelooker": {
       "displayName": "PeopleLooker",
@@ -815,7 +991,15 @@
       ],
       "template": {
         "keywords": "peoplelooker exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "publicrecordsnow": {
       "displayName": "PublicRecordsNow",
@@ -835,7 +1019,15 @@
       ],
       "template": {
         "keywords": "publicrecordsnow exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "searchpeoplefree": {
       "displayName": "SearchPeopleFree",
@@ -855,7 +1047,15 @@
       ],
       "template": {
         "keywords": "searchpeoplefree exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "smartbackgroundchecks": {
       "displayName": "SmartBackgroundChecks",
@@ -875,7 +1075,15 @@
       ],
       "template": {
         "keywords": "smartbackgroundchecks exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "advancedbackgroundchecks": {
       "displayName": "AdvancedBackgroundChecks",
@@ -895,7 +1103,15 @@
       ],
       "template": {
         "keywords": "advancedbackgroundchecks exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "clustrmaps": {
       "displayName": "ClustrMaps",
@@ -915,7 +1131,15 @@
       ],
       "template": {
         "keywords": "clustrmaps exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "neighbor-report": {
       "displayName": "Neighbor Report",
@@ -935,7 +1159,15 @@
       ],
       "template": {
         "keywords": "neighbor-report exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "newenglandfacts": {
       "displayName": "NewEnglandFacts",
@@ -955,7 +1187,15 @@
       ],
       "template": {
         "keywords": "newenglandfacts exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "officialusa": {
       "displayName": "OfficialUSA",
@@ -975,7 +1215,15 @@
       ],
       "template": {
         "keywords": "officialusa exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "ownerly": {
       "displayName": "Ownerly",
@@ -995,7 +1243,15 @@
       ],
       "template": {
         "keywords": "ownerly exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "peoplesearchnow": {
       "displayName": "PeopleSearchNow",
@@ -1015,7 +1271,15 @@
       ],
       "template": {
         "keywords": "peoplesearchnow exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "persopo": {
       "displayName": "Persopo",
@@ -1035,7 +1299,15 @@
       ],
       "template": {
         "keywords": "persopo exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "pub360": {
       "displayName": "Pub360",
@@ -1055,7 +1327,15 @@
       ],
       "template": {
         "keywords": "pub360 exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "quickpeopletrace": {
       "displayName": "QuickPeopleTrace",
@@ -1075,7 +1355,15 @@
       ],
       "template": {
         "keywords": "quickpeopletrace exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "selfie-systems": {
       "displayName": "Selfie Systems",
@@ -1095,7 +1383,15 @@
       ],
       "template": {
         "keywords": "selfie-systems exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "spytox": {
       "displayName": "Spytox",
@@ -1115,7 +1411,15 @@
       ],
       "template": {
         "keywords": "spytox exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "telephonedirectories": {
       "displayName": "TelephoneDirectories",
@@ -1135,7 +1439,15 @@
       ],
       "template": {
         "keywords": "telephonedirectories exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "truecaller": {
       "displayName": "Truecaller",
@@ -1155,7 +1467,15 @@
       ],
       "template": {
         "keywords": "truecaller exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "usatrace": {
       "displayName": "USATrace",
@@ -1175,7 +1495,15 @@
       ],
       "template": {
         "keywords": "usatrace exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "verecor": {
       "displayName": "Verecor",
@@ -1195,7 +1523,15 @@
       ],
       "template": {
         "keywords": "verecor exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "vericora": {
       "displayName": "Vericora",
@@ -1215,7 +1551,15 @@
       ],
       "template": {
         "keywords": "vericora exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "virtory": {
       "displayName": "Virtory",
@@ -1235,7 +1579,15 @@
       ],
       "template": {
         "keywords": "virtory exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "voterrecords": {
       "displayName": "VoterRecords",
@@ -1255,7 +1607,15 @@
       ],
       "template": {
         "keywords": "voterrecords exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "wellnut": {
       "displayName": "Wellnut",
@@ -1275,7 +1635,15 @@
       ],
       "template": {
         "keywords": "wellnut exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "xlek": {
       "displayName": "Xlek",
@@ -1295,7 +1663,15 @@
       ],
       "template": {
         "keywords": "xlek exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "yellowpages": {
       "displayName": "YellowPages",
@@ -1315,7 +1691,15 @@
       ],
       "template": {
         "keywords": "yellowpages exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "anywho": {
       "displayName": "AnyWho",
@@ -1335,7 +1719,15 @@
       ],
       "template": {
         "keywords": "anywho exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "cubib": {
       "displayName": "Cubib",
@@ -1355,7 +1747,15 @@
       ],
       "template": {
         "keywords": "cubib exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "dataveria": {
       "displayName": "Dataveria",
@@ -1375,7 +1775,15 @@
       ],
       "template": {
         "keywords": "dataveria exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "freepeopledirectory": {
       "displayName": "FreePeopleDirectory",
@@ -1395,7 +1803,15 @@
       ],
       "template": {
         "keywords": "freepeopledirectory exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "gladiknow": {
       "displayName": "GladIKnow",
@@ -1415,7 +1831,15 @@
       ],
       "template": {
         "keywords": "gladiknow exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "idtrue": {
       "displayName": "IDTrue",
@@ -1435,7 +1859,15 @@
       ],
       "template": {
         "keywords": "idtrue exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "infotrafford": {
       "displayName": "InfoTracer",
@@ -1455,7 +1887,15 @@
       ],
       "template": {
         "keywords": "infotrafford exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "kwold": {
       "displayName": "Kwold",
@@ -1475,7 +1915,15 @@
       ],
       "template": {
         "keywords": "kwold exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "locatepeople": {
       "displayName": "LocatePeople",
@@ -1495,7 +1943,15 @@
       ],
       "template": {
         "keywords": "locatepeople exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "mashpanel": {
       "displayName": "MashPanel",
@@ -1515,7 +1971,15 @@
       ],
       "template": {
         "keywords": "mashpanel exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "peoplebyname": {
       "displayName": "PeopleByName",
@@ -1535,7 +1999,15 @@
       ],
       "template": {
         "keywords": "peoplebyname exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "peoplesmart": {
       "displayName": "PeopleSmart",
@@ -1555,7 +2027,15 @@
       ],
       "template": {
         "keywords": "peoplesmart exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "peoplewhiz": {
       "displayName": "PeopleWhiz",
@@ -1575,7 +2055,15 @@
       ],
       "template": {
         "keywords": "peoplewhiz exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "findpeoplefast": {
       "displayName": "FindPeopleFast",
@@ -1595,7 +2083,15 @@
       ],
       "template": {
         "keywords": "findpeoplefast exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "centeda": {
       "displayName": "Centeda",
@@ -1615,7 +2111,15 @@
       ],
       "template": {
         "keywords": "centeda exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "ussearchmore": {
       "displayName": "USSearchMore",
@@ -1635,7 +2139,15 @@
       ],
       "template": {
         "keywords": "ussearchmore exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "searchquarry": {
       "displayName": "SearchQuarry",
@@ -1655,7 +2167,15 @@
       ],
       "template": {
         "keywords": "searchquarry exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "weinform": {
       "displayName": "WeInform",
@@ -1675,7 +2195,15 @@
       ],
       "template": {
         "keywords": "weinform exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "rehold": {
       "displayName": "Rehold",
@@ -1695,7 +2223,15 @@
       ],
       "template": {
         "keywords": "rehold exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "that-info": {
       "displayName": "That Info",
@@ -1715,7 +2251,15 @@
       ],
       "template": {
         "keywords": "that-info exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "revealname": {
       "displayName": "RevealName",
@@ -1735,7 +2279,15 @@
       ],
       "template": {
         "keywords": "revealname exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "checksecrets": {
       "displayName": "CheckSecrets",
@@ -1755,7 +2307,15 @@
       ],
       "template": {
         "keywords": "checksecrets exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "backgroundalert": {
       "displayName": "BackgroundAlert",
@@ -1775,7 +2335,15 @@
       ],
       "template": {
         "keywords": "backgroundalert exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "checkthem": {
       "displayName": "CheckThem",
@@ -1795,7 +2363,15 @@
       ],
       "template": {
         "keywords": "checkthem exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "criminalwatchdog": {
       "displayName": "CriminalWatchdog",
@@ -1815,7 +2391,15 @@
       ],
       "template": {
         "keywords": "criminalwatchdog exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "goodhire": {
       "displayName": "GoodHire",
@@ -1835,7 +2419,15 @@
       ],
       "template": {
         "keywords": "goodhire exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "hireright": {
       "displayName": "HireRight",
@@ -1855,7 +2447,15 @@
       ],
       "template": {
         "keywords": "hireright exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "publicdatacheck": {
       "displayName": "PublicDataCheck",
@@ -1875,7 +2475,15 @@
       ],
       "template": {
         "keywords": "publicdatacheck exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "accuratebackground": {
       "displayName": "Accurate Background",
@@ -1895,7 +2503,15 @@
       ],
       "template": {
         "keywords": "accuratebackground exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "sterlingcheck": {
       "displayName": "Sterling Check",
@@ -1915,7 +2531,15 @@
       ],
       "template": {
         "keywords": "sterlingcheck exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "verifirst": {
       "displayName": "Verifirst",
@@ -1935,7 +2559,15 @@
       ],
       "template": {
         "keywords": "verifirst exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "tenantcheck": {
       "displayName": "TenantCheck",
@@ -1955,7 +2587,15 @@
       ],
       "template": {
         "keywords": "tenantcheck exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "publicdatadigger": {
       "displayName": "PublicDataDigger",
@@ -1975,7 +2615,15 @@
       ],
       "template": {
         "keywords": "publicdatadigger exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "veridataresearch": {
       "displayName": "VeriData Research",
@@ -1995,7 +2643,15 @@
       ],
       "template": {
         "keywords": "veridataresearch exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "infobel": {
       "displayName": "Infobel",
@@ -2015,7 +2671,15 @@
       ],
       "template": {
         "keywords": "infobel exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "calltruth": {
       "displayName": "CallTruth",
@@ -2035,7 +2699,12 @@
       ],
       "template": {
         "keywords": "calltruth exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "phone",
+        "address"
+      ]
     },
     "calleridtest": {
       "displayName": "CallerIDTest",
@@ -2055,7 +2724,12 @@
       ],
       "template": {
         "keywords": "calleridtest exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "phone",
+        "address"
+      ]
     },
     "numberway": {
       "displayName": "NumberWay",
@@ -2075,7 +2749,12 @@
       ],
       "template": {
         "keywords": "numberway exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "phone",
+        "address"
+      ]
     },
     "oldphonebook": {
       "displayName": "OldPhoneBook",
@@ -2095,7 +2774,12 @@
       ],
       "template": {
         "keywords": "oldphonebook exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "phone",
+        "address"
+      ]
     },
     "phoneowner": {
       "displayName": "PhoneOwner",
@@ -2115,7 +2799,12 @@
       ],
       "template": {
         "keywords": "phoneowner exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "phone",
+        "address"
+      ]
     },
     "reversephonelookup": {
       "displayName": "ReversePhoneLookup",
@@ -2135,7 +2824,12 @@
       ],
       "template": {
         "keywords": "reversephonelookup exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "phone",
+        "address"
+      ]
     },
     "spydialer": {
       "displayName": "SpyDialer",
@@ -2155,7 +2849,12 @@
       ],
       "template": {
         "keywords": "spydialer exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "phone",
+        "address"
+      ]
     },
     "whocalld": {
       "displayName": "WhoCalld",
@@ -2175,7 +2874,12 @@
       ],
       "template": {
         "keywords": "whocalld exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "phone",
+        "address"
+      ]
     },
     "numlookup": {
       "displayName": "NumLookup",
@@ -2195,7 +2899,12 @@
       ],
       "template": {
         "keywords": "numlookup exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "phone",
+        "address"
+      ]
     },
     "fonefinder": {
       "displayName": "FoneFinder",
@@ -2215,7 +2924,12 @@
       ],
       "template": {
         "keywords": "fonefinder exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "phone",
+        "address"
+      ]
     },
     "calleridentify": {
       "displayName": "CallerIdentify",
@@ -2235,7 +2949,12 @@
       ],
       "template": {
         "keywords": "calleridentify exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "phone",
+        "address"
+      ]
     },
     "phonevalidator": {
       "displayName": "PhoneValidator",
@@ -2255,7 +2974,12 @@
       ],
       "template": {
         "keywords": "phonevalidator exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "phone",
+        "address"
+      ]
     },
     "publicrecords360": {
       "displayName": "PublicRecords360",
@@ -2275,7 +2999,13 @@
       ],
       "template": {
         "keywords": "publicrecords360 exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "courtlistener": {
       "displayName": "CourtListener",
@@ -2295,7 +3025,13 @@
       ],
       "template": {
         "keywords": "courtlistener exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "judyrecords": {
       "displayName": "JudyRecords",
@@ -2315,7 +3051,13 @@
       ],
       "template": {
         "keywords": "judyrecords exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "mugshots": {
       "displayName": "Mugshots.com",
@@ -2335,7 +3077,13 @@
       ],
       "template": {
         "keywords": "mugshots exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "publicdata": {
       "displayName": "PublicData.com",
@@ -2355,7 +3103,13 @@
       ],
       "template": {
         "keywords": "publicdata exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "unicourt": {
       "displayName": "UniCourt",
@@ -2375,7 +3129,13 @@
       ],
       "template": {
         "keywords": "unicourt exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "arrestfacts": {
       "displayName": "ArrestFacts",
@@ -2395,7 +3155,13 @@
       ],
       "template": {
         "keywords": "arrestfacts exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "brbpublications": {
       "displayName": "BRB Publications",
@@ -2415,7 +3181,13 @@
       ],
       "template": {
         "keywords": "brbpublications exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "governmentregistry": {
       "displayName": "GovernmentRegistry",
@@ -2435,7 +3207,13 @@
       ],
       "template": {
         "keywords": "governmentregistry exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "courtrecords-org": {
       "displayName": "CourtRecords.org",
@@ -2455,7 +3233,13 @@
       ],
       "template": {
         "keywords": "courtrecords-org exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "criminalrecordcheck": {
       "displayName": "CriminalRecordCheck",
@@ -2475,7 +3259,13 @@
       ],
       "template": {
         "keywords": "criminalrecordcheck exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "docketalarm": {
       "displayName": "Docket Alarm",
@@ -2495,7 +3285,13 @@
       ],
       "template": {
         "keywords": "docketalarm exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "propublica-nonprofit": {
       "displayName": "ProPublica Nonprofit Explorer",
@@ -2515,7 +3311,13 @@
       ],
       "template": {
         "keywords": "propublica-nonprofit exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "voterreg": {
       "displayName": "VoterReg",
@@ -2535,7 +3337,13 @@
       ],
       "template": {
         "keywords": "voterreg exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "sealedrecords": {
       "displayName": "SealedRecords",
@@ -2555,7 +3363,13 @@
       ],
       "template": {
         "keywords": "sealedrecords exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "recordsfinder": {
       "displayName": "RecordsFinder",
@@ -2575,7 +3389,13 @@
       ],
       "template": {
         "keywords": "recordsfinder exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "staterecords-org": {
       "displayName": "StateRecords.org",
@@ -2595,7 +3415,13 @@
       ],
       "template": {
         "keywords": "staterecords-org exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "openrecords": {
       "displayName": "OpenRecords",
@@ -2615,7 +3441,13 @@
       ],
       "template": {
         "keywords": "openrecords exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "acxiom": {
       "displayName": "Acxiom",
@@ -2635,7 +3467,13 @@
       ],
       "template": {
         "keywords": "acxiom exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "oracle-datacloud": {
       "displayName": "Oracle Data Cloud",
@@ -2655,7 +3493,13 @@
       ],
       "template": {
         "keywords": "oracle-datacloud exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "epsilon": {
       "displayName": "Epsilon",
@@ -2675,7 +3519,13 @@
       ],
       "template": {
         "keywords": "epsilon exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "nielsen": {
       "displayName": "Nielsen",
@@ -2695,7 +3545,13 @@
       ],
       "template": {
         "keywords": "nielsen exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "corelogic": {
       "displayName": "CoreLogic",
@@ -2715,7 +3571,13 @@
       ],
       "template": {
         "keywords": "corelogic exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "liveramp": {
       "displayName": "LiveRamp",
@@ -2735,7 +3597,13 @@
       ],
       "template": {
         "keywords": "liveramp exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "lotame": {
       "displayName": "Lotame",
@@ -2755,7 +3623,13 @@
       ],
       "template": {
         "keywords": "lotame exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "merkle": {
       "displayName": "Merkle",
@@ -2775,7 +3649,13 @@
       ],
       "template": {
         "keywords": "merkle exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "datalogix": {
       "displayName": "Datalogix",
@@ -2795,7 +3675,13 @@
       ],
       "template": {
         "keywords": "datalogix exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "kbm-group": {
       "displayName": "KBM Group",
@@ -2815,7 +3701,13 @@
       ],
       "template": {
         "keywords": "kbm-group exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "v12data": {
       "displayName": "V12 Data",
@@ -2835,7 +3727,13 @@
       ],
       "template": {
         "keywords": "v12data exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "infogroup": {
       "displayName": "Infogroup (Data.com)",
@@ -2855,7 +3753,13 @@
       ],
       "template": {
         "keywords": "infogroup exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "transunion-marketing": {
       "displayName": "TransUnion Marketing",
@@ -2875,7 +3779,13 @@
       ],
       "template": {
         "keywords": "transunion-marketing exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "mxdata": {
       "displayName": "MX Data",
@@ -2895,7 +3805,13 @@
       ],
       "template": {
         "keywords": "mxdata exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "towerdata": {
       "displayName": "TowerData",
@@ -2915,7 +3831,13 @@
       ],
       "template": {
         "keywords": "towerdata exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "eyeota": {
       "displayName": "Eyeota",
@@ -2935,7 +3857,13 @@
       ],
       "template": {
         "keywords": "eyeota exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "adicom-media": {
       "displayName": "Adicom Media",
@@ -2955,7 +3883,13 @@
       ],
       "template": {
         "keywords": "adicom-media exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "exactdata": {
       "displayName": "ExactData",
@@ -2975,7 +3909,13 @@
       ],
       "template": {
         "keywords": "exactdata exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "lexisnexis": {
       "displayName": "LexisNexis",
@@ -2995,7 +3935,12 @@
       ],
       "template": {
         "keywords": "lexisnexis exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "financial"
+      ]
     },
     "equifax": {
       "displayName": "Equifax",
@@ -3015,7 +3960,12 @@
       ],
       "template": {
         "keywords": "equifax exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "financial"
+      ]
     },
     "experian": {
       "displayName": "Experian",
@@ -3035,7 +3985,12 @@
       ],
       "template": {
         "keywords": "experian exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "financial"
+      ]
     },
     "transunion": {
       "displayName": "TransUnion",
@@ -3055,7 +4010,12 @@
       ],
       "template": {
         "keywords": "transunion exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "financial"
+      ]
     },
     "chexsystems": {
       "displayName": "ChexSystems",
@@ -3075,7 +4035,12 @@
       ],
       "template": {
         "keywords": "chexsystems exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "financial"
+      ]
     },
     "innovis": {
       "displayName": "Innovis",
@@ -3095,7 +4060,12 @@
       ],
       "template": {
         "keywords": "innovis exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "financial"
+      ]
     },
     "nctue": {
       "displayName": "NCTUE (National Consumer Telecom)",
@@ -3115,7 +4085,12 @@
       ],
       "template": {
         "keywords": "nctue exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "financial"
+      ]
     },
     "sagestream": {
       "displayName": "SageStream",
@@ -3135,7 +4110,12 @@
       ],
       "template": {
         "keywords": "sagestream exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "financial"
+      ]
     },
     "clarity-services": {
       "displayName": "Clarity Services",
@@ -3155,7 +4135,12 @@
       ],
       "template": {
         "keywords": "clarity-services exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "financial"
+      ]
     },
     "teletrack": {
       "displayName": "TeleTrack",
@@ -3175,7 +4160,12 @@
       ],
       "template": {
         "keywords": "teletrack exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "financial"
+      ]
     },
     "coreiq": {
       "displayName": "CoreIQ",
@@ -3195,7 +4185,12 @@
       ],
       "template": {
         "keywords": "coreiq exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "financial"
+      ]
     },
     "microbilt": {
       "displayName": "MicroBilt",
@@ -3215,7 +4210,12 @@
       ],
       "template": {
         "keywords": "microbilt exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "financial"
+      ]
     },
     "geolocation-db": {
       "displayName": "Geolocation DB",
@@ -3235,7 +4235,12 @@
       ],
       "template": {
         "keywords": "geolocation-db exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "location-history"
+      ]
     },
     "ip2location": {
       "displayName": "IP2Location",
@@ -3255,7 +4260,12 @@
       ],
       "template": {
         "keywords": "ip2location exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "location-history"
+      ]
     },
     "maxmind": {
       "displayName": "MaxMind",
@@ -3275,7 +4285,12 @@
       ],
       "template": {
         "keywords": "maxmind exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "location-history"
+      ]
     },
     "digital-element": {
       "displayName": "Digital Element",
@@ -3295,7 +4310,12 @@
       ],
       "template": {
         "keywords": "digital-element exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "location-history"
+      ]
     },
     "foursquare-places": {
       "displayName": "Foursquare Places",
@@ -3315,7 +4335,12 @@
       ],
       "template": {
         "keywords": "foursquare-places exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "location-history"
+      ]
     },
     "placer-ai": {
       "displayName": "Placer.ai",
@@ -3335,7 +4360,12 @@
       ],
       "template": {
         "keywords": "placer-ai exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "location-history"
+      ]
     },
     "gravy-analytics": {
       "displayName": "Gravy Analytics",
@@ -3355,7 +4385,12 @@
       ],
       "template": {
         "keywords": "gravy-analytics exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "location-history"
+      ]
     },
     "safegraph": {
       "displayName": "SafeGraph",
@@ -3375,7 +4410,12 @@
       ],
       "template": {
         "keywords": "safegraph exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "location-history"
+      ]
     },
     "haveibeenpwned": {
       "displayName": "Have I Been Pwned",
@@ -3395,7 +4435,11 @@
       ],
       "template": {
         "keywords": "haveibeenpwned exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email"
+      ]
     },
     "dehashed": {
       "displayName": "DeHashed",
@@ -3415,7 +4459,11 @@
       ],
       "template": {
         "keywords": "dehashed exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email"
+      ]
     },
     "hunter-io": {
       "displayName": "Hunter.io",
@@ -3435,7 +4483,11 @@
       ],
       "template": {
         "keywords": "hunter-io exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email"
+      ]
     },
     "voilanorbert": {
       "displayName": "Voila Norbert",
@@ -3455,7 +4507,11 @@
       ],
       "template": {
         "keywords": "voilanorbert exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email"
+      ]
     },
     "snov-io": {
       "displayName": "Snov.io",
@@ -3475,7 +4531,11 @@
       ],
       "template": {
         "keywords": "snov-io exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email"
+      ]
     },
     "rocketreach": {
       "displayName": "RocketReach",
@@ -3495,7 +4555,11 @@
       ],
       "template": {
         "keywords": "rocketreach exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email"
+      ]
     },
     "clearbit": {
       "displayName": "Clearbit",
@@ -3515,7 +4579,11 @@
       ],
       "template": {
         "keywords": "clearbit exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email"
+      ]
     },
     "emailrep": {
       "displayName": "EmailRep",
@@ -3535,7 +4603,11 @@
       ],
       "template": {
         "keywords": "emailrep exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email"
+      ]
     },
     "verify-email": {
       "displayName": "Verify-Email",
@@ -3555,7 +4627,11 @@
       ],
       "template": {
         "keywords": "verify-email exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email"
+      ]
     },
     "emailsherlock": {
       "displayName": "EmailSherlock",
@@ -3575,7 +4651,11 @@
       ],
       "template": {
         "keywords": "emailsherlock exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email"
+      ]
     },
     "findemails": {
       "displayName": "FindEmails",
@@ -3595,7 +4675,11 @@
       ],
       "template": {
         "keywords": "findemails exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email"
+      ]
     },
     "anymailfinder": {
       "displayName": "AnyMailFinder",
@@ -3615,7 +4699,11 @@
       ],
       "template": {
         "keywords": "anymailfinder exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email"
+      ]
     },
     "lusha": {
       "displayName": "Lusha",
@@ -3635,7 +4723,11 @@
       ],
       "template": {
         "keywords": "lusha exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email"
+      ]
     },
     "contactout": {
       "displayName": "ContactOut",
@@ -3655,7 +4747,11 @@
       ],
       "template": {
         "keywords": "contactout exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email"
+      ]
     },
     "socialmediaprofiles": {
       "displayName": "Social Media Profiles",
@@ -3675,7 +4771,14 @@
       ],
       "template": {
         "keywords": "socialmediaprofiles exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "username",
+        "email",
+        "social-profiles",
+        "photos"
+      ]
     },
     "socialcatfish": {
       "displayName": "SocialCatfish",
@@ -3695,7 +4798,14 @@
       ],
       "template": {
         "keywords": "socialcatfish exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "username",
+        "email",
+        "social-profiles",
+        "photos"
+      ]
     },
     "lullar": {
       "displayName": "Lullar",
@@ -3715,7 +4825,14 @@
       ],
       "template": {
         "keywords": "lullar exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "username",
+        "email",
+        "social-profiles",
+        "photos"
+      ]
     },
     "usersearch": {
       "displayName": "UserSearch",
@@ -3735,7 +4852,14 @@
       ],
       "template": {
         "keywords": "usersearch exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "username",
+        "email",
+        "social-profiles",
+        "photos"
+      ]
     },
     "namechk": {
       "displayName": "Namechk",
@@ -3755,7 +4879,14 @@
       ],
       "template": {
         "keywords": "namechk exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "username",
+        "email",
+        "social-profiles",
+        "photos"
+      ]
     },
     "knowem": {
       "displayName": "KnowEm",
@@ -3775,7 +4906,14 @@
       ],
       "template": {
         "keywords": "knowem exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "username",
+        "email",
+        "social-profiles",
+        "photos"
+      ]
     },
     "socialsearcher": {
       "displayName": "Social Searcher",
@@ -3795,7 +4933,14 @@
       ],
       "template": {
         "keywords": "socialsearcher exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "username",
+        "email",
+        "social-profiles",
+        "photos"
+      ]
     },
     "profilesearcher": {
       "displayName": "ProfileSearcher",
@@ -3815,7 +4960,14 @@
       ],
       "template": {
         "keywords": "profilesearcher exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "username",
+        "email",
+        "social-profiles",
+        "photos"
+      ]
     },
     "reputation-com": {
       "displayName": "Reputation.com",
@@ -3835,7 +4987,12 @@
       ],
       "template": {
         "keywords": "reputation-com exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "social-profiles",
+        "court-records"
+      ]
     },
     "brandyourself": {
       "displayName": "BrandYourself",
@@ -3855,7 +5012,12 @@
       ],
       "template": {
         "keywords": "brandyourself exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "social-profiles",
+        "court-records"
+      ]
     },
     "ripoffreport": {
       "displayName": "Ripoff Report",
@@ -3875,7 +5037,12 @@
       ],
       "template": {
         "keywords": "ripoffreport exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "social-profiles",
+        "court-records"
+      ]
     },
     "complaintsboard": {
       "displayName": "ComplaintsBoard",
@@ -3895,7 +5062,12 @@
       ],
       "template": {
         "keywords": "complaintsboard exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "social-profiles",
+        "court-records"
+      ]
     },
     "glassdoor": {
       "displayName": "Glassdoor",
@@ -3915,7 +5087,12 @@
       ],
       "template": {
         "keywords": "glassdoor exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "social-profiles",
+        "court-records"
+      ]
     },
     "sitejabber": {
       "displayName": "Sitejabber",
@@ -3935,7 +5112,12 @@
       ],
       "template": {
         "keywords": "sitejabber exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "social-profiles",
+        "court-records"
+      ]
     },
     "fullcontact": {
       "displayName": "FullContact",
@@ -3955,7 +5137,15 @@
       ],
       "template": {
         "keywords": "fullcontact exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "phone",
+        "address",
+        "social-profiles",
+        "username"
+      ]
     },
     "tealium": {
       "displayName": "Tealium",
@@ -3975,7 +5165,15 @@
       ],
       "template": {
         "keywords": "tealium exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "phone",
+        "address",
+        "social-profiles",
+        "username"
+      ]
     },
     "tapad": {
       "displayName": "Tapad",
@@ -3995,7 +5193,15 @@
       ],
       "template": {
         "keywords": "tapad exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "phone",
+        "address",
+        "social-profiles",
+        "username"
+      ]
     },
     "zeotap": {
       "displayName": "Zeotap",
@@ -4015,7 +5221,15 @@
       ],
       "template": {
         "keywords": "zeotap exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "phone",
+        "address",
+        "social-profiles",
+        "username"
+      ]
     },
     "signal-co": {
       "displayName": "Signal (TransUnion)",
@@ -4035,7 +5249,15 @@
       ],
       "template": {
         "keywords": "signal-co exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "phone",
+        "address",
+        "social-profiles",
+        "username"
+      ]
     },
     "neustar": {
       "displayName": "Neustar",
@@ -4055,7 +5277,15 @@
       ],
       "template": {
         "keywords": "neustar exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "phone",
+        "address",
+        "social-profiles",
+        "username"
+      ]
     },
     "peoplefinders": {
       "displayName": "PeopleFinders",
@@ -4075,7 +5305,15 @@
       ],
       "template": {
         "keywords": "peoplefinders exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "privateeye": {
       "displayName": "PrivateEye",
@@ -4095,7 +5333,15 @@
       ],
       "template": {
         "keywords": "privateeye exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "peoplewise": {
       "displayName": "PeopleWise",
@@ -4115,7 +5361,15 @@
       ],
       "template": {
         "keywords": "peoplewise exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "lookupanyone": {
       "displayName": "LookupAnyone",
@@ -4135,7 +5389,15 @@
       ],
       "template": {
         "keywords": "lookupanyone exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "findpeoplesearch": {
       "displayName": "FindPeopleSearch",
@@ -4155,7 +5417,15 @@
       ],
       "template": {
         "keywords": "findpeoplesearch exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "addresssearch": {
       "displayName": "AddressSearch",
@@ -4175,7 +5445,15 @@
       ],
       "template": {
         "keywords": "addresssearch exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "peopledatalab": {
       "displayName": "People Data Labs",
@@ -4195,7 +5473,15 @@
       ],
       "template": {
         "keywords": "peopledatalab exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "age",
+        "relatives"
+      ]
     },
     "backgroundchecks-org": {
       "displayName": "BackgroundChecks.org",
@@ -4215,7 +5501,15 @@
       ],
       "template": {
         "keywords": "backgroundchecks-org exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "phone",
+        "email",
+        "court-records",
+        "employment"
+      ]
     },
     "whoseno": {
       "displayName": "WhoseNo",
@@ -4235,7 +5529,12 @@
       ],
       "template": {
         "keywords": "whoseno exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "phone",
+        "address"
+      ]
     },
     "countyrecords": {
       "displayName": "CountyRecords",
@@ -4255,7 +5554,13 @@
       ],
       "template": {
         "keywords": "countyrecords exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "publicrecordsearch": {
       "displayName": "PublicRecordSearch",
@@ -4275,7 +5580,13 @@
       ],
       "template": {
         "keywords": "publicrecordsearch exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "address",
+        "property",
+        "court-records"
+      ]
     },
     "sharedsales": {
       "displayName": "SharedSales",
@@ -4295,7 +5606,13 @@
       ],
       "template": {
         "keywords": "sharedsales exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "crossix": {
       "displayName": "Crossix (Veeva)",
@@ -4315,7 +5632,13 @@
       ],
       "template": {
         "keywords": "crossix exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email",
+        "address",
+        "phone"
+      ]
     },
     "skrapp": {
       "displayName": "Skrapp.io",
@@ -4335,7 +5658,11 @@
       ],
       "template": {
         "keywords": "skrapp exposure"
-      }
+      },
+      "dataTypes": [
+        "name",
+        "email"
+      ]
     }
   }
 }

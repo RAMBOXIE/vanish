@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { createSession, handleInput, getCurrentPrompt } from '../src/wizard/engine.mjs';
 
 test('wizard progresses through happy path', () => {
-  const session = createSession();
+  const session = createSession({ skipScan: true });
 
   handleInput(session, 'start');
   assert.equal(session.currentState, 'GOAL');
@@ -26,7 +26,7 @@ test('wizard progresses through happy path', () => {
 });
 
 test('wizard supports back pause resume commands', () => {
-  const session = createSession();
+  const session = createSession({ skipScan: true });
   handleInput(session, 'start');
   handleInput(session, 'Goal A');
   assert.equal(session.currentState, 'SCOPE');
@@ -45,7 +45,7 @@ test('wizard supports back pause resume commands', () => {
 });
 
 test('high-risk triple confirmation gating works', () => {
-  const session = createSession();
+  const session = createSession({ skipScan: true });
   handleInput(session, 'start');
   handleInput(session, 'Goal');
   handleInput(session, 'google');
@@ -63,7 +63,7 @@ test('high-risk triple confirmation gating works', () => {
 });
 
 test('export-before-delete gate requires yes/no', () => {
-  const session = createSession();
+  const session = createSession({ skipScan: true });
   handleInput(session, 'start');
   handleInput(session, 'Goal');
   handleInput(session, 'google');
