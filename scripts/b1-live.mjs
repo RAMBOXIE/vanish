@@ -40,7 +40,14 @@ const input = {
     phones: args.phone ? [args.phone] : ['+15550101010'],
     jurisdiction: args.jurisdiction || 'US'
   },
-  simulate: args.simulate ? { spokeo: args.simulate } : undefined,
+  // Apply simulate to all requested brokers (not just spokeo). If no --brokers
+  // is given (full 200-broker run), restrict to spokeo to avoid mass failures.
+  simulate: args.simulate
+    ? Object.fromEntries(
+        (args.brokers?.split(',').map(b => b.trim()).filter(Boolean) || ['spokeo'])
+          .map(b => [b, args.simulate])
+      )
+    : undefined,
   authToken: args['auth-token'],
   authCookie: args['auth-cookie'],
   authScopes: args['auth-scopes'],

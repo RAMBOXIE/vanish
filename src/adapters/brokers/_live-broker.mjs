@@ -123,6 +123,22 @@ export function createLiveBrokerAdapter({
       }
 
       // Test/echo live mode
+      // Simulate hooks (before HTTP call) — lets users test error handling
+      // without real errors. Mirrors the dry-run broker's simulation behavior.
+      const simulation = input.simulate?.[name];
+      if (simulation === 'transient-error') {
+        const error = new Error(`${displayName} live simulated transient error`);
+        error.code = 'BROKER_RATE_LIMITED';
+        error.transient = true;
+        throw error;
+      }
+      if (simulation === 'permanent-error') {
+        const error = new Error(`${displayName} live simulated permanent error`);
+        error.code = 'BROKER_SUBMISSION_REJECTED';
+        error.transient = false;
+        throw error;
+      }
+
       const endpoint = (endpointEnvVar && process.env[endpointEnvVar])
         || input.liveEndpoint
         || defaultTestEndpoint;

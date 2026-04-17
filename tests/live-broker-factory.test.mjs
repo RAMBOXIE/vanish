@@ -139,3 +139,31 @@ test('simulation passthrough works in dry-run mode', async () => {
     }
   );
 });
+
+test('simulate transient error passes through in live mode', async () => {
+  const adapter = makeAdapter();
+  const request = adapter.prepareRequest(sampleInput);
+
+  await assert.rejects(
+    () => adapter.submit(request, { live: true, simulate: { testbroker: 'transient-error' } }),
+    (err) => {
+      assert.equal(err.transient, true);
+      assert.equal(err.code, 'BROKER_RATE_LIMITED');
+      return true;
+    }
+  );
+});
+
+test('simulate permanent error passes through in live mode', async () => {
+  const adapter = makeAdapter();
+  const request = adapter.prepareRequest(sampleInput);
+
+  await assert.rejects(
+    () => adapter.submit(request, { live: true, simulate: { testbroker: 'permanent-error' } }),
+    (err) => {
+      assert.equal(err.transient, false);
+      assert.equal(err.code, 'BROKER_SUBMISSION_REJECTED');
+      return true;
+    }
+  );
+});
