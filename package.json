@@ -1,10 +1,46 @@
 {
   "name": "holmes-cleanup",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.2.0",
+  "description": "Open-source privacy scanner + opt-out orchestrator for 200 data brokers. Free alternative to DeleteMe, Optery, Incogni. Local-first, audit-signed, MIT-licensed.",
+  "keywords": [
+    "privacy",
+    "data-broker",
+    "opt-out",
+    "deleteme-alternative",
+    "optery-alternative",
+    "incogni-alternative",
+    "gdpr",
+    "ccpa",
+    "privacy-scanner",
+    "data-removal",
+    "personal-data",
+    "self-hosted",
+    "local-first",
+    "open-source",
+    "spokeo",
+    "whitepages",
+    "beenverified",
+    "cli",
+    "nodejs",
+    "privacy-tools"
+  ],
+  "homepage": "https://github.com/RAMBOXIE/holmes-cleanup#readme",
+  "bugs": {
+    "url": "https://github.com/RAMBOXIE/holmes-cleanup/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RAMBOXIE/holmes-cleanup.git"
+  },
+  "license": "MIT",
+  "author": "RAMBOXIE",
   "type": "module",
   "bin": {
+    "holmes-scan": "./scripts/scan-demo.mjs",
     "holmes": "./scripts/holmes-cleanup.mjs"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "scripts": {
     "run": "node scripts/holmes-cleanup.mjs",
@@ -20,5 +56,15 @@
     "report:proof": "node scripts/generate-proof-report.mjs",
     "test": "node tests/holmes-cleanup.test.mjs && node tests/b1-queue.test.mjs && node tests/quick-presets-report.test.mjs && node tests/wizard-engine.test.mjs && node tests/real-loop.test.mjs && node tests/secret-store.test.mjs && node tests/queue-hardening.test.mjs && node tests/audit-signature.test.mjs && node tests/official-endpoint-compliance.test.mjs && node tests/live-broker-factory.test.mjs && node tests/live-e2e-echo.test.mjs && node tests/catalog-registry.test.mjs && node tests/scan-scoring.test.mjs && node tests/scan-engine.test.mjs && node tests/scan-wizard-integration.test.mjs",
     "test:b1": "node tests/b1-queue.test.mjs && node tests/real-loop.test.mjs"
-  }
+  },
+  "files": [
+    "scripts/",
+    "src/",
+    "prompts/",
+    "templates/",
+    "examples/",
+    "dashboard/",
+    "LICENSE",
+    "README.md"
+  ]
 }
