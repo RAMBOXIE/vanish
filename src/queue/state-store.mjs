@@ -7,7 +7,8 @@ const DEFAULT_STATE = {
   deadLetter: [],
   completed: [],
   failed: [],
-  audit: []
+  audit: [],
+  followUp: []
 };
 
 const STALE_LOCK_MS = 30_000; // lock older than 30s is considered stale
@@ -34,7 +35,8 @@ export class QueueStateStore {
       deadLetter: Array.isArray(parsed.deadLetter) ? parsed.deadLetter : [],
       completed: Array.isArray(parsed.completed) ? parsed.completed : [],
       failed: Array.isArray(parsed.failed) ? parsed.failed : [],
-      audit: Array.isArray(parsed.audit) ? parsed.audit : []
+      audit: Array.isArray(parsed.audit) ? parsed.audit : [],
+      followUp: Array.isArray(parsed.followUp) ? parsed.followUp : []
     };
   }
 

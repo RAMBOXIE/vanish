@@ -80,7 +80,29 @@
         "email",
         "age",
         "relatives"
-      ]
+      ],
+      "optOutFlow": {
+        "needsProfileSearch": true,
+        "searchUrl": "https://www.spokeo.com/",
+        "searchHint": "Search your name + city. Each result is a separate record you need to opt out of individually.",
+        "optOutUrl": "https://www.spokeo.com/opt_out/new",
+        "fields": [
+          {
+            "name": "profileUrl",
+            "label": "Your Spokeo profile URL",
+            "hint": "Copy from browser address bar after clicking the result"
+          },
+          {
+            "name": "email",
+            "label": "Email for verification",
+            "fromInput": "email"
+          }
+        ],
+        "captcha": "recaptcha-v2",
+        "emailVerification": true,
+        "estimatedMinutes": 7,
+        "processingDays": 30
+      }
     },
     "whitepages": {
       "displayName": "Whitepages",
@@ -506,7 +528,53 @@
         "email",
         "age",
         "relatives"
-      ]
+      ],
+      "optOutFlow": {
+        "needsProfileSearch": false,
+        "searchUrl": null,
+        "searchHint": null,
+        "optOutUrl": "https://thatsthem.com/optout",
+        "fields": [
+          {
+            "name": "fullName",
+            "label": "Full name (must match exactly)",
+            "fromInput": "fullName"
+          },
+          {
+            "name": "email",
+            "label": "Email",
+            "fromInput": "email"
+          },
+          {
+            "name": "address",
+            "label": "Street address",
+            "fromInput": "address"
+          },
+          {
+            "name": "city",
+            "label": "City",
+            "fromInput": "city"
+          },
+          {
+            "name": "state",
+            "label": "State",
+            "fromInput": "state"
+          },
+          {
+            "name": "zip",
+            "label": "ZIP code"
+          },
+          {
+            "name": "phone",
+            "label": "Phone",
+            "fromInput": "phone"
+          }
+        ],
+        "captcha": "recaptcha",
+        "emailVerification": false,
+        "estimatedMinutes": 6,
+        "processingDays": 14
+      }
     },
     "nuwber": {
       "displayName": "Nuwber",
@@ -591,7 +659,38 @@
         "email",
         "age",
         "relatives"
-      ]
+      ],
+      "optOutFlow": {
+        "needsProfileSearch": true,
+        "searchUrl": "https://www.peekyou.com/",
+        "searchHint": "Search your name, open your profile, copy the numeric ID from the URL (after /profile/).",
+        "optOutUrl": "https://www.peekyou.com/about/contact/optout/",
+        "fields": [
+          {
+            "name": "firstName",
+            "label": "First name",
+            "fromInput": "firstName"
+          },
+          {
+            "name": "lastName",
+            "label": "Last name",
+            "fromInput": "lastName"
+          },
+          {
+            "name": "email",
+            "label": "Email (entered twice)",
+            "fromInput": "email"
+          },
+          {
+            "name": "profileId",
+            "label": "Your PeekYou profile ID"
+          }
+        ],
+        "captcha": "recaptcha",
+        "emailVerification": true,
+        "estimatedMinutes": 10,
+        "processingDays": 10
+      }
     },
     "instantcheckmate": {
       "displayName": "Instant Checkmate",
@@ -758,7 +857,37 @@
         "email",
         "age",
         "relatives"
-      ]
+      ],
+      "optOutFlow": {
+        "needsProfileSearch": true,
+        "searchUrl": "https://www.addresses.com/",
+        "searchHint": "Search and find your listing. Spelling and middle initial must match their database exactly.",
+        "optOutUrl": "https://www.addresses.com/optout.php",
+        "fields": [
+          {
+            "name": "firstName",
+            "label": "First name",
+            "fromInput": "firstName"
+          },
+          {
+            "name": "lastName",
+            "label": "Last name",
+            "fromInput": "lastName"
+          },
+          {
+            "name": "middleInitial",
+            "label": "Middle initial (if any)"
+          },
+          {
+            "name": "address",
+            "label": "Address as shown on site"
+          }
+        ],
+        "captcha": "display-code",
+        "emailVerification": false,
+        "estimatedMinutes": 6,
+        "processingDays": 30
+      }
     },
     "cocofinder": {
       "displayName": "CocoFinder",
@@ -802,7 +931,39 @@
         "email",
         "age",
         "relatives"
-      ]
+      ],
+      "optOutFlow": {
+        "needsProfileSearch": true,
+        "searchUrl": "https://cocofinder.com/",
+        "searchHint": "Search your record, click \"Check Details\", copy the profile URL from browser address bar.",
+        "optOutUrl": "https://cocofinder.com/remove-my-info",
+        "fields": [
+          {
+            "name": "fullName",
+            "label": "Full name",
+            "fromInput": "fullName"
+          },
+          {
+            "name": "email",
+            "label": "Email",
+            "fromInput": "email"
+          },
+          {
+            "name": "profileUrl",
+            "label": "Your CocoFinder profile URL"
+          },
+          {
+            "name": "reason",
+            "label": "Reason for opting out",
+            "default": "I want my personal data removed."
+          }
+        ],
+        "captcha": null,
+        "emailVerification": false,
+        "accountRequired": "google",
+        "estimatedMinutes": 10,
+        "processingDays": 2
+      }
     },
     "usphonebook": {
       "displayName": "USPhoneBook",
@@ -844,7 +1005,45 @@
         "name",
         "phone",
         "address"
-      ]
+      ],
+      "optOutFlow": {
+        "needsProfileSearch": true,
+        "searchUrl": "https://www.usphonebook.com/",
+        "searchHint": "Access via footer \"Do Not Sell My Personal Information\" link. Enter email, verify, then fill the full form.",
+        "optOutUrl": "https://www.usphonebook.com/opt-out",
+        "fields": [
+          {
+            "name": "firstName",
+            "label": "First name",
+            "fromInput": "firstName"
+          },
+          {
+            "name": "lastName",
+            "label": "Last name",
+            "fromInput": "lastName"
+          },
+          {
+            "name": "email",
+            "label": "Email (must be accessible)",
+            "fromInput": "email"
+          },
+          {
+            "name": "phone",
+            "label": "Phone number to remove",
+            "fromInput": "phone"
+          },
+          {
+            "name": "address",
+            "label": "Address to remove",
+            "fromInput": "address"
+          }
+        ],
+        "captcha": "unknown",
+        "emailVerification": true,
+        "emailVerificationExpiryHours": 24,
+        "estimatedMinutes": 12,
+        "processingDays": 3
+      }
     },
     "cyberbackgroundchecks": {
       "displayName": "CyberBackgroundChecks",
@@ -927,7 +1126,49 @@
         "address",
         "property",
         "court-records"
-      ]
+      ],
+      "optOutFlow": {
+        "needsProfileSearch": true,
+        "searchUrl": "https://www.familytreenow.com/",
+        "searchHint": "Enter email + solve CAPTCHA first. Then search name + city + state, find your record, click \"Opt Out This Record\".",
+        "optOutUrl": "https://www.familytreenow.com/optout",
+        "fields": [
+          {
+            "name": "email",
+            "label": "Email",
+            "fromInput": "email"
+          },
+          {
+            "name": "firstName",
+            "label": "First name",
+            "fromInput": "firstName"
+          },
+          {
+            "name": "lastName",
+            "label": "Last name",
+            "fromInput": "lastName"
+          },
+          {
+            "name": "city",
+            "label": "City",
+            "fromInput": "city"
+          },
+          {
+            "name": "state",
+            "label": "State",
+            "fromInput": "state"
+          },
+          {
+            "name": "birthYear",
+            "label": "Birth year (if known)"
+          }
+        ],
+        "captcha": "unknown",
+        "emailVerification": true,
+        "emailVerificationExpiryHours": 24,
+        "estimatedMinutes": 12,
+        "processingDays": 3
+      }
     },
     "checkpeople": {
       "displayName": "CheckPeople",
@@ -971,7 +1212,34 @@
         "email",
         "age",
         "relatives"
-      ]
+      ],
+      "optOutFlow": {
+        "needsProfileSearch": true,
+        "searchUrl": "https://www.checkpeople.com/",
+        "searchHint": "Search your name + city + state. Solve the first hCaptcha, then confirm removal.",
+        "optOutUrl": "https://www.checkpeople.com/opt-out",
+        "fields": [
+          {
+            "name": "firstName",
+            "label": "First name",
+            "fromInput": "firstName"
+          },
+          {
+            "name": "lastName",
+            "label": "Last name",
+            "fromInput": "lastName"
+          },
+          {
+            "name": "email",
+            "label": "Email",
+            "fromInput": "email"
+          }
+        ],
+        "captcha": "hcaptcha",
+        "emailVerification": false,
+        "estimatedMinutes": 10,
+        "processingDays": 7
+      }
     },
     "peoplelooker": {
       "displayName": "PeopleLooker",

@@ -186,6 +186,16 @@ holmes-cleanup scan --name "John Doe" --email "j@x.com"
 holmes-cleanup scan --name "..." --output-md ./my-report.md
 holmes-cleanup scan --name "..." --output-json ./my-report.json --json
 
+# Browser-assisted opt-out (opens browser + guides you through 8 real brokers)
+holmes-cleanup opt-out --broker spokeo --email you@example.com --full-name "Your Name"
+holmes-cleanup opt-out --broker spokeo,peekyou,thatsthem --email you@example.com --full-name "Your Name"
+
+# Supported brokers (opt-out): spokeo, thatsthem, peekyou, addresses,
+# cocofinder, checkpeople, familytreenow, usphonebook
+# Tool opens your browser to the opt-out page, shows which fields to fill,
+# tells you what captcha/email verification to expect, then records a
+# follow-up for 30-day re-verification.
+
 # Full interactive wizard (scan → review → cleanup)
 holmes-cleanup wizard
 

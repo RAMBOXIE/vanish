@@ -24,6 +24,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const SUBCOMMANDS = {
   scan:       'scan-demo.mjs',
+  'opt-out':  'opt-out.mjs',
   cleanup:    'holmes-cleanup.mjs',
   wizard:     'wizard-demo.mjs',
   'b1-live':  'b1-live.mjs',
@@ -43,6 +44,9 @@ Usage:
 Commands:
   scan        Scan 200 brokers for your privacy exposure (0-100 score)
               Example: holmes-cleanup scan --name "John Doe" --email "j@x.com"
+
+  opt-out     Browser-assisted opt-out for 8 live-capable brokers
+              Example: holmes-cleanup opt-out --broker spokeo --email you@example.com
 
   cleanup     Run the opt-out submission workflow (dry-run by default)
               Example: holmes-cleanup cleanup --manual --preset spokeo \\
