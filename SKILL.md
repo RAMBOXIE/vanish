@@ -1,6 +1,24 @@
 ---
 name: holmes-cleanup
-description: Manual-first privacy and anti-piracy cleanup skill for one-off sessions. Use when users explicitly request manual cleanup/takedown/delete workflows, need keyword + user-provided sample intake, require strict 3-step confirmation for high-risk actions, must decide export-before-delete, and want user-selected notification behavior. Authenticity judgment remains with the user; tool provides process capability only. Credential handling follows minimum scope, shortest TTL, and post-task wipe.
+description: Privacy scanner + opt-out orchestrator for 200 data brokers. Scan your exposure in 10s (0-100 score), then remove with a guided 18-step wizard. Free open-source alternative to DeleteMe / Optery / Incogni. Agent-native, audit-signed (HMAC-SHA256), local-first. Triple-confirm safety gates for high-risk actions; user-controlled export decision before any delete; shortest-TTL credentials wiped after task.
+version: 0.2.0
+metadata:
+  openclaw:
+    requires:
+      env:
+        - HOLMES_AUDIT_HMAC_KEY
+        - HOLMES_SECRET_MASTER_KEY
+      bins:
+        - node
+    primaryEnv: HOLMES_AUDIT_HMAC_KEY
+    emoji: "🔍"
+    homepage: https://github.com/RAMBOXIE/holmes-cleanup
+    os:
+      - macos
+      - linux
+      - windows
+    always: false
+    skillKey: holmes
 ---
 
 # holmes-cleanup

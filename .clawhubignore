@@ -1,0 +1,22 @@
+# Clawhub publish ignore list
+# Keep bundle under 50MB and stay within ~40 non-markdown embedding budget.
+
+# Runtime / test artifacts
+data/
+tmp-test/
+reports/
+dashboard/data/
+node_modules/
+
+# OS / editor
+.DS_Store
+*.log
+
+# Secrets / credentials (defensive — none should exist in repo)
+.env
+.env.local
+*.pem
+*.key
+
+# Plan files (personal to the dev workflow)
+# (none in repo)

@@ -24,6 +24,17 @@ That's it. No clone, no install, runs anywhere with Node 20+.
 ### Other ways to run
 
 <details>
+<summary>Install via Clawhub (AI agent marketplace)</summary>
+
+```bash
+# Install as a skill for AI agents
+npx clawhub@latest install holmes-cleanup
+```
+
+[Clawhub](https://clawhub.ai/) is the npm-like registry for AI agent skills. Once installed, any Clawhub-compatible agent can use Holmes-Cleanup's scan and cleanup capabilities.
+</details>
+
+<details>
 <summary>Clone locally</summary>
 
 ```bash
