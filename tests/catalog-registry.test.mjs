@@ -11,7 +11,7 @@ const projectRoot = path.resolve(__dirname, '..');
 
 test('catalog registers exactly 200 brokers', () => {
   const all = listBrokerAdapters();
-  assert.equal(all.length, 201);
+  assert.equal(all.length, 210);
 });
 
 test('every adapter has required shape', () => {

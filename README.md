@@ -5,8 +5,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](https://nodejs.org)
 [![Tests](https://img.shields.io/badge/tests-64%20passing-brightgreen)](#testing)
-[![Brokers](https://img.shields.io/badge/brokers-201-blue)](#broker-coverage)
-[![Opt-Out](https://img.shields.io/badge/opt--out%20supported-28%20brokers-green)](#commands)
+[![Brokers](https://img.shields.io/badge/brokers-210-blue)](#broker-coverage)
+[![Opt-Out](https://img.shields.io/badge/opt--out%20supported-58%20brokers-green)](#commands)
 
 Your personal data is collected by hundreds of data brokers (Spokeo, Whitepages, Acxiom, LexisNexis…) and resold for $200-500/yr per person. DeleteMe charges $129/yr to remove it. **Holmes-Cleanup does the same — free, self-hosted, and auditable.**
 
@@ -189,21 +189,27 @@ holmes-cleanup scan --name "John Doe" --email "j@x.com"
 holmes-cleanup scan --name "..." --output-md ./my-report.md
 holmes-cleanup scan --name "..." --output-json ./my-report.json --json
 
-# Browser-assisted opt-out (opens browser + guides you through 28 real brokers)
+# Browser-assisted opt-out (opens browser + guides you through 58 real brokers)
 holmes-cleanup opt-out --broker spokeo --email you@example.com --full-name "Your Name"
 holmes-cleanup opt-out --broker spokeo,whitepages,beenverified --email you@example.com --full-name "Your Name"
 
-# Supported brokers (28 total, covering top-visibility targets):
-#   People search (17): spokeo, whitepages, beenverified, intelius, peoplefinder,
+# Supported brokers (58 total — now covering all 3 credit bureaus + top B2B data firms):
+#   People search (27): spokeo, whitepages, beenverified, intelius, peoplefinder,
 #     truepeoplesearch, fastpeoplesearch, radaris, zabasearch, thatsthem, nuwber,
-#     peekyou, ussearch, addresses, cocofinder, checkpeople, truecaller
-#   Background check (3): instantcheckmate, truthfinder, cyberbackgroundchecks
+#     peekyou, ussearch, addresses, cocofinder, checkpeople, peoplelooker,
+#     publicrecordsnow, searchpeoplefree, smartbackgroundchecks,
+#     advancedbackgroundchecks, clustrmaps, 411com, anywho, infotracer, peoplewhiz, truecaller
+#   Background check (5): instantcheckmate, truthfinder, cyberbackgroundchecks,
+#     checkpast, backgroundreport, governmentregistry
+#   Phone lookup (7): usphonebook, hiya, spydialer, numberguru, reversephonelookup,
+#     syncme, robokiller
 #   Public records (1): familytreenow
-#   Phone lookup (2): usphonebook, hiya
-#   Reputation (1): mylife
-#   Identity resolution (1): pipl
-#   Marketing data (1): acxiom
-#   Financial (2): lexisnexis, equifax
+#   Reputation (2): mylife, brandyourself
+#   Identity resolution (2): pipl, fullcontact
+#   Marketing data (7): acxiom, liveramp, oraclebluekai, epsilon, zoominfo,
+#     clearbit, neustar
+#   Financial (5): lexisnexis, equifax, experian, transunion, chexsystems, corelogic
+#     ← all 3 credit bureaus covered
 #
 # Tool opens your browser to the opt-out page, shows which fields to fill,
 # tells you what captcha/email verification to expect, then records a

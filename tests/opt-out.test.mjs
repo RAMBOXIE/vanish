@@ -18,15 +18,23 @@ const OPT_OUT_BROKERS = [
   // Original 8 (live HTTP-capable)
   'spokeo', 'thatsthem', 'peekyou', 'addresses',
   'cocofinder', 'checkpeople', 'familytreenow', 'usphonebook',
-  // Expansion batch 1 — top 20 most popular (people-search, background, credit, marketing)
+  // Expansion batch 1 — top 20 most popular
   'whitepages', 'beenverified', 'intelius', 'peoplefinder', 'truepeoplesearch',
   'fastpeoplesearch', 'radaris', 'zabasearch', 'nuwber', 'ussearch',
   'instantcheckmate', 'truthfinder', 'cyberbackgroundchecks',
   'mylife', 'pipl', 'truecaller', 'hiya',
-  'acxiom', 'lexisnexis', 'equifax'
+  'acxiom', 'lexisnexis', 'equifax',
+  // Expansion batch 2 — next 30 (more people-search, phone, credit bureaus, B2B marketing)
+  'peoplelooker', 'publicrecordsnow', 'searchpeoplefree', 'smartbackgroundchecks',
+  'advancedbackgroundchecks', 'clustrmaps', 'anywho', 'peoplewhiz', '411com', 'infotracer',
+  'spydialer', 'numberguru', 'reversephonelookup', 'syncme', 'robokiller',
+  'checkpast', 'backgroundreport', 'governmentregistry',
+  'experian', 'transunion', 'chexsystems', 'corelogic',
+  'liveramp', 'oraclebluekai', 'epsilon', 'zoominfo', 'clearbit', 'neustar',
+  'fullcontact', 'brandyourself'
 ];
 
-test(`all ${28} opt-out brokers have valid optOutFlow in catalog`, () => {
+test(`all ${58} opt-out brokers have valid optOutFlow in catalog`, () => {
   for (const name of OPT_OUT_BROKERS) {
     const entry = catalog.brokers[name];
     assert.ok(entry, `broker ${name} missing from catalog`);
@@ -47,9 +55,9 @@ test(`all ${28} opt-out brokers have valid optOutFlow in catalog`, () => {
   }
 });
 
-test('catalog has exactly 28 opt-out-capable brokers', () => {
+test('catalog has exactly 58 opt-out-capable brokers', () => {
   const withFlow = Object.entries(catalog.brokers).filter(([_, v]) => v.optOutFlow);
-  assert.equal(withFlow.length, 28, `expected 28 brokers with optOutFlow, got ${withFlow.length}`);
+  assert.equal(withFlow.length, 58, `expected 58 brokers with optOutFlow, got ${withFlow.length}`);
 });
 
 test('opt-out works across different category types', async () => {
@@ -113,7 +121,7 @@ test('opt-out fails gracefully for broker without optOutFlow', () => {
 
   const result = spawnSync(process.execPath, [
     OPT_OUT_SCRIPT,
-    '--broker', 'peoplelooker',  // no optOutFlow defined (not in top 28)
+    '--broker', 'newenglandfacts',  // no optOutFlow defined (not in top 58)
     '--email', 'test@example.com',
     '--state-file', tmpFile,
     '--no-open'

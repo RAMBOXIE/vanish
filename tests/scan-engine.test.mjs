@@ -35,10 +35,10 @@ test('scan returns valid ScanResult shape', () => {
   assert.ok(Array.isArray(result.recommendations));
 });
 
-test('scan processes all brokers by default (201 after Hiya addition)', () => {
+test('scan processes all brokers by default (210 after batch2 additions)', () => {
   const result = runHeuristicScan(fullIdentity);
-  assert.equal(result.summary.totalBrokers, 201);
-  assert.equal(result.exposures.length, 201);
+  assert.equal(result.summary.totalBrokers, 210);
+  assert.equal(result.exposures.length, 210);
 });
 
 test('full identity yields higher score than minimal identity', () => {
