@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+
+    <title>Holmes-Cleanup · Privacy Scanner</title>
+    <meta name="description" content="Free, open-source privacy scanner. Check your exposure across 210 data brokers in 10 seconds. 100% browser-local — no data transmitted." />
+
+    <!-- Social preview -->
+    <meta property="og:title" content="Holmes-Cleanup · Privacy Scanner" />
+    <meta property="og:description" content="Scan 210 data brokers in 10 seconds. Free, local-first, MIT-licensed." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Zero trackers. Zero analytics. No external resources. -->
+  </head>
+  <body>
+    <main id="app">
+      <!-- HERO (before scan) -->
+      <section id="hero" class="hero">
+        <div class="eyebrow">🔍 Holmes-Cleanup · Open Source Privacy Scanner</div>
+        <h1>How exposed is your data?</h1>
+        <p class="subhead">
+          Scan <strong>210 data brokers</strong> in 10 seconds.
+          Free alternative to DeleteMe ($129/yr), Optery ($99/yr), Incogni ($99/yr).
+        </p>
+
+        <form id="scan-form" class="scan-form" autocomplete="off">
+          <label class="field">
+            <span>Your full name <em>(required)</em></span>
+            <input type="text" name="fullName" placeholder="Jane Doe" required autofocus />
+          </label>
+
+          <details class="more-fields">
+            <summary>More fields (improves accuracy)</summary>
+            <div class="field-grid">
+              <label class="field">
+                <span>Email</span>
+                <input type="email" name="email" placeholder="you@example.com" />
+              </label>
+              <label class="field">
+                <span>Phone</span>
+                <input type="tel" name="phone" placeholder="+1 555 123 4567" />
+              </label>
+              <label class="field">
+                <span>City</span>
+                <input type="text" name="city" placeholder="Seattle" />
+              </label>
+              <label class="field">
+                <span>State / Province</span>
+                <input type="text" name="state" placeholder="WA" />
+              </label>
+              <label class="field">
+                <span>Jurisdiction</span>
+                <select name="jurisdiction">
+                  <option value="US" selected>United States</option>
+                  <option value="EU">European Union</option>
+                  <option value="UK">United Kingdom</option>
+                  <option value="CA">Canada</option>
+                  <option value="AU">Australia</option>
+                  <option value="CN">China</option>
+                  <option value="JP">Japan</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </label>
+            </div>
+          </details>
+
+          <button type="submit" class="cta-scan">
+            Scan now — <span class="arrow">→</span>
+          </button>
+
+          <p class="privacy-note">
+            <strong>Your data never leaves this page.</strong>
+            All computation runs in your browser.
+            <a href="https://github.com/RAMBOXIE/holmes-cleanup/tree/main/web" target="_blank" rel="noopener">View source</a>.
+          </p>
+        </form>
+      </section>
+
+      <!-- RESULTS (after scan) -->
+      <section id="results" class="results" hidden>
+        <div class="score-card" id="score-card"></div>
+        <div class="share-actions" id="share-actions"></div>
+        <div class="exposure-summary" id="exposure-summary"></div>
+        <div class="broker-list" id="broker-list"></div>
+        <div class="cli-upsell" id="cli-upsell"></div>
+        <button type="button" class="reset-btn" id="reset-btn">← Start over</button>
+      </section>
+    </main>
+
+    <footer class="privacy-footer">
+      <ul>
+        <li>✓ All computation happens in your browser</li>
+        <li>✓ No data sent to any server · no cookies · no analytics</li>
+        <li>✓ MIT open source · <a href="https://github.com/RAMBOXIE/holmes-cleanup" target="_blank" rel="noopener">view source</a></li>
+        <li>✓ Covers all 3 US credit bureaus (Equifax / Experian / TransUnion)</li>
+      </ul>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -7,3 +7,6 @@ dashboard/data/
 .DS_Store
 .env
 .env.local
+
+# Web app build output (rebuilt by CI)
+web/dist/

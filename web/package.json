@@ -1,0 +1,15 @@
+{
+  "name": "holmes-cleanup-web",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "description": "Static web app for Holmes-Cleanup privacy scanner. 100% client-side, zero telemetry.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}
