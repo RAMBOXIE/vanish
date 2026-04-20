@@ -1,14 +1,21 @@
 # Holmes-Cleanup
 
-> 🔍 **Scan 200 data brokers in 10 seconds.** Open source alternative to DeleteMe, Optery, and Incogni. MIT-licensed, local-first, no data leaves your machine.
+> 🔍 **Scan 210 data brokers in 10 seconds.** Open-source alternative to DeleteMe ($129/yr), Optery ($99/yr), Incogni ($99/yr). MIT-licensed, local-first, zero telemetry.
+
+`210 brokers scanned · 58 with semi-automated opt-out · all 3 US credit bureaus · 30-day verify loop · 0 data leaves your machine`
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](https://nodejs.org)
-[![Tests](https://img.shields.io/badge/tests-64%20passing-brightgreen)](#testing)
+[![Tests](https://img.shields.io/badge/tests-95%20passing-brightgreen)](#testing)
 [![Brokers](https://img.shields.io/badge/brokers-210-blue)](#broker-coverage)
 [![Opt-Out](https://img.shields.io/badge/opt--out%20supported-58%20brokers-green)](#commands)
 
 Your personal data is collected by hundreds of data brokers (Spokeo, Whitepages, Acxiom, LexisNexis…) and resold for $200-500/yr per person. DeleteMe charges $129/yr to remove it. **Holmes-Cleanup does the same — free, self-hosted, and auditable.**
+
+**Try it now (no install, 10 seconds):**
+```bash
+npx github:RAMBOXIE/holmes-cleanup scan --name "Your Name"
+```
 
 ---
 
