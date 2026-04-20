@@ -28,7 +28,7 @@ body:
       options:
         - "Nice-to-have"
         - "Would use regularly if existed"
-        - "Blocker — I can't use Holmes without this"
+        - "Blocker — I can't use Vanish without this"
     validations:
       required: true
 

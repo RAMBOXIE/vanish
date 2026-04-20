@@ -1,4 +1,4 @@
-// Holmes-Cleanup Web — main entry point.
+// Vanish Web — main entry point.
 // Pure vanilla JS; no framework. Keep this file auditable.
 
 import './styles.css';
@@ -125,7 +125,7 @@ function handleDownloadSvg() {
 }
 
 async function handleCopyText() {
-  const text = `My Privacy Exposure Score is ${currentScanResult.privacyScore}/100 (${currentScanResult.riskLevel.toUpperCase()} RISK). ${currentScanResult.summary.likelyExposed} of ${currentScanResult.summary.totalBrokers} brokers likely have my data. Check yours: https://github.com/RAMBOXIE/holmes-cleanup`;
+  const text = `My Privacy Exposure Score is ${currentScanResult.privacyScore}/100 (${currentScanResult.riskLevel.toUpperCase()} RISK). ${currentScanResult.summary.likelyExposed} of ${currentScanResult.summary.totalBrokers} brokers likely have my data. Check yours: https://github.com/RAMBOXIE/vanish`;
   const btn = $('#btn-copy-text');
   const original = btn.textContent;
   try {
@@ -214,10 +214,10 @@ function renderCliUpsell(result) {
   $('#cli-upsell').innerHTML = `
     <h2>Want automation?</h2>
     <p>The CLI bundles scan + guided opt-out + 30-day verify in one command.</p>
-    <pre class="cli-code">npx github:RAMBOXIE/holmes-cleanup opt-out --broker ${escape(topBroker)} --email you@example.com</pre>
+    <pre class="cli-code">npx github:RAMBOXIE/vanish opt-out --broker ${escape(topBroker)} --email you@example.com</pre>
     <p class="cli-footnote">
       The CLI opens your browser to each opt-out URL, pre-fills the form data, then checks back in 30 days to prove removal.
-      <a href="https://github.com/RAMBOXIE/holmes-cleanup" target="_blank" rel="noopener">Learn more on GitHub →</a>
+      <a href="https://github.com/RAMBOXIE/vanish" target="_blank" rel="noopener">Learn more on GitHub →</a>
     </p>
   `;
 }

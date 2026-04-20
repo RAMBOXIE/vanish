@@ -1,6 +1,6 @@
 # CONVERSATION_WIZARD_SPEC
 
-English-first, 中文辅说明。This document defines v1 Clawbot-style conversation wizard for holmes-cleanup.
+English-first, 中文辅说明。This document defines v1 Clawbot-style conversation wizard for vanish.
 
 ## 1. State machine
 

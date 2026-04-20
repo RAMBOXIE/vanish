@@ -1,5 +1,5 @@
 {
-  "name": "holmes-cleanup",
+  "name": "vanish",
   "version": "0.2.0",
   "description": "Open-source privacy scanner + opt-out orchestrator for 200 data brokers. Free alternative to DeleteMe, Optery, Incogni. Local-first, audit-signed, MIT-licensed.",
   "keywords": [
@@ -24,29 +24,28 @@
     "nodejs",
     "privacy-tools"
   ],
-  "homepage": "https://github.com/RAMBOXIE/holmes-cleanup#readme",
+  "homepage": "https://github.com/RAMBOXIE/vanish#readme",
   "bugs": {
-    "url": "https://github.com/RAMBOXIE/holmes-cleanup/issues"
+    "url": "https://github.com/RAMBOXIE/vanish/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RAMBOXIE/holmes-cleanup.git"
+    "url": "git+https://github.com/RAMBOXIE/vanish.git"
   },
   "license": "MIT",
   "author": "RAMBOXIE",
   "type": "module",
   "bin": {
-    "holmes-cleanup": "./scripts/index.mjs",
-    "holmes-scan": "./scripts/scan-demo.mjs",
-    "holmes": "./scripts/index.mjs"
+    "vanish": "./scripts/index.mjs",
+    "vanish-scan": "./scripts/scan-demo.mjs"
   },
   "engines": {
     "node": ">=20"
   },
   "scripts": {
-    "run": "node scripts/holmes-cleanup.mjs",
-    "quick": "node scripts/holmes-cleanup.mjs quick",
-    "dry": "node scripts/holmes-cleanup.mjs --manual --keywords \"demo\" --sample-file ./examples/sample.json --confirm1 YES --confirm2 YES --confirm3 YES --export-before-delete ask --export-answer no --notify none",
+    "run": "node scripts/vanish.mjs",
+    "quick": "node scripts/vanish.mjs quick",
+    "dry": "node scripts/vanish.mjs --manual --keywords \"demo\" --sample-file ./examples/sample.json --confirm1 YES --confirm2 YES --confirm3 YES --export-before-delete ask --export-answer no --notify none",
     "b1:demo": "node scripts/b1-demo.mjs",
     "b1:live": "node scripts/b1-live.mjs run --live",
     "queue": "node scripts/queue-cli.mjs",
@@ -55,7 +54,7 @@
     "dashboard:build-data": "node scripts/build-dashboard-data.mjs",
     "dashboard:watch": "node scripts/dashboard-watch.mjs",
     "report:proof": "node scripts/generate-proof-report.mjs",
-    "test": "node tests/holmes-cleanup.test.mjs && node tests/b1-queue.test.mjs && node tests/quick-presets-report.test.mjs && node tests/wizard-engine.test.mjs && node tests/real-loop.test.mjs && node tests/secret-store.test.mjs && node tests/queue-hardening.test.mjs && node tests/audit-signature.test.mjs && node tests/official-endpoint-compliance.test.mjs && node tests/live-broker-factory.test.mjs && node tests/live-e2e-echo.test.mjs && node tests/catalog-registry.test.mjs && node tests/scan-scoring.test.mjs && node tests/scan-engine.test.mjs && node tests/scan-wizard-integration.test.mjs && node tests/opt-out.test.mjs && node tests/verify.test.mjs && node tests/share-card.test.mjs",
+    "test": "node tests/vanish.test.mjs && node tests/b1-queue.test.mjs && node tests/quick-presets-report.test.mjs && node tests/wizard-engine.test.mjs && node tests/real-loop.test.mjs && node tests/secret-store.test.mjs && node tests/queue-hardening.test.mjs && node tests/audit-signature.test.mjs && node tests/official-endpoint-compliance.test.mjs && node tests/live-broker-factory.test.mjs && node tests/live-e2e-echo.test.mjs && node tests/catalog-registry.test.mjs && node tests/scan-scoring.test.mjs && node tests/scan-engine.test.mjs && node tests/scan-wizard-integration.test.mjs && node tests/opt-out.test.mjs && node tests/verify.test.mjs && node tests/share-card.test.mjs",
     "test:b1": "node tests/b1-queue.test.mjs && node tests/real-loop.test.mjs"
   },
   "files": [

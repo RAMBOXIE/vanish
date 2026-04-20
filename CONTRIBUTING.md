@@ -1,12 +1,12 @@
-# Contributing to Holmes-Cleanup
+# Contributing to Vanish
 
 Thanks for considering contributing. This is an early-stage open-source privacy tool and we need help across: broker coverage, UX polish, cross-platform testing, and translations.
 
 ## Quick Start (Dev)
 
 ```bash
-git clone https://github.com/RAMBOXIE/holmes-cleanup
-cd holmes-cleanup
+git clone https://github.com/RAMBOXIE/vanish
+cd vanish
 npm install
 npm test        # runs 95 tests
 ```
@@ -42,7 +42,7 @@ After adding, run `npm test` to verify catalog validates.
 
 ### 2. Report a broken broker flow
 
-If a broker changed their opt-out page and our `optOutFlow` is now wrong, please [open an issue](https://github.com/RAMBOXIE/holmes-cleanup/issues/new?template=broker-broken.yml) with:
+If a broker changed their opt-out page and our `optOutFlow` is now wrong, please [open an issue](https://github.com/RAMBOXIE/vanish/issues/new?template=broker-broken.yml) with:
 - Which broker
 - What field or URL changed
 - Screenshot of the new page
@@ -104,4 +104,4 @@ These aren't style preferences — they're product commitments:
 
 ## Questions?
 
-Open a [discussion](https://github.com/RAMBOXIE/holmes-cleanup/discussions) before filing a large PR.
+Open a [discussion](https://github.com/RAMBOXIE/vanish/discussions) before filing a large PR.

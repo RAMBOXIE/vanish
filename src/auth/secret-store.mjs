@@ -8,7 +8,7 @@ const STORE_VERSION = 1;
 export class SecretStore {
   constructor({
     filePath = path.resolve('data', 'secret-store.json'),
-    masterKey = process.env.HOLMES_SECRET_MASTER_KEY || null,
+    masterKey = process.env.VANISH_SECRET_MASTER_KEY || null,
     forceFallback = false,
     platform = process.platform
   } = {}) {
@@ -128,7 +128,7 @@ export class SecretStore {
 
   deriveKey(salt) {
     if (!this.masterKey) {
-      throw new Error('HOLMES_SECRET_MASTER_KEY is required when Windows DPAPI is unavailable.');
+      throw new Error('VANISH_SECRET_MASTER_KEY is required when Windows DPAPI is unavailable.');
     }
     return crypto.scryptSync(this.masterKey, salt, 32, { N: 16384, r: 8, p: 1 });
   }
@@ -136,7 +136,7 @@ export class SecretStore {
   // Backward compatibility for secrets encrypted before scrypt migration
   legacyKey() {
     if (!this.masterKey) {
-      throw new Error('HOLMES_SECRET_MASTER_KEY is required when Windows DPAPI is unavailable.');
+      throw new Error('VANISH_SECRET_MASTER_KEY is required when Windows DPAPI is unavailable.');
     }
     return crypto.createHash('sha256').update(this.masterKey).digest();
   }

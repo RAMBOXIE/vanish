@@ -1,6 +1,6 @@
-# Holmes-Cleanup Web
+# Vanish Web
 
-Static web app for the Holmes-Cleanup privacy scanner. Built with Vite + vanilla JS.
+Static web app for the Vanish privacy scanner. Built with Vite + vanilla JS.
 
 ## Why this exists
 
@@ -26,7 +26,7 @@ npm run build
 
 Deployed automatically to GitHub Pages via `.github/workflows/deploy-web.yml` on every push to `main` that touches this folder.
 
-Production URL: `https://ramboxie.github.io/holmes-cleanup/`
+Production URL: `https://ramboxie.github.io/vanish/`
 
 ## How to audit that it's safe
 

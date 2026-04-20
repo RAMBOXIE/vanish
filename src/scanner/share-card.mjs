@@ -74,7 +74,7 @@ export function renderShareBanner(scanResult, options = {}) {
     lines.push(line(`${d}${truncated}${r}`));
   }
   lines.push(blank);
-  lines.push(line(`${d}github.com/RAMBOXIE/holmes-cleanup${r}`));
+  lines.push(line(`${d}github.com/RAMBOXIE/vanish${r}`));
   lines.push(blank);
   lines.push(`└${'─'.repeat(WIDTH - 2)}┘`);
 
@@ -137,7 +137,7 @@ export function renderShareCardSvg(scanResult) {
   <!-- Brand + eyebrow -->
   <text x="60" y="80" font-family="system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif"
     font-size="22" font-weight="500" fill="#8b8ba7" letter-spacing="2">
-    🔍 HOLMES-CLEANUP · PRIVACY SCAN
+    🔍 VANISH · PRIVACY SCAN
   </text>
 
   <!-- Title -->
@@ -191,7 +191,7 @@ export function renderShareCardSvg(scanResult) {
   <text x="600" y="612" text-anchor="middle"
     font-family="ui-monospace, SFMono-Regular, Consolas, monospace"
     font-size="20" font-weight="500" fill="#ffffff">
-    npx github:RAMBOXIE/holmes-cleanup scan --name "Your Name"
+    npx github:RAMBOXIE/vanish scan --name "Your Name"
   </text>
 </svg>`;
 }

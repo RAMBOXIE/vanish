@@ -20,16 +20,16 @@ export class AuthSession {
       filePayload = JSON.parse(fs.readFileSync(input.authFile, 'utf8'));
     }
 
-    const token = input.authToken || env.HOLMES_AUTH_TOKEN || filePayload.token || null;
-    const cookie = input.authCookie || env.HOLMES_AUTH_COOKIE || filePayload.cookie || null;
-    const scopeText = input.authScopes || env.HOLMES_AUTH_SCOPES || filePayload.scopes || '';
+    const token = input.authToken || env.VANISH_AUTH_TOKEN || filePayload.token || null;
+    const cookie = input.authCookie || env.VANISH_AUTH_COOKIE || filePayload.cookie || null;
+    const scopeText = input.authScopes || env.VANISH_AUTH_SCOPES || filePayload.scopes || '';
     const scopes = Array.isArray(scopeText)
       ? scopeText
       : String(scopeText)
           .split(',')
           .map(s => s.trim())
           .filter(Boolean);
-    const expiresAt = input.authExpiresAt || env.HOLMES_AUTH_EXPIRES_AT || filePayload.expiresAt || null;
+    const expiresAt = input.authExpiresAt || env.VANISH_AUTH_EXPIRES_AT || filePayload.expiresAt || null;
 
     const source = input.authToken || input.authCookie
       ? 'session-input'
@@ -42,8 +42,8 @@ export class AuthSession {
 
   static async fromSourcesWithSecretStore({ input = {}, env = process.env, secretStore = createSecretStore() } = {}) {
     const session = AuthSession.fromSources({ input, env });
-    const tokenSecretName = input.authTokenSecretName || env.HOLMES_AUTH_TOKEN_SECRET_NAME || null;
-    const cookieSecretName = input.authCookieSecretName || env.HOLMES_AUTH_COOKIE_SECRET_NAME || null;
+    const tokenSecretName = input.authTokenSecretName || env.VANISH_AUTH_TOKEN_SECRET_NAME || null;
+    const cookieSecretName = input.authCookieSecretName || env.VANISH_AUTH_COOKIE_SECRET_NAME || null;
 
     if (!session.token && tokenSecretName) {
       session.token = await secretStore.getSecret(tokenSecretName);

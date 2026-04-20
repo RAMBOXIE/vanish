@@ -56,7 +56,7 @@
       },
       "userAgentStrategy": {
         "mode": "declared-automation",
-        "defaultUserAgent": "HolmesCleanup/0.1 compliance-contact"
+        "defaultUserAgent": "Vanish/0.1 compliance-contact"
       },
       "captchaToHumanQueue": {
         "enabled": true,

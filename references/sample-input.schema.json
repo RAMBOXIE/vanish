@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://local.holmes-cleanup/sample-input.schema.json",
-  "title": "Holmes Cleanup Sample Input",
+  "$id": "https://local.vanish/sample-input.schema.json",
+  "title": "Vanish Sample Input",
   "description": "用于 dry-run 的样本输入结构定义。真实性由用户判断，工具仅负责流程与整理。",
   "type": "object",
   "additionalProperties": false,

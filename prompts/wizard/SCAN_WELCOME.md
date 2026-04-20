@@ -2,7 +2,7 @@
 
 State: **SCAN_WELCOME**
 
-Holmes can scan 200 data brokers to discover where your personal information is exposed, before deciding what to remove.
+Vanish can scan 210 data brokers to discover where your personal information is exposed, before deciding what to remove.
 
 Prompt template:
 - Explain: "I'll scan ~200 data sources and show you where your data is likely exposed. No external API calls — uses heuristic matching based on broker catalog."

@@ -5,8 +5,8 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  // GitHub Pages deploys to /holmes-cleanup/ by default; override via --base when using custom domain
-  base: process.env.VITE_BASE_PATH || '/holmes-cleanup/',
+  // GitHub Pages deploys to /vanish/ by default; override via --base when using custom domain
+  base: process.env.VITE_BASE_PATH || '/vanish/',
 
   // The monorepo root is one level up; allow Vite to import shared modules from there.
   resolve: {

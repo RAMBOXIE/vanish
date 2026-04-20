@@ -91,7 +91,7 @@ test('opt-out --no-open writes followUp + audit and skips browser', () => {
     '--state-file', tmpFile,
     '--no-open'
   ], {
-    env: { ...process.env, HOLMES_AUDIT_HMAC_KEY: 'test-key-for-unit-test' },
+    env: { ...process.env, VANISH_AUDIT_HMAC_KEY: 'test-key-for-unit-test' },
     encoding: 'utf8'
   });
 
@@ -126,7 +126,7 @@ test('opt-out fails gracefully for broker without optOutFlow', () => {
     '--state-file', tmpFile,
     '--no-open'
   ], {
-    env: { ...process.env, HOLMES_AUDIT_HMAC_KEY: 'test-key-for-unit-test' },
+    env: { ...process.env, VANISH_AUDIT_HMAC_KEY: 'test-key-for-unit-test' },
     encoding: 'utf8'
   });
 
@@ -152,7 +152,7 @@ test('opt-out processes multiple brokers in one run', () => {
     '--state-file', tmpFile,
     '--no-open'
   ], {
-    env: { ...process.env, HOLMES_AUDIT_HMAC_KEY: 'test-key-for-unit-test' },
+    env: { ...process.env, VANISH_AUDIT_HMAC_KEY: 'test-key-for-unit-test' },
     encoding: 'utf8'
   });
 
@@ -179,7 +179,7 @@ test('recheckAt is submittedAt + processingDays*2', () => {
     '--state-file', tmpFile,
     '--no-open'
   ], {
-    env: { ...process.env, HOLMES_AUDIT_HMAC_KEY: 'test-key-for-unit-test' },
+    env: { ...process.env, VANISH_AUDIT_HMAC_KEY: 'test-key-for-unit-test' },
     encoding: 'utf8'
   });
 
@@ -203,7 +203,7 @@ test('opt-out fails cleanly when --broker is missing', () => {
     '--email', 'test@example.com',
     '--no-open'
   ], {
-    env: { ...process.env, HOLMES_AUDIT_HMAC_KEY: 'test-key-for-unit-test' },
+    env: { ...process.env, VANISH_AUDIT_HMAC_KEY: 'test-key-for-unit-test' },
     encoding: 'utf8'
   });
 

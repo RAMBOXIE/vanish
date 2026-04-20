@@ -1,27 +1,27 @@
 ---
-name: holmes-cleanup
+name: vanish
 description: Privacy scanner + opt-out orchestrator for 200 data brokers. Scan your exposure in 10s (0-100 score), then remove with a guided 18-step wizard. Free open-source alternative to DeleteMe / Optery / Incogni. Agent-native, audit-signed (HMAC-SHA256), local-first. Triple-confirm safety gates for high-risk actions; user-controlled export decision before any delete; shortest-TTL credentials wiped after task.
 version: 0.2.0
 metadata:
   openclaw:
     requires:
       env:
-        - HOLMES_AUDIT_HMAC_KEY
-        - HOLMES_SECRET_MASTER_KEY
+        - VANISH_AUDIT_HMAC_KEY
+        - VANISH_SECRET_MASTER_KEY
       bins:
         - node
-    primaryEnv: HOLMES_AUDIT_HMAC_KEY
+    primaryEnv: VANISH_AUDIT_HMAC_KEY
     emoji: "🔍"
-    homepage: https://github.com/RAMBOXIE/holmes-cleanup
+    homepage: https://github.com/RAMBOXIE/vanish
     os:
       - macos
       - linux
       - windows
     always: false
-    skillKey: holmes
+    skillKey: vanish
 ---
 
-# holmes-cleanup
+# vanish
 
 > Privacy scanner + opt-out orchestrator for 200 data brokers. Free open-source alternative to DeleteMe ($129/yr), Optery ($99-249/yr), Incogni ($99/yr). Agent-native, audit-signed, local-first.
 
@@ -34,7 +34,7 @@ Heuristic scan across 200 brokers in 10 seconds, no external API calls, no data 
 18-state conversational wizard for preparing and submitting opt-out requests. Real HTTP submission for 8 brokers via configurable endpoint (default `postman-echo.com` for verifiable closed-loop validation); other 192 brokers are dry-run blueprints with verified opt-out URLs. Triple-confirm for high-risk actions, export decision before any delete.
 
 ### ✍️ audit — HMAC-signed event trail
-Every state mutation is HMAC-SHA256 signed over canonical JSON with timing-safe verification. `HOLMES_AUDIT_HMAC_KEY` required in production (code warns in dev, silent in test). Proof reports render to Markdown.
+Every state mutation is HMAC-SHA256 signed over canonical JSON with timing-safe verification. `VANISH_AUDIT_HMAC_KEY` required in production (code warns in dev, silent in test). Proof reports render to Markdown.
 
 ### 🔁 queue — Retry / manual-review / dead-letter management
 Three-level queue with SHA-256 dedup. Transient errors (HTTP 5xx/429) → retry with exponential backoff. Captchas / auth failures → manual review queue. Permanent errors or retry-limit exceeded → dead-letter. Queue CLI supports list / retry / resolve.
@@ -47,7 +47,7 @@ Three-level queue with SHA-256 dedup. Transient errors (HTTP 5xx/429) → retry 
 4. User-selected notification channel (none is acceptable)
 5. User judges authenticity and legal truth; tool provides workflow capability only
 6. Credentials: minimum scope, shortest TTL, encrypted storage, post-task wipe
-7. HMAC key required in production; code fails loud without `HOLMES_AUDIT_HMAC_KEY`
+7. HMAC key required in production; code fails loud without `VANISH_AUDIT_HMAC_KEY`
 
 ## Standard flow — 18 states
 
@@ -70,38 +70,38 @@ Backward compatibility: `createSession({ skipScan: true })` skips the scan phase
 
 ### Scan (recommended entry point)
 ```bash
-holmes-cleanup scan --name "John Doe" --email "j@example.com" --phone "+15550101"
-holmes-cleanup scan --name "..." --output-md ./my-report.md
+vanish scan --name "John Doe" --email "j@example.com" --phone "+15550101"
+vanish scan --name "..." --output-md ./my-report.md
 ```
 
 ### Full interactive wizard (scan → review → cleanup)
 ```bash
-holmes-cleanup wizard
+vanish wizard
 ```
 
 ### Cleanup with preset
 ```bash
-holmes-cleanup cleanup --manual --preset spokeo \
+vanish cleanup --manual --preset spokeo \
   --confirm1 YES --confirm2 YES --confirm3 YES \
   --export-before-delete ask --export-answer no --notify none
 ```
 
 ### Live submission (real HTTP against test endpoint)
 ```bash
-holmes-cleanup b1-live run --live --brokers spokeo,thatsthem,peekyou \
+vanish b1-live run --live --brokers spokeo,thatsthem,peekyou \
   --full-name "Test User"
 ```
 
 ### Queue management
 ```bash
-holmes-cleanup queue list
-holmes-cleanup queue retry --id <retryItemId>
-holmes-cleanup queue resolve --id <manualReviewId> --resolution resolved
+vanish queue list
+vanish queue retry --id <retryItemId>
+vanish queue resolve --id <manualReviewId> --resolution resolved
 ```
 
 ### Zero-install via npx
 ```bash
-npx github:RAMBOXIE/holmes-cleanup scan --name "..." --email "..."
+npx github:RAMBOXIE/vanish scan --name "..." --email "..."
 ```
 
 ## Safety gates enforced by code
@@ -111,7 +111,7 @@ npx github:RAMBOXIE/holmes-cleanup scan --name "..." --email "..."
 | Manual trigger | `--manual` flag required; missing flag returns `blocked` with clear `nextActions` |
 | Triple confirmation | Three separate states each require exact `YES`; any mismatch blocks |
 | Export decision | Must be `yes` or `no` before EXECUTE; `ask` without answer = hard block |
-| HMAC signing | Every persisted state mutation signed with `HOLMES_AUDIT_HMAC_KEY` |
+| HMAC signing | Every persisted state mutation signed with `VANISH_AUDIT_HMAC_KEY` |
 | Credential lifetime | TTL enforced by `AuthSession.validate({ minTtlSeconds })` |
 | Secret storage | scrypt KDF + per-secret salt; Windows DPAPI preferred, AES-GCM fallback |
 | Compliance block | Live official mode requires `termsAccepted`, `lawfulBasis`, `operatorId` |
@@ -139,8 +139,8 @@ npx github:RAMBOXIE/holmes-cleanup scan --name "..." --email "..."
 
 | Var | When needed | Purpose |
 |-----|-------------|---------|
-| `HOLMES_AUDIT_HMAC_KEY` | Production | Audit event signing. Required in production; warns in dev. |
-| `HOLMES_SECRET_MASTER_KEY` | When using encrypted secrets | AES-GCM fallback when Windows DPAPI unavailable |
+| `VANISH_AUDIT_HMAC_KEY` | Production | Audit event signing. Required in production; warns in dev. |
+| `VANISH_SECRET_MASTER_KEY` | When using encrypted secrets | AES-GCM fallback when Windows DPAPI unavailable |
 | `<BROKER>_LIVE_ENDPOINT` | Live submission | Per-broker HTTP endpoint override (default: `postman-echo.com`) |
 | `<BROKER>_OFFICIAL_*_ENDPOINT` | Official mode | Real broker endpoints (default blocked by compliance gate) |
 

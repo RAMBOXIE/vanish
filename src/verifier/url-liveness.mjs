@@ -1,7 +1,7 @@
 // URL liveness checker — tells us if a broker profile URL is still present,
 // removed, or in an unknown state.
 
-const DEFAULT_USER_AGENT = 'HolmesCleanup-Verify/1.0 (opt-out verification; https://github.com/RAMBOXIE/holmes-cleanup)';
+const DEFAULT_USER_AGENT = 'Vanish-Verify/1.0 (opt-out verification; https://github.com/RAMBOXIE/vanish)';
 
 const TIMEOUT_MS = 15_000;
 

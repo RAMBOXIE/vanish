@@ -114,7 +114,7 @@ test('verify CLI --no-fetch lists pending without HTTP', () => {
     '--state-file', tmpFile,
     '--no-open'
   ], {
-    env: { ...process.env, HOLMES_AUDIT_HMAC_KEY: 'test-key' },
+    env: { ...process.env, VANISH_AUDIT_HMAC_KEY: 'test-key' },
     encoding: 'utf8'
   });
   assert.equal(optOut.status, 0, `opt-out failed: ${optOut.stderr}`);
@@ -125,7 +125,7 @@ test('verify CLI --no-fetch lists pending without HTTP', () => {
     '--all', '--no-fetch',
     '--state-file', tmpFile
   ], {
-    env: { ...process.env, HOLMES_AUDIT_HMAC_KEY: 'test-key' },
+    env: { ...process.env, VANISH_AUDIT_HMAC_KEY: 'test-key' },
     encoding: 'utf8'
   });
   assert.equal(verify.status, 0);
@@ -148,7 +148,7 @@ test('verify CLI reports "none due" when nothing past recheckAt', () => {
     '--state-file', tmpFile,
     '--no-open'
   ], {
-    env: { ...process.env, HOLMES_AUDIT_HMAC_KEY: 'test-key' },
+    env: { ...process.env, VANISH_AUDIT_HMAC_KEY: 'test-key' },
     encoding: 'utf8'
   });
   assert.equal(optOut.status, 0);
@@ -158,7 +158,7 @@ test('verify CLI reports "none due" when nothing past recheckAt', () => {
     VERIFY_SCRIPT,
     '--state-file', tmpFile
   ], {
-    env: { ...process.env, HOLMES_AUDIT_HMAC_KEY: 'test-key' },
+    env: { ...process.env, VANISH_AUDIT_HMAC_KEY: 'test-key' },
     encoding: 'utf8'
   });
   assert.equal(verify.status, 0);
@@ -177,7 +177,7 @@ test('verify CLI reports empty when no followUp exists', () => {
   const verify = spawnSync(process.execPath, [
     VERIFY_SCRIPT, '--state-file', tmpFile
   ], {
-    env: { ...process.env, HOLMES_AUDIT_HMAC_KEY: 'test-key' },
+    env: { ...process.env, VANISH_AUDIT_HMAC_KEY: 'test-key' },
     encoding: 'utf8'
   });
   assert.equal(verify.status, 0);

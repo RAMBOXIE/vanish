@@ -1,4 +1,4 @@
-# holmes-cleanup Flowchart (MVP / dry-run)
+# vanish Flowchart (MVP / dry-run)
 
 > English-first with Chinese notes for review clarity.
 

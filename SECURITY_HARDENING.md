@@ -10,9 +10,9 @@ The local secret store lives in `src/auth/secret-store.mjs` and exposes:
 
 `listMeta()` returns only metadata: name, provider, timestamps, expiry state, and tags. It does not return plaintext, ciphertext, IVs, or authentication tags.
 
-On Windows, the store prefers DPAPI through PowerShell `ConvertFrom-SecureString`, binding encrypted values to the current Windows user profile. On other platforms, or when tests force fallback mode, it uses AES-256-GCM with a key derived from `HOLMES_SECRET_MASTER_KEY`.
+On Windows, the store prefers DPAPI through PowerShell `ConvertFrom-SecureString`, binding encrypted values to the current Windows user profile. On other platforms, or when tests force fallback mode, it uses AES-256-GCM with a key derived from `VANISH_SECRET_MASTER_KEY`.
 
-TTL is enforced at read time. Expired secrets reject with `SECRET_EXPIRED` and are not returned to callers. `session-auth.mjs` can load token/cookie values from the store via `HOLMES_AUTH_TOKEN_SECRET_NAME`, `HOLMES_AUTH_COOKIE_SECRET_NAME`, or matching runner input fields.
+TTL is enforced at read time. Expired secrets reject with `SECRET_EXPIRED` and are not returned to callers. `session-auth.mjs` can load token/cookie values from the store via `VANISH_AUTH_TOKEN_SECRET_NAME`, `VANISH_AUTH_COOKIE_SECRET_NAME`, or matching runner input fields.
 
 Operational rules:
 - Use the shortest practical `ttlSeconds`.
@@ -26,7 +26,7 @@ Audit signing lives in `src/audit/signature.mjs`. Events are canonicalized, sign
 - `signatureAlgorithm: HMAC-SHA256`
 - `signature: sha256=<hex>`
 
-The signing key comes from `HOLMES_AUDIT_HMAC_KEY`; a local development fallback exists for tests and non-production dry runs. Production-like runs should set an environment-specific key and preserve queue-state history as an append-only artifact when possible.
+The signing key comes from `VANISH_AUDIT_HMAC_KEY`; a local development fallback exists for tests and non-production dry runs. Production-like runs should set an environment-specific key and preserve queue-state history as an append-only artifact when possible.
 
 Queue state now persists retry, manual review, dead-letter, completed, failed, and audit arrays. Retry-limit and non-retryable failures are routed to the dead-letter queue. Retry/manual/DLQ enqueue paths deduplicate by `hash(broker + requestId + reason)` to prevent repeated operator noise while retaining `seenCount`, `lastSeenAt`, and retry attempt metadata.
 
@@ -45,7 +45,7 @@ Anti-bot placeholders are explicit and conservative: rate limiting, jitter, decl
 
 凭证存储：
 - Windows 环境优先使用 DPAPI，绑定当前用户上下文。
-- 非 Windows 或测试 fallback 使用 AES-GCM，并要求 `HOLMES_SECRET_MASTER_KEY`。
+- 非 Windows 或测试 fallback 使用 AES-GCM，并要求 `VANISH_SECRET_MASTER_KEY`。
 - `listMeta()` 只返回元数据，不返回明文或可解密材料。
 - TTL 过期后读取会被拒绝，避免长期凭证被重复使用。
 

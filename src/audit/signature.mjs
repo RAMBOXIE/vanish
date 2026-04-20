@@ -1,23 +1,23 @@
 import crypto from 'node:crypto';
 
-const DEV_FALLBACK_SECRET = 'holmes-local-audit-development-key';
+const DEV_FALLBACK_SECRET = 'vanish-local-audit-development-key';
 
 function resolveAuditSecret() {
-  const envKey = process.env.HOLMES_AUDIT_HMAC_KEY;
+  const envKey = process.env.VANISH_AUDIT_HMAC_KEY;
   if (envKey) return envKey;
 
   const nodeEnv = (process.env.NODE_ENV || '').toLowerCase();
   if (nodeEnv === 'production') {
     throw new Error(
-      'HOLMES_AUDIT_HMAC_KEY environment variable is required in production. '
+      'VANISH_AUDIT_HMAC_KEY environment variable is required in production. '
       + 'Audit signatures with the default key are not trustworthy.'
     );
   }
 
   if (nodeEnv !== 'test') {
     console.warn(
-      '[holmes-cleanup] WARNING: Using default audit HMAC key. '
-      + 'Set HOLMES_AUDIT_HMAC_KEY for trustworthy signatures.'
+      '[vanish] WARNING: Using default audit HMAC key. '
+      + 'Set VANISH_AUDIT_HMAC_KEY for trustworthy signatures.'
     );
   }
 

@@ -3,7 +3,7 @@
 State: **SCAN_INPUT**
 Missing fields: {{missing_fields}}
 
-Provide your identity information so Holmes can estimate broker exposure.
+Provide your identity information so Vanish can estimate broker exposure.
 
 Required:
 - **Name** (full name)

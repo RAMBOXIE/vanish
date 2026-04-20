@@ -24,7 +24,8 @@ This Code applies to all project spaces: GitHub issues, PRs, discussions, and an
 ## Enforcement
 
 Violations can be reported to the project maintainer via:
-- **Email**: conduct@holmescleanup.dev
+- **GitHub DM** to @RAMBOXIE
+- **Security Advisory** (for privacy-sensitive CoC reports): https://github.com/RAMBOXIE/vanish/security/advisories/new
 - **GitHub DM** to @RAMBOXIE
 
 Reports will be reviewed within 7 days. Actions range from private warning to ban, at the maintainer's discretion.

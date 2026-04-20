@@ -1,4 +1,4 @@
-# holmes-cleanup IMPLEMENTATION PLAN (MVP)
+# vanish IMPLEMENTATION PLAN (MVP)
 
 ## 0. 目标与边界
 - 目标：构建一个“手动触发”的福尔摩斯清理 Skill，用于辅助识别与处理盗版样本、执行分级清理流程、并在高风险动作前进行严格确认。

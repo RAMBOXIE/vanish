@@ -32,7 +32,7 @@ Define a unified adapter contract for three integration domains:
   },
   "auth": {
     "mode": "oauth|api_key|cookie|none",
-    "credential_ref": "vault://holmes/session/req_20260415_001",
+    "credential_ref": "vault://vanish/session/req_20260415_001",
     "ttl_minutes": 30,
     "least_privilege": true
   },

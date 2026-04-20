@@ -32,8 +32,8 @@ jobs:
       - name: Run tests
         run: npm test
         env:
-          HOLMES_AUDIT_HMAC_KEY: ci-test-key-do-not-use-in-production
-          HOLMES_SECRET_MASTER_KEY: ci-test-master-key
+          VANISH_AUDIT_HMAC_KEY: ci-test-key-do-not-use-in-production
+          VANISH_SECRET_MASTER_KEY: ci-test-master-key
 
       - name: Smoke test — scan CLI
         run: node scripts/index.mjs scan --name "CI Test User" --email "ci@example.com"

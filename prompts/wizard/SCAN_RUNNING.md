@@ -4,7 +4,7 @@ State: **SCAN_RUNNING**
 
 Scanning 200 data sources...
 
-Holmes is checking each broker's data collection patterns against your identity profile. This is a heuristic scan — no external API calls, instant results.
+Vanish is checking each broker's data collection patterns against your identity profile. This is a heuristic scan — no external API calls, instant results.
 
 Progress:
 - People-search brokers (70)

@@ -3,11 +3,11 @@
 // Verify follow-up queue: check if opted-out profiles are actually gone.
 //
 // Usage:
-//   holmes-cleanup verify                       (check entries past recheckAt)
-//   holmes-cleanup verify --all                 (check every followUp entry)
-//   holmes-cleanup verify --broker spokeo,...   (check only specific brokers)
-//   holmes-cleanup verify --no-fetch            (dry-run — no HTTP, just list)
-//   holmes-cleanup verify --state-file <path>
+//   vanish verify                       (check entries past recheckAt)
+//   vanish verify --all                 (check every followUp entry)
+//   vanish verify --broker spokeo,...   (check only specific brokers)
+//   vanish verify --no-fetch            (dry-run — no HTTP, just list)
+//   vanish verify --state-file <path>
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -64,7 +64,7 @@ async function main() {
 Verify that opt-out submissions actually worked.
 
 Usage:
-  holmes-cleanup verify [options]
+  vanish verify [options]
 
 Options:
   --all                    Check every followUp entry (ignore recheckAt)
@@ -90,7 +90,7 @@ Result status:
   const followUp = state.followUp || [];
 
   if (followUp.length === 0) {
-    process.stdout.write('\nNo follow-up entries to verify. Run `holmes-cleanup opt-out ...` first.\n');
+    process.stdout.write('\nNo follow-up entries to verify. Run `vanish opt-out ...` first.\n');
     process.exit(0);
   }
 
@@ -165,7 +165,7 @@ Result status:
 
   if (stillPresent.length > 0) {
     process.stdout.write(`\n💡 Next: re-submit opt-out for still-present brokers:\n`);
-    process.stdout.write(`   holmes-cleanup opt-out --broker ${stillPresent.map(e => e.broker).join(',')} --email ...\n`);
+    process.stdout.write(`   vanish opt-out --broker ${stillPresent.map(e => e.broker).join(',')} --email ...\n`);
   }
   if (unknown.length > 0) {
     process.stdout.write(`\n💡 Unknown entries can be re-checked later (broker may have been rate-limiting or showing captcha).\n`);

@@ -1,12 +1,12 @@
 # Security Policy
 
-Holmes-Cleanup is a privacy tool. Security bugs matter more than feature bugs.
+Vanish is a privacy tool. Security bugs matter more than feature bugs.
 
 ## Reporting a Vulnerability
 
 **Do not open a public issue for security bugs.**
 
-Report privately to: **security@holmescleanup.dev** (or open a [GitHub Security Advisory](https://github.com/RAMBOXIE/holmes-cleanup/security/advisories/new)).
+Report privately via [GitHub Security Advisory](https://github.com/RAMBOXIE/vanish/security/advisories/new) (preferred — this is the authoritative channel).
 
 Include:
 - Type of issue (e.g., injection, auth bypass, data exfiltration, broken audit signature)
@@ -42,9 +42,9 @@ We will acknowledge within **72 hours** and aim to fix critical issues within **
 
 The project ships with these known boundaries — please audit them if contributing:
 
-- **Audit HMAC key**: `HOLMES_AUDIT_HMAC_KEY` must be set in production. Without it, the code warns but still signs with a default key (acceptable for dev/test, not production).
-- **Secret store**: Windows DPAPI preferred; AES-256-GCM fallback with scrypt KDF + per-secret salt. Master key via `HOLMES_SECRET_MASTER_KEY` must have sufficient entropy.
+- **Audit HMAC key**: `VANISH_AUDIT_HMAC_KEY` must be set in production. Without it, the code warns but still signs with a default key (acceptable for dev/test, not production).
+- **Secret store**: Windows DPAPI preferred; AES-256-GCM fallback with scrypt KDF + per-secret salt. Master key via `VANISH_SECRET_MASTER_KEY` must have sufficient entropy.
 - **Queue state lock**: file-based lock with 30-second stale detection. Concurrent processes modifying the same state file may race (contributions welcome).
-- **CLI input handling**: we trust CLI args are user-supplied and non-malicious. Do not pipe untrusted content to `holmes-cleanup`.
+- **CLI input handling**: we trust CLI args are user-supplied and non-malicious. Do not pipe untrusted content to `vanish`.
 
 See `src/audit/signature.mjs` and `src/auth/secret-store.mjs` for the security-critical code paths.

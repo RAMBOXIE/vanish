@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { loadPresetParams, mergePresetArgs } from './presets.mjs';
 
-export function runHolmesCleanup(argv = [], options = {}) {
+export function runVanish(argv = [], options = {}) {
   const cwd = options.cwd || process.cwd();
   const parsedArgs = parseArgs(argv);
   const isQuickMode = parsedArgs.command === 'quick' || parsedArgs.quick === true;

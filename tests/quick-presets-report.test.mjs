@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { runHolmesCleanup } from '../src/holmes-cleanup-cli.mjs';
+import { runVanish } from '../src/vanish-cli.mjs';
 import { loadPresetParams, mergePresetArgs } from '../src/presets.mjs';
 import { generateProofReport } from '../scripts/generate-proof-report.mjs';
 
@@ -13,7 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
 
 test('quick mode uses defaults but blocks at missing risk confirmations with clear nextActions', () => {
-  const result = runHolmesCleanup(['quick'], { cwd: projectRoot });
+  const result = runVanish(['quick'], { cwd: projectRoot });
 
   assert.notEqual(result.status, 0);
   const payload = JSON.parse(result.stderr);
@@ -43,7 +43,7 @@ test('preset params load and merge while user input wins', () => {
 });
 
 test('proof report generates markdown file from execution JSON', () => {
-  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'holmes-proof-'));
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'vanish-proof-'));
   const inputPath = path.join(tempDir, 'execution.json');
   fs.writeFileSync(inputPath, JSON.stringify({
     status: 'blocked',

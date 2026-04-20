@@ -3,10 +3,10 @@
 // Browser-assisted opt-out for live-capable brokers.
 //
 // Usage:
-//   holmes-cleanup opt-out --broker spokeo --email me@example.com --full-name "My Name"
-//   holmes-cleanup opt-out --broker spokeo,peekyou --email me@example.com --full-name "..."
-//   holmes-cleanup opt-out --broker spokeo --email ... --profile-url "https://..."
-//   holmes-cleanup opt-out --broker spokeo --email ... --no-open    (test mode, no browser)
+//   vanish opt-out --broker spokeo --email me@example.com --full-name "My Name"
+//   vanish opt-out --broker spokeo,peekyou --email me@example.com --full-name "..."
+//   vanish opt-out --broker spokeo --email ... --profile-url "https://..."
+//   vanish opt-out --broker spokeo --email ... --no-open    (test mode, no browser)
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -173,7 +173,7 @@ async function main() {
 Browser-assisted opt-out for 8 live-capable data brokers.
 
 Usage:
-  holmes-cleanup opt-out --broker <name> --email <email> [options]
+  vanish opt-out --broker <name> --email <email> [options]
 
 Required:
   --broker <name>        Broker key(s), comma-separated (spokeo, thatsthem, peekyou,
@@ -194,7 +194,7 @@ Optional:
   --help                 This message
 
 Example:
-  holmes-cleanup opt-out --broker spokeo,peekyou --email you@example.com --full-name "John Doe"
+  vanish opt-out --broker spokeo,peekyou --email you@example.com --full-name "John Doe"
 `);
     process.exit(0);
   }
@@ -291,7 +291,7 @@ Example:
   process.stdout.write(`Recorded: ${allRecorded.length} opt-out submission(s)\n`);
   if (allRecorded.length > 0) {
     process.stdout.write(`Follow-up scheduled: ${allRecorded.map(e => `${e.broker}@${e.recheckAt.slice(0, 10)}`).join(', ')}\n`);
-    process.stdout.write(`\nRun \`holmes-cleanup queue list\` to see follow-up queue.\n`);
+    process.stdout.write(`\nRun \`vanish queue list\` to see follow-up queue.\n`);
   }
 
   process.exit(0);

@@ -2,14 +2,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { runHolmesCleanup } from '../src/holmes-cleanup-cli.mjs';
+import { runVanish } from '../src/vanish-cli.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
 const samplePath = path.join(projectRoot, 'examples', 'sample.json');
 
 function run(args) {
-  return runHolmesCleanup(args, { cwd: projectRoot });
+  return runVanish(args, { cwd: projectRoot });
 }
 
 test('should block when missing manual trigger', () => {

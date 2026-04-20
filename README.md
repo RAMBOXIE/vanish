@@ -1,24 +1,24 @@
-# Holmes-Cleanup
+# Vanish
 
 > 🔍 **Scan 210 data brokers in 10 seconds.** Open-source alternative to DeleteMe ($129/yr), Optery ($99/yr), Incogni ($99/yr). MIT-licensed, local-first, zero telemetry.
 
 `210 brokers scanned · 58 with semi-automated opt-out · all 3 US credit bureaus · 30-day verify loop · 0 data leaves your machine`
 
-[![Tests](https://github.com/RAMBOXIE/holmes-cleanup/actions/workflows/test.yml/badge.svg)](https://github.com/RAMBOXIE/holmes-cleanup/actions/workflows/test.yml)
+[![Tests](https://github.com/RAMBOXIE/vanish/actions/workflows/test.yml/badge.svg)](https://github.com/RAMBOXIE/vanish/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](https://nodejs.org)
 [![Brokers](https://img.shields.io/badge/brokers-210-blue)](#broker-coverage)
 [![Opt-Out](https://img.shields.io/badge/opt--out%20supported-58%20brokers-green)](#commands)
 
-Your personal data is collected by hundreds of data brokers (Spokeo, Whitepages, Acxiom, LexisNexis…) and resold for $200-500/yr per person. DeleteMe charges $129/yr to remove it. **Holmes-Cleanup does the same — free, self-hosted, and auditable.**
+Your personal data is collected by hundreds of data brokers (Spokeo, Whitepages, Acxiom, LexisNexis…) and resold for $200-500/yr per person. DeleteMe charges $129/yr to remove it. **Vanish does the same — free, self-hosted, and auditable.**
 
 **Try it now — two zero-install options:**
 
-🌐 **In your browser**: [ramboxie.github.io/holmes-cleanup](https://ramboxie.github.io/holmes-cleanup/) · 100% client-side, nothing transmitted
+🌐 **In your browser**: [ramboxie.github.io/vanish](https://ramboxie.github.io/vanish/) · 100% client-side, nothing transmitted
 
 💻 **In your terminal** (10 seconds):
 ```bash
-npx github:RAMBOXIE/holmes-cleanup scan --name "Your Name"
+npx github:RAMBOXIE/vanish scan --name "Your Name"
 ```
 
 ---
@@ -28,7 +28,7 @@ npx github:RAMBOXIE/holmes-cleanup scan --name "Your Name"
 **Zero-install — one line from any terminal:**
 
 ```bash
-npx github:RAMBOXIE/holmes-cleanup scan --name "Your Name" --email "you@example.com"
+npx github:RAMBOXIE/vanish scan --name "Your Name" --email "you@example.com"
 ```
 
 That's it. No clone, no install, runs anywhere with Node 20+.
@@ -40,18 +40,18 @@ That's it. No clone, no install, runs anywhere with Node 20+.
 
 ```bash
 # Install as a skill for AI agents
-npx clawhub@latest install holmes-cleanup
+npx clawhub@latest install vanish
 ```
 
-[Clawhub](https://clawhub.ai/) is the npm-like registry for AI agent skills. Once installed, any Clawhub-compatible agent can use Holmes-Cleanup's scan and cleanup capabilities.
+[Clawhub](https://clawhub.ai/) is the npm-like registry for AI agent skills. Once installed, any Clawhub-compatible agent can use Vanish's scan and cleanup capabilities.
 </details>
 
 <details>
 <summary>Clone locally</summary>
 
 ```bash
-git clone https://github.com/RAMBOXIE/holmes-cleanup
-cd holmes-cleanup
+git clone https://github.com/RAMBOXIE/vanish
+cd vanish
 node scripts/index.mjs scan --name "..." --email "..."
 ```
 </details>
@@ -60,9 +60,9 @@ node scripts/index.mjs scan --name "..." --email "..."
 <summary>Install globally (npm link)</summary>
 
 ```bash
-git clone https://github.com/RAMBOXIE/holmes-cleanup
-cd holmes-cleanup && npm link
-holmes-cleanup scan --name "..." --email "..."
+git clone https://github.com/RAMBOXIE/vanish
+cd vanish && npm link
+vanish scan --name "..." --email "..."
 ```
 </details>
 
@@ -131,7 +131,7 @@ Persistent retry/manual-review/dead-letter queues, HMAC-signed audit trail, tran
 
 ## vs. Competitors
 
-| Feature | Holmes-Cleanup | DeleteMe | Optery | Incogni |
+| Feature | Vanish | DeleteMe | Optery | Incogni |
 |---------|:---:|:---:|:---:|:---:|
 | **Price** | Free (MIT) | $129/yr | $99-249/yr | $99/yr |
 | **Brokers covered** | 200 | 750+ | 350+ | 180+ |
@@ -160,7 +160,7 @@ Persistent retry/manual-review/dead-letter queues, HMAC-signed audit trail, tran
 | **Reputation** | 7 | BrandYourself, Reputation.com, RepDigger, NetReputation |
 | **Identity Resolution** | 7 | FullContact, Throtle, Infutor, Tapad, LiveIntent |
 
-**Browser-assisted opt-out**: 28 brokers support guided removal via `holmes-cleanup opt-out`. Holmes opens your browser to the real opt-out URL, pre-fills the data to paste, and guides you through captchas + email verification. Includes the big names (Spokeo, Whitepages, BeenVerified, Intelius, Radaris), background check (InstantCheckmate, TruthFinder), credit bureaus (LexisNexis, Equifax), and more. See `holmes-cleanup opt-out --help` for the full list.
+**Browser-assisted opt-out**: 58 brokers support guided removal via `vanish opt-out`. Vanish opens your browser to the real opt-out URL, pre-fills the data to paste, and guides you through captchas + email verification. Includes the big names (Spokeo, Whitepages, BeenVerified, Intelius, Radaris), background check (InstantCheckmate, TruthFinder), credit bureaus (LexisNexis, Equifax, Experian, TransUnion), and more. See `vanish opt-out --help` for the full list.
 
 **Live HTTP submission**: 8 brokers have adapters for real HTTP submission via configurable endpoints (default `postman-echo.com` for closed-loop validation). The other 173 are dry-run blueprints with verified opt-out URLs — future batches can extend browser-assisted support to more.
 
@@ -187,37 +187,37 @@ Persistent retry/manual-review/dead-letter queues, HMAC-signed audit trail, tran
 3. **Ask before delete** — export decision gate
 4. **User-selected notifications** — no opt-out pressure
 5. **Minimum credential scope + shortest TTL + post-task wipe**
-6. **HMAC key required in production** — fails loud in dev without `HOLMES_AUDIT_HMAC_KEY`
+6. **HMAC key required in production** — fails loud in dev without `VANISH_AUDIT_HMAC_KEY`
 
 ---
 
 ## Commands
 
-All subcommands work via `holmes-cleanup <cmd>` (after `npm link` or publish) or `node scripts/index.mjs <cmd>` (local) or `npx -p github:RAMBOXIE/holmes-cleanup holmes-cleanup <cmd>` (zero-install).
+All subcommands work via `vanish <cmd>` (after `npm link` or publish) or `node scripts/index.mjs <cmd>` (local) or `npx -p github:RAMBOXIE/vanish vanish <cmd>` (zero-install).
 
 ```bash
 # Privacy scan (no removal, no API calls, 10 seconds)
-holmes-cleanup scan --name "John Doe" --email "j@x.com"
-holmes-cleanup scan --name "..." --output-md ./my-report.md
-holmes-cleanup scan --name "..." --output-json ./my-report.json --json
+vanish scan --name "John Doe" --email "j@x.com"
+vanish scan --name "..." --output-md ./my-report.md
+vanish scan --name "..." --output-json ./my-report.json --json
 
 # Generate a privacy-preserving share card (1200x630 SVG)
 # Safe to post publicly — contains ONLY aggregate score + category stats,
 # no name, email, or phone.
-holmes-cleanup scan --name "..." --share-card ./my-privacy-card.svg
+vanish scan --name "..." --share-card ./my-privacy-card.svg
 
 # Quieter output (for CI / scripting):
-holmes-cleanup scan --name "..." --no-banner --no-color
+vanish scan --name "..." --no-banner --no-color
 
 # Browser-assisted opt-out (opens browser + guides you through 58 real brokers)
-holmes-cleanup opt-out --broker spokeo --email you@example.com --full-name "Your Name"
-holmes-cleanup opt-out --broker spokeo,whitepages,beenverified --email you@example.com --full-name "Your Name"
+vanish opt-out --broker spokeo --email you@example.com --full-name "Your Name"
+vanish opt-out --broker spokeo,whitepages,beenverified --email you@example.com --full-name "Your Name"
 
 # Verify whether past opt-out submissions actually worked (30-day re-check loop)
-holmes-cleanup verify                  # check entries past recheckAt date
-holmes-cleanup verify --all            # check every followUp entry (ignore schedule)
-holmes-cleanup verify --broker spokeo  # check specific broker(s)
-holmes-cleanup verify --no-fetch       # dry-run, just list pending
+vanish verify                  # check entries past recheckAt date
+vanish verify --all            # check every followUp entry (ignore schedule)
+vanish verify --broker spokeo  # check specific broker(s)
+vanish verify --no-fetch       # dry-run, just list pending
 
 # Verify output: ✅ removed / ❌ still-present / ❓ unknown (captcha/timeout/etc)
 # Updates queue state with verification results + writes HMAC-signed audit events.
@@ -246,34 +246,34 @@ holmes-cleanup verify --no-fetch       # dry-run, just list pending
 # follow-up for 30-day re-verification.
 
 # Full interactive wizard (scan → review → cleanup)
-holmes-cleanup wizard
+vanish wizard
 
 # Dry-run cleanup with presets
-holmes-cleanup cleanup --manual --preset spokeo \
+vanish cleanup --manual --preset spokeo \
   --confirm1 YES --confirm2 YES --confirm3 YES \
   --export-before-delete ask --export-answer no
 
 # Live submission (real HTTP against test endpoint)
-holmes-cleanup b1-live run --live --brokers spokeo,thatsthem,peekyou \
+vanish b1-live run --live --brokers spokeo,thatsthem,peekyou \
   --full-name "Test User"
 
 # Queue management
-holmes-cleanup queue list
-holmes-cleanup queue retry --id <retryItemId>
-holmes-cleanup queue resolve --id <manualReviewId> --resolution resolved
+vanish queue list
+vanish queue retry --id <retryItemId>
+vanish queue resolve --id <manualReviewId> --resolution resolved
 
 # Local dashboard (static HTML, no backend)
-holmes-cleanup dashboard data/queue-state.json
+vanish dashboard data/queue-state.json
 # Open dashboard/index.html in browser
 
 # Proof report (audit trail in Markdown)
-holmes-cleanup report ./path/to/execution-result.json
+vanish report ./path/to/execution-result.json
 
 # All 64 tests
 npm test
 ```
 
-Subcommand shortcut: `holmes-scan` is an alias for `holmes-cleanup scan`.
+Subcommand shortcut: `vanish-scan` is an alias for `vanish scan`.
 
 ---
 
@@ -374,4 +374,4 @@ No new `.mjs` file, no registry import. Registry auto-loads from catalog.
 
 ---
 
-**If Holmes-Cleanup helps you, star ⭐ the repo** — it helps others discover a free alternative to $100+/yr privacy services.
+**If Vanish helps you, star ⭐ the repo** — it helps others discover a free alternative to $100+/yr privacy services.

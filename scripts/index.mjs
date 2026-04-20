@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-// Holmes-Cleanup unified CLI router.
+// Vanish unified CLI router.
 // Usage:
-//   holmes-cleanup <subcommand> [args...]
-//   npx github:RAMBOXIE/holmes-cleanup <subcommand> [args...]
-//   npx holmes-cleanup <subcommand> [args...]  (after npm publish)
+//   vanish <subcommand> [args...]
+//   npx github:RAMBOXIE/vanish <subcommand> [args...]
+//   npx vanish <subcommand> [args...]  (after npm publish)
 //
 // Subcommands:
 //   scan       Run the privacy scan across 200 data brokers
@@ -26,7 +26,7 @@ const SUBCOMMANDS = {
   scan:       'scan-demo.mjs',
   'opt-out':  'opt-out.mjs',
   verify:     'verify.mjs',
-  cleanup:    'holmes-cleanup.mjs',
+  cleanup:    'vanish.mjs',
   wizard:     'wizard-demo.mjs',
   'b1-live':  'b1-live.mjs',
   'b1-demo':  'b1-demo.mjs',
@@ -37,48 +37,48 @@ const SUBCOMMANDS = {
 };
 
 const HELP = `
-Holmes-Cleanup — privacy scanner + opt-out orchestrator for 200 data brokers
+Vanish — privacy scanner + opt-out orchestrator for 200 data brokers
 
 Usage:
-  holmes-cleanup <command> [options]
+  vanish <command> [options]
 
 Commands:
   scan        Scan 200 brokers for your privacy exposure (0-100 score)
-              Example: holmes-cleanup scan --name "John Doe" --email "j@x.com"
+              Example: vanish scan --name "John Doe" --email "j@x.com"
 
   opt-out     Browser-assisted opt-out for 58 supported brokers
-              Example: holmes-cleanup opt-out --broker spokeo --email you@example.com
+              Example: vanish opt-out --broker spokeo --email you@example.com
 
   verify      Check if past opt-out submissions actually removed your data
-              Example: holmes-cleanup verify          (check entries past recheckAt)
-                       holmes-cleanup verify --all    (check everything)
+              Example: vanish verify          (check entries past recheckAt)
+                       vanish verify --all    (check everything)
 
   cleanup     Run the opt-out submission workflow (dry-run by default)
-              Example: holmes-cleanup cleanup --manual --preset spokeo \\
+              Example: vanish cleanup --manual --preset spokeo \\
                        --confirm1 YES --confirm2 YES --confirm3 YES \\
                        --export-before-delete ask --export-answer no
 
   wizard      Full interactive wizard (scan → review → cleanup)
-              Example: holmes-cleanup wizard
+              Example: vanish wizard
 
   b1-live     Submit live opt-out requests to configured endpoints
-              Example: holmes-cleanup b1-live run --live --brokers spokeo,peekyou
+              Example: vanish b1-live run --live --brokers spokeo,peekyou
 
   queue       Manage retry / manual-review / dead-letter queues
-              Example: holmes-cleanup queue list
+              Example: vanish queue list
 
   report      Generate a Markdown proof report from execution JSON
-              Example: holmes-cleanup report ./path/to/result.json
+              Example: vanish report ./path/to/result.json
 
   dashboard   Build dashboard JSON from persisted queue state
-              Example: holmes-cleanup dashboard data/queue-state.json
+              Example: vanish dashboard data/queue-state.json
 
   help        Show this help
 
 Quick start:
-  holmes-cleanup scan --name "Your Name" --email "you@example.com"
+  vanish scan --name "Your Name" --email "you@example.com"
 
-Docs: https://github.com/RAMBOXIE/holmes-cleanup
+Docs: https://github.com/RAMBOXIE/vanish
 `;
 
 async function main() {

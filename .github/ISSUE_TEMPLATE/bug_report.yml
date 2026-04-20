@@ -1,5 +1,5 @@
 name: "🐛 Bug report"
-description: "Something in Holmes-Cleanup is broken or behaving unexpectedly."
+description: "Something in Vanish is broken or behaving unexpectedly."
 title: "[bug] <short description>"
 labels: ["bug"]
 body:
@@ -8,7 +8,7 @@ body:
     attributes:
       label: What happened?
       description: "What did you expect? What actually happened?"
-      placeholder: "I ran `holmes-cleanup scan ...` and got ..."
+      placeholder: "I ran `vanish scan ...` and got ..."
     validations:
       required: true
 
@@ -27,7 +27,7 @@ body:
   - type: input
     id: version
     attributes:
-      label: Holmes-Cleanup version
+      label: Vanish version
       description: "From package.json or `git rev-parse --short HEAD`"
       placeholder: "0.2.0 or commit 79656ca"
     validations:

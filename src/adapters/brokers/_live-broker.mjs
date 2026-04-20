@@ -89,7 +89,7 @@ export function createLiveBrokerAdapter({
           method: endpointConfig.method,
           headers: {
             'content-type': 'application/json',
-            'user-agent': endpointConfig.config.userAgentStrategy?.defaultUserAgent || 'HolmesCleanup/0.1',
+            'user-agent': endpointConfig.config.userAgentStrategy?.defaultUserAgent || 'Vanish/0.1',
             ...(input.authHeaders || {})
           },
           body: JSON.stringify({ ...bodyBuilder(request, input), compliance })

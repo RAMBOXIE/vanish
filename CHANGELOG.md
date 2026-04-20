@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Holmes-Cleanup will be documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+All notable changes to Vanish will be documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
@@ -13,7 +13,7 @@ All notable changes to Holmes-Cleanup will be documented here. Format follows [K
   - 58 broker opt-out cards with direct links, captcha warnings, processing time
   - 100% client-side — no server, no tracking, no cookies
   - Deployed via GitHub Actions to GitHub Pages on every push
-  - URL: https://ramboxie.github.io/holmes-cleanup/
+  - URL: https://ramboxie.github.io/vanish/
   - Bundle size: ~145 KB (27 KB gzipped) including the 210-broker catalog
 - **`scan-engine.mjs` refactored to be isomorphic** (Node + browser):
   - Dropped `node:module.createRequire` and `node:crypto`
@@ -56,13 +56,13 @@ Major release: scan → opt-out → verify loop complete. 210 brokers cataloged,
   - Phone lookup: Truecaller, Hiya, USPhoneBook, SpyDialer, RoboKiller, etc.
 - **18-state wizard** (was 13) with scan phase prepended: SCAN_WELCOME → SCAN_INPUT → SCAN_RUNNING → SCAN_REPORT → SCAN_HANDOFF → [existing 13-state cleanup]
 - **Live broker factory** (`_live-broker.mjs`): reusable factory for brokers that support real HTTP submission (currently 8: spokeo, thatsthem, peekyou, addresses, cocofinder, checkpeople, familytreenow, usphonebook)
-- **Unified CLI router** (`scripts/index.mjs`): `holmes-cleanup scan|opt-out|verify|wizard|cleanup|queue|...` subcommands
-- **Zero-install via npx**: `npx github:RAMBOXIE/holmes-cleanup scan --name "..."`
+- **Unified CLI router** (`scripts/index.mjs`): `vanish scan|opt-out|verify|wizard|cleanup|queue|...` subcommands
+- **Zero-install via npx**: `npx github:RAMBOXIE/vanish scan --name "..."`
 - **Clawhub publishing metadata** in `SKILL.md` frontmatter
 - Follow-up queue (`followUp[]` in `data/queue-state.json`) for 30-day re-verification
 
 ### Changed
-- Audit HMAC key now required in production (warns in dev, silent in test) — `HOLMES_AUDIT_HMAC_KEY` env var
+- Audit HMAC key now required in production (warns in dev, silent in test) — `VANISH_AUDIT_HMAC_KEY` env var
 - Secret store upgraded to scrypt KDF + per-secret salt (backward-compatible with legacy SHA-256)
 - Queue state-store added stale-lock detection (30s timeout, PID liveness check)
 - `--simulate transient-error` now works in live mode (was dry-run only)
@@ -71,7 +71,7 @@ Major release: scan → opt-out → verify loop complete. 210 brokers cataloged,
 - Version bumped 0.1.0 → 0.2.0
 
 ### Fixed
-- Hardcoded `D:/Projects/holmes-cleanup` paths replaced with `import.meta.url`-relative paths (wizard engine, 2 test files)
+- Hardcoded `D:/Projects/vanish` paths replaced with `import.meta.url`-relative paths (wizard engine, 2 test files)
 - Queue state lock no longer leaks on process crash (stale detection)
 - Audit canonical JSON handles Date/undefined/circular values via pre-sanitization
 
@@ -84,5 +84,5 @@ Major release: scan → opt-out → verify loop complete. 210 brokers cataloged,
 
 Initial dry-run MVP with 23 brokers and P0 safety gates (manual trigger, triple confirm, export decision). See git history for commit-level detail prior to v0.2.
 
-[Unreleased]: https://github.com/RAMBOXIE/holmes-cleanup/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/RAMBOXIE/holmes-cleanup/releases/tag/v0.2.0
+[Unreleased]: https://github.com/RAMBOXIE/vanish/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/RAMBOXIE/vanish/releases/tag/v0.2.0

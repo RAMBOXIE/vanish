@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import { runHolmesCleanup } from '../src/holmes-cleanup-cli.mjs';
+import { runVanish } from '../src/vanish-cli.mjs';
 
-const result = runHolmesCleanup(process.argv.slice(2));
+const result = runVanish(process.argv.slice(2));
 
 if (result.stdout) {
   process.stdout.write(result.stdout);

@@ -1,4 +1,4 @@
-# TODO — holmes-cleanup
+# TODO — vanish
 
 ## P0 (Critical) — ✅ Done
 - [x] Define unified session structure (trigger/scope/risk/notify/export/credential policy)

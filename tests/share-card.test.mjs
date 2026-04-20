@@ -56,9 +56,9 @@ test('renderShareBanner all lines have consistent width', () => {
   }
 });
 
-test('renderShareBanner contains Holmes GitHub URL', () => {
+test('renderShareBanner contains Vanish GitHub URL', () => {
   const banner = renderShareBanner(mockScanResult(), { color: false });
-  assert.match(banner, /github\.com\/RAMBOXIE\/holmes-cleanup/);
+  assert.match(banner, /github\.com\/RAMBOXIE\/vanish/);
 });
 
 test('renderShareBanner with color=false has no ANSI escapes', () => {
@@ -89,7 +89,7 @@ test('renderShareCardSvg contains score, risk, and CTA', () => {
   assert.match(svg, /\b63\b/);
   assert.match(svg, /HIGH RISK/);
   assert.match(svg, /115 of 210/);
-  assert.match(svg, /npx github:RAMBOXIE\/holmes-cleanup/);
+  assert.match(svg, /npx github:RAMBOXIE\/vanish/);
 });
 
 test('renderShareCardSvg is PRIVACY-PRESERVING (no identity fields possible)', () => {
