@@ -19,13 +19,18 @@ Secondary:
 ## Title
 
 ```
-[Open source] Made a free privacy scanner + opt-out tool for 210 data brokers. Got feedback on HN last week — sharing here for r/privacy input.
+[Open source] Privacy scanner for 210 data brokers + 30 AI training platforms (LinkedIn, Reddit, ChatGPT, etc). Free, local-first, MIT. Sharing for r/privacy feedback after HN.
+```
+
+**Alternative title if the above is too long for mobile**:
+```
+[Open source] Made a free scanner that checks your data exposure across 210 brokers AND which AI companies train on your data (30 platforms).
 ```
 
 **Key phrases that help pass mod filters**:
 - "Open source" in brackets = legit signal
-- "Got feedback on HN" = not a spam account, has context
-- "sharing here for r/privacy input" = framing as asking, not pushing
+- "AI training" hook = timely, r/privacy has been discussing LinkedIn/Reddit AI deals for months
+- "sharing for feedback" = framing as asking, not pushing
 
 ## Body (use Markdown)
 
@@ -52,7 +57,21 @@ an open-source alternative.
    `vanish verify` checks each URL via HTTP — 404 = removed ✅, 200 = still
    present ❌ (time to re-submit), other = unknown.
 
-4. **HMAC-signed audit trail** for proof of submissions (useful for
+4. **AI training exposure scan** (this is the part I'm most curious about
+   your feedback on): `vanish ai-scan --all` checks 30 LLM-training
+   platforms — ChatGPT, Claude, Gemini, Copilot, LinkedIn, Reddit,
+   Twitter/X (Grok), Meta AI, Grammarly, Notion AI, Gmail, Zoom, and 18
+   others. Classifies each as `exposed` (opted-in by default), `licensed`
+   (already sold to AI companies — Reddit/Tumblr/Medium), `safe` (opted-out
+   by default — Anthropic Claude), or `action-needed`.
+   
+   Most people don't know: LinkedIn flipped its AI-training toggle to ON
+   by default in Sept 2024. Reddit signed a reported $60M/yr Google training
+   deal. Twitter/X auto-feeds everything to Grok. Meta made users file GDPR
+   objections. All in the last 18 months. **Commercial services don't check
+   any of this.**
+
+5. **HMAC-signed audit trail** for proof of submissions (useful for
    journalists, lawyers, or anyone who needs GDPR/CCPA receipts).
 
 **Differentiation vs commercial services**:
@@ -61,6 +80,7 @@ an open-source alternative.
 |--|:--:|:--:|:--:|:--:|
 | Price | Free (MIT) | $129+/yr | $99+/yr | $99+/yr |
 | Brokers | 210 | 750+ | 350+ | 180+ |
+| AI training exposure scan | ✅ (30 platforms) | ❌ | ❌ | ❌ |
 | Open source | ✅ | ❌ | ❌ | ❌ |
 | Local-first (no data sent) | ✅ | ❌ | ❌ | ❌ |
 | Covers all 3 credit bureaus | ✅ | ❌ | ❌ | ❌ |
@@ -77,11 +97,14 @@ an open-source alternative.
 
 **Try it**:
 - Browser: https://ramboxie.github.io/vanish/
-- CLI: `npx github:RAMBOXIE/vanish scan --name "Your Name"`
+- Broker scan: `npx github:RAMBOXIE/vanish scan --name "Your Name"`
+- AI training scan: `npx github:RAMBOXIE/vanish ai-scan --all`
+  (takes no personal info — just checks which of the 30 platforms you use)
 
 Would love to hear:
 - Which brokers I'm missing that r/privacy folks care about?
 - Non-US brokers I should prioritize (EU/UK/JP/etc.)?
+- Which AI platforms should I add next? (current list leans US/EN)
 - Anyone tried the commercial services — what did they do well that I
   should emulate?
 

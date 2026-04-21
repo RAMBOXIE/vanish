@@ -6,12 +6,13 @@ https://news.ycombinator.com/submit
 ## Title (copy exactly, < 80 chars)
 
 ```
-Show HN: Vanish – privacy scanner + opt-out for 58 data brokers
+Show HN: Vanish – scan 210 data brokers + 30 AI training platforms
 ```
 
 **Alternative titles if the above feels overused**:
-- `Show HN: Vanish – scan 210 data brokers in 10 seconds, open-source`
-- `Show HN: Vanish – open-source DeleteMe alternative with 30-day verify loop`
+- `Show HN: Vanish – find who's training AI on your data (30 platforms, open-source)`
+- `Show HN: Vanish – open-source DeleteMe alternative + AI training opt-out scan`
+- `Show HN: Vanish – privacy scanner for 210 data brokers, MIT licensed`
 
 ## URL field
 
@@ -41,6 +42,12 @@ What's in the repo:
   submit (~3 seconds per broker).
 • 30-day HTTP liveness verify (`vanish verify`) proves whether removal
   actually worked — classifies each as removed / still-present / unknown.
+• AI training exposure scan (`vanish ai-scan`): 30 LLM-training platforms
+  (LinkedIn, Reddit, ChatGPT, Claude, Gemini, Copilot, Grammarly + 23 more)
+  classified as exposed / licensed / safe / action-needed. Every big platform
+  quietly flipped to opted-in-by-default in 2024-2025 — LinkedIn's AI-training
+  toggle, Reddit's Google deal, Twitter/X feeding Grok, Meta's forced opt-in.
+  DeleteMe / Optery / Incogni don't cover any of this.
 • HMAC-signed audit trail; encrypted local secret store (scrypt + per-secret
   salt).
 • Covers all 3 US credit bureaus (Equifax / Experian / TransUnion) —

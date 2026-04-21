@@ -4,17 +4,32 @@ Pre-written posts and response templates for launching Vanish to the
 privacy / open-source community.
 
 **Before launching, also do**:
-1. Record a 30-second asciinema demo and embed in main README
+1. (Optional) Record a 30-second asciinema or gif demo — `vanish ai-scan --all`
+   has the strongest visual punch (colored banner + score + quick wins)
 2. Verify GitHub Pages is live at https://ramboxie.github.io/vanish/
-3. Update `git remote set-url origin https://github.com/RAMBOXIE/vanish.git`
-4. Run `npm test` one last time (expect 109 passing)
+3. Run `npm test` one last time (expect 129 passing — 109 original + 20 ai-scan)
+
+## Positioning
+
+Two killer claims for the posts:
+
+1. **"Free alternative to DeleteMe / Optery / Incogni"** — familiar frame,
+   clear value prop (saves $99-$129/yr).
+2. **"Only tool that checks AI training exposure across 30 LLM platforms"** —
+   unique angle, no commercial competitor covers this. LinkedIn (Sept 2024),
+   Reddit (Google deal 2024), Twitter/X (Grok), Meta (forced opt-in) all
+   flipped defaults to opted-in-by-default while no one was looking.
+
+Leading with AI scan hooks the r/privacy crowd that's been discussing
+these policy changes for months. Leading with brokers hooks the HN crowd
+that's used DeleteMe and wants a cheaper/cleaner alternative.
 
 ## Files
 
 - [`hn-show-hn.md`](./hn-show-hn.md) — Hacker News Show HN post (title, URL, author comment, timing)
 - [`reddit-privacy.md`](./reddit-privacy.md) — r/privacy post (wait 48h after HN for social proof)
-- [`faq.md`](./faq.md) — 15 predicted technical + business questions with answers
-- [`response-templates.md`](./response-templates.md) — 10 response templates for negative / tricky comments
+- [`faq.md`](./faq.md) — 18 predicted Q&A (tech, scope, business, performance, AI training)
+- [`response-templates.md`](./response-templates.md) — 12 response templates for negative / tricky comments
 
 ## Recommended launch sequence
 

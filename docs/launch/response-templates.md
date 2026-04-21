@@ -162,6 +162,56 @@ If it DOES get adopted, that maintenance burden becomes sustainable.
 If not, the catalog alone is valuable as a community artifact.
 ```
 
+## 11. "This is just a list of opt-out URLs with extra steps. I could google it."
+
+```
+Mostly true for a single broker. What Vanish adds:
+
+1. Research consolidation: each of the 210 brokers + 30 AI platforms
+   has the verified opt-out URL, required form fields, captcha type,
+   and estimated time already documented. That's ~15 min of research
+   per entry, done once.
+
+2. The scoring heuristic: tells you WHERE to spend effort first,
+   instead of blindly clicking 210 URLs. (A 5-factor weighted model
+   across data type, category risk, jurisdiction, broker reach, and
+   opt-out complexity.)
+
+3. 30-day verify loop: records each submission, checks URL liveness on
+   day 30, tells you what actually got removed. Most people submit and
+   then forget to check — data silently reappears.
+
+4. HMAC-signed audit trail: receipts for GDPR/CCPA evidence.
+
+If you're fine doing 15 minutes of research × 210 entries + building
+your own follow-up tracker + trusting your memory for day-30 checks,
+then yes — you don't need Vanish. For everyone else, we did that work
+once so you don't have to.
+```
+
+## 12. "Why do I need a separate tool to tell me LinkedIn trains AI on my data — it's in the ToS"
+
+```
+Fair — it's in the ToS. Three reasons a tool helps:
+
+1. Nobody reads 30 ToS documents. The scan surfaces a one-line
+   classification (exposed / licensed / safe) per platform in 10
+   seconds, vs ~4 hours of ToS reading.
+
+2. Default consent is the actual state that matters — and every
+   major platform flipped to opted-in-by-default in 2024-2025,
+   quietly. LinkedIn Sept 2024, Reddit Google deal early 2024,
+   Twitter/X → Grok permanent, Meta forced-opt-in with a GDPR-objection
+   escape hatch. Most users don't know the toggle exists.
+
+3. The tool gives you the exact URL to flip the toggle — which is
+   often buried 4 clicks deep in settings. For LinkedIn: 
+   Settings → Data Privacy → "Data for Generative AI improvement" → Off.
+
+It's not surfacing hidden info — it's surfacing *actionable* info at
+the right time.
+```
+
 ---
 
 ## Bonus: Generic "thank you" template for positive comments

@@ -102,6 +102,76 @@ the industry.
 
 ---
 
+## AI Training Exposure
+
+### Q5.5: What's the AI training exposure scan?
+
+```
+Run `vanish ai-scan --all` (takes no personal info — just platform names).
+It checks 30 LLM-training platforms and classifies each as:
+
+- exposed: Your data is being used to train AI, default opt-in
+  (LinkedIn, Twitter/X → Grok, Meta AI, ChatGPT free tier, Copilot)
+- licensed: Platform already sold your content to AI companies — 
+  opt-out only affects FUTURE training (Reddit → Google, Tumblr → OpenAI,
+  Medium → OpenAI, Stack Overflow → OpenAI partners)
+- safe: Default opted-OUT (Anthropic Claude, Notion AI enterprise plans,
+  Figma, ArtStation)
+- action-needed: Policy unclear, recent changes, or hard opt-out path
+
+For each "exposed" platform you get the opt-out URL, difficulty rating,
+and estimated time. Easy ones take ~60 seconds (LinkedIn, Twitter/X).
+Hard ones are GDPR/CCPA email-only (Meta EU, Gmail Smart Compose).
+
+Unique to Vanish — DeleteMe / Optery / Incogni don't cover this at all.
+```
+
+### Q5.6: Can I actually opt out of AI training, or is it theater?
+
+```
+Partial honesty is: it depends on the platform.
+
+REAL opt-out (takes effect going forward):
+- LinkedIn, Twitter/X, Meta AI, Google Gemini, ChatGPT settings
+- These respect the toggle and don't train on your future data
+
+SEMI-REAL opt-out (future-only, past is already sold):
+- Reddit (your old posts are already in Google's training set — you
+  can only prevent future harvesting)
+- Tumblr, Medium, Stack Overflow (same story, data license already
+  executed)
+
+NEAR-IMPOSSIBLE opt-out:
+- Data already scraped pre-2024 by Common Crawl, The Pile, LAION — 
+  those datasets are copied thousands of times. Your 2020 Reddit
+  comment is not coming out of GPT-4.
+
+Vanish is explicit about this — each platform has a `notes` field
+explaining whether opt-out is "prospective only" or actually effective.
+```
+
+### Q5.7: Why just 30 platforms? What about [platform X]?
+
+```
+30 is the launch set, covering the platforms most likely to appear
+in a typical user's life:
+
+- Chat AI: ChatGPT, Claude, Gemini, Copilot, Meta AI, Perplexity
+- Social → AI: LinkedIn, Reddit, Twitter/X, Facebook, Pinterest, Quora
+- Content → AI: Tumblr, Medium, Stack Overflow
+- Productivity: Grammarly, Notion AI, Otter, Zoom, Slack, Gmail, Outlook
+- Dev tools: GitHub Copilot, Cursor
+- Creative: Adobe Firefly, Canva, DeviantArt, Shutterstock, Figma, ArtStation
+
+Catalog is `src/ai-scanner/ai-platforms-catalog.json` — same 8-line
+JSON structure per platform as brokers. PRs for additions welcome.
+
+Next batch I'm planning: Discord (recent AI policy), Slack AI,
+Perplexity Pro, Sora, Runway, Midjourney training corpus.
+```
+
+---
+
 ## Scope / Roadmap
 
 ### Q6: Why only 58 browser-assisted out of 210?
