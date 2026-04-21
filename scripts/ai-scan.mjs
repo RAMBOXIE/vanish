@@ -30,10 +30,21 @@ function parseArgs(argv) {
   return out;
 }
 
-const args = parseArgs(process.argv.slice(2));
+// Node 20 on macOS can return from process.exit() before stdout/stderr
+// pipe buffers flush, making spawnSync tests see empty output. Using
+// a promisified write that waits for the drain callback guarantees
+// the buffer is flushed before we exit on every platform.
+function writeAsync(stream, text) {
+  return new Promise((resolve, reject) => {
+    stream.write(text, (err) => (err ? reject(err) : resolve()));
+  });
+}
 
-if (args.help || args.h) {
-  process.stdout.write(`
+async function main() {
+  const args = parseArgs(process.argv.slice(2));
+
+  if (args.help || args.h) {
+    await writeAsync(process.stdout, `
 AI training exposure scan — check which LLM companies have your data.
 
 Usage:
@@ -100,46 +111,51 @@ Examples:
 Note: This scan requires NO personal data — we only need to know which
 platforms you have accounts on. Nothing is transmitted anywhere.
 `);
-  process.exit(0);
-}
+    process.exit(0);
+  }
 
-// Build usage map from flags
-let usage;
-if (args.all) {
-  usage = Object.fromEntries(Object.keys(catalog.platforms).map(k => [k, true]));
-} else {
-  usage = buildUsageFromFlags(args, catalog);
-}
+  // Build usage map from flags
+  let usage;
+  if (args.all) {
+    usage = Object.fromEntries(Object.keys(catalog.platforms).map(k => [k, true]));
+  } else {
+    usage = buildUsageFromFlags(args, catalog);
+  }
 
-const usedCount = Object.values(usage).filter(Boolean).length;
-if (usedCount === 0) {
-  process.stderr.write(`
+  const usedCount = Object.values(usage).filter(Boolean).length;
+  if (usedCount === 0) {
+    await writeAsync(process.stderr, `
 No platforms specified. Use --help to see flags, or:
   vanish ai-scan --linkedin --twitter --chatgpt
   vanish ai-scan --use linkedin,twitter,chatgpt
   vanish ai-scan --all
 `);
-  process.exit(1);
+    process.exit(1);
+  }
+
+  const result = runAiScan(usage, { catalog });
+
+  // Outputs
+  if (args['output-md']) {
+    const outPath = path.resolve(args['output-md']);
+    fs.mkdirSync(path.dirname(outPath), { recursive: true });
+    fs.writeFileSync(outPath, renderAiScanReport(result));
+    await writeAsync(process.stdout, `Wrote Markdown report: ${outPath}\n`);
+  }
+
+  if (args.json) {
+    await writeAsync(process.stdout, JSON.stringify(result, null, 2) + '\n');
+    process.exit(0);
+  }
+
+  // Default output: banner + markdown report
+  if (!args['no-banner']) {
+    await writeAsync(process.stdout, renderAiScanBanner(result, { color: !args['no-color'] }) + '\n\n');
+  }
+
+  await writeAsync(process.stdout, renderAiScanReport(result) + '\n');
 }
 
-const result = runAiScan(usage, { catalog });
-
-// Outputs
-if (args['output-md']) {
-  const outPath = path.resolve(args['output-md']);
-  fs.mkdirSync(path.dirname(outPath), { recursive: true });
-  fs.writeFileSync(outPath, renderAiScanReport(result));
-  process.stdout.write(`Wrote Markdown report: ${outPath}\n`);
-}
-
-if (args.json) {
-  process.stdout.write(JSON.stringify(result, null, 2) + '\n');
-  process.exit(0);
-}
-
-// Default output: banner + markdown report
-if (!args['no-banner']) {
-  process.stdout.write(renderAiScanBanner(result, { color: !args['no-color'] }) + '\n\n');
-}
-
-process.stdout.write(renderAiScanReport(result) + '\n');
+main().catch((err) => {
+  process.stderr.write(`ai-scan error: ${err.message}\n`, () => process.exit(1));
+});
