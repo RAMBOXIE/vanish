@@ -1,0 +1,289 @@
+{
+  "version": 1,
+  "lastVerified": "2026-04",
+  "categories": {
+    "face-search": "Upload a photo, find matches across indexed web (PimEyes-style)",
+    "reverse-image": "Reverse image search with face-recognition features (Yandex, Google Lens)",
+    "face-database": "Face databases not publicly searchable (Clearview AI — LE-only) but with opt-out rights"
+  },
+  "accessModels": {
+    "free": "Anyone can run a search without paying",
+    "freemium": "Free tier shows limited/blurred results; paid unlocks full",
+    "paid": "Requires subscription or per-search fee",
+    "restricted": "Not publicly accessible (law enforcement / enterprise only)"
+  },
+  "services": {
+    "pimeyes": {
+      "displayName": "PimEyes",
+      "category": "face-search",
+      "accessModel": "freemium",
+      "searchUrl": "https://pimeyes.com/en",
+      "optOutUrl": "https://pimeyes.com/en/opt-out-form",
+      "pricing": "Free tier: blurred thumbnails + domain only. PROtect monitoring: $29.99+/mo. Unlimited search: $14.99-$299.99/mo tiered.",
+      "jurisdiction": "global (index crawls public web)",
+      "knownFor": "The most infamous face-search service. Billions of web pages indexed. Has been used for stalking, doxxing, adult-content identification.",
+      "estimatedSeconds": 180,
+      "signalAsked": "pimeyes",
+      "notes": "Opt-out form is FREE (one-time) but approval is discretionary and can take 30-60 days. PROtect is the paid continuous-monitoring subscription. Investigated by multiple EU DPAs for GDPR violations.",
+      "scanWalkthrough": {
+        "steps": [
+          "Open pimeyes.com",
+          "Click the large 'Upload your photo' button on homepage",
+          "Either use webcam or upload a clear front-facing selfie (jpg/png, max 5MB)",
+          "Complete the reCAPTCHA challenge",
+          "Wait ~15-30 seconds for results to render",
+          "Free account shows: thumbnails blurred, domain names visible. Paid account shows: full URLs + unblurred thumbnails"
+        ],
+        "verification": "Results page displays 'X matches found' with grid of thumbnails + source domain list.",
+        "privacyNote": "PimEyes keeps your uploaded photo for 48h by default — create an account and delete it immediately after your scan, or use the 'Private Search' toggle (paid)."
+      },
+      "optOutWalkthrough": {
+        "targetSetting": "Opt-out form",
+        "steps": [
+          "Open pimeyes.com/en/opt-out-form (direct link)",
+          "Read and accept the disclaimers about irreversibility",
+          "Upload 1-3 clear photos of yourself (front-facing, face visible, sunglasses off)",
+          "Enter the email you want confirmations sent to",
+          "For EU/UK users: optionally cite GDPR Article 17 (right to erasure) in the message field",
+          "Submit the form"
+        ],
+        "verification": "Email confirmation arrives within 24-72h. Full removal takes 7-30 days. May require additional photo verification if matches are ambiguous.",
+        "tierOverrides": "PROtect subscribers ($29.99+/mo) get continuous monitoring — new matches auto-flagged for removal. Free one-time opt-out is sufficient for most people but doesn't cover future indexing."
+      }
+    },
+    "facecheck-id": {
+      "displayName": "FaceCheck.ID",
+      "category": "face-search",
+      "accessModel": "freemium",
+      "searchUrl": "https://facecheck.id/",
+      "optOutUrl": "https://facecheck.id/optout",
+      "pricing": "Free: limited results. Premium: $5-$40/mo tiered.",
+      "jurisdiction": "global",
+      "knownFor": "Positioned as 'find who a person really is'. Growing competitor to PimEyes. Less comprehensive index but less restrictive on result details at free tier.",
+      "estimatedSeconds": 120,
+      "signalAsked": "facecheck",
+      "notes": "FaceCheck markets heavily to romance-scam detection / dating-app verification. Quality is lower than PimEyes but still sufficient for doxxing.",
+      "scanWalkthrough": {
+        "steps": [
+          "Open facecheck.id",
+          "Click 'Upload a photo' or drag an image to the upload box",
+          "Complete captcha",
+          "Wait ~10-20 seconds for results",
+          "Free tier: see thumbnails + partial URLs. Premium: full URLs + confidence scores"
+        ],
+        "verification": "Results page displays 'Score X/100' match confidence with thumbnail results."
+      },
+      "optOutWalkthrough": {
+        "targetSetting": "Opt-out request form",
+        "steps": [
+          "Open facecheck.id/optout",
+          "Upload 1-2 photos of yourself (front-facing recommended)",
+          "Enter email for confirmation",
+          "Provide government ID or other identity proof (may be requested)",
+          "Submit"
+        ],
+        "verification": "Confirmation email within 24-48h. Removal typically 7-14 days.",
+        "tierOverrides": null
+      }
+    },
+    "findclone": {
+      "displayName": "FindClone",
+      "category": "face-search",
+      "accessModel": "paid",
+      "searchUrl": "https://findclone.ru/",
+      "optOutUrl": "https://findclone.ru/contact",
+      "pricing": "$5 per search OR subscription (varies).",
+      "jurisdiction": "global (heavy Russian/Slavic index via VK.com scraping)",
+      "knownFor": "Russian service that scrapes VKontakte (Russian Facebook) + wider web. Best coverage for anyone with Slavic/Russian online presence.",
+      "estimatedSeconds": 120,
+      "signalAsked": "findclone",
+      "notes": "Pay-per-search model. No free tier. Has been used by journalists to identify Russian soldiers in Ukraine (BBC, Bellingcat investigations). Also a stalking tool in domestic abuse cases.",
+      "scanWalkthrough": {
+        "steps": [
+          "Open findclone.ru (interface is in Russian — use browser auto-translate)",
+          "Register an account (requires email + phone)",
+          "Purchase credits ($5 per search minimum)",
+          "Upload a photo",
+          "View results: matches primarily from VK.com + other Russian social networks"
+        ],
+        "verification": "Paid results show VK profile links, photo sources, similarity scores.",
+        "privacyNote": "Uses your phone number for account — use a burner if concerned. Service has Russian jurisdiction — consider if you're OK with that."
+      },
+      "optOutWalkthrough": {
+        "targetSetting": "Contact form removal request",
+        "steps": [
+          "Open findclone.ru/contact",
+          "Compose email to support requesting removal of biometric data",
+          "Include your VK profile link (primary data source) if applicable",
+          "Request deletion of your facial signature from their index",
+          "If in EU: cite GDPR Article 17"
+        ],
+        "verification": "Response varies. Russian data protection law (152-FZ) does permit removal requests, but enforcement on foreign services is weak. Consider also opting out of VK directly.",
+        "tierOverrides": null
+      }
+    },
+    "lenso": {
+      "displayName": "Lenso",
+      "category": "face-search",
+      "accessModel": "freemium",
+      "searchUrl": "https://lenso.ai/",
+      "optOutUrl": "https://lenso.ai/contact",
+      "pricing": "Free: limited searches. Premium: ~$15-30/mo.",
+      "jurisdiction": "global (EU-based — Polish)",
+      "knownFor": "Newer (2024) Polish face-search service. Markets itself as 'GDPR-compliant' alternative. Smaller index than PimEyes but growing.",
+      "estimatedSeconds": 90,
+      "signalAsked": "lenso",
+      "notes": "EU jurisdiction means your GDPR rights are effectively enforceable. Less comprehensive index = lower privacy risk but also less useful as a scanning tool.",
+      "scanWalkthrough": {
+        "steps": [
+          "Open lenso.ai",
+          "Click 'Upload Image' (accepts jpg/png/webp)",
+          "Choose 'Face search' mode (vs. general image search)",
+          "Wait ~10 seconds",
+          "Free tier shows a few results; create account for more"
+        ],
+        "verification": "Results page shows similarity-scored matches."
+      },
+      "optOutWalkthrough": {
+        "targetSetting": "GDPR data deletion request",
+        "steps": [
+          "Open lenso.ai/contact",
+          "Request deletion under GDPR Article 17 (right to erasure)",
+          "Provide 1-2 photos of yourself for identity verification",
+          "Provide email for confirmation"
+        ],
+        "verification": "EU-based service — must respond within 30 days under GDPR. Removal typically 7-14 days.",
+        "tierOverrides": null
+      }
+    },
+    "tineye": {
+      "displayName": "TinEye",
+      "category": "reverse-image",
+      "accessModel": "free",
+      "searchUrl": "https://tineye.com/",
+      "optOutUrl": "https://tineye.com/contact",
+      "pricing": "Free for individuals. API paid.",
+      "jurisdiction": "Canada",
+      "knownFor": "Oldest reverse-image search. Indexes 67B+ images. NOT face-specific — finds identical/near-duplicate images across the web.",
+      "estimatedSeconds": 60,
+      "signalAsked": "tineye",
+      "notes": "Unlike PimEyes, TinEye finds the same EXACT image (not other photos of same face). Good for tracking if your profile picture has been scraped/reused. Zero face-recognition component.",
+      "scanWalkthrough": {
+        "steps": [
+          "Open tineye.com",
+          "Click 'Upload' or paste an image URL",
+          "TinEye returns all web pages that host the same or near-duplicate image",
+          "Results sorted by: best match, most changed, oldest, newest",
+          "No login required"
+        ],
+        "verification": "Results page shows 'X results' with thumbnail grid + source page URLs."
+      },
+      "optOutWalkthrough": {
+        "targetSetting": "Image removal request (contact form)",
+        "steps": [
+          "Open tineye.com/contact",
+          "TinEye doesn't index face data so there's nothing to 'opt out' per se",
+          "If a specific image of yours is indexed: request removal via their contact form",
+          "Better long-term fix: find each source page that hosts the image and contact THEIR webmaster"
+        ],
+        "verification": "TinEye responds to DMCA takedowns for copyright-owned images but doesn't have a blanket 'remove me' flow.",
+        "tierOverrides": null
+      }
+    },
+    "yandex-images": {
+      "displayName": "Yandex Images",
+      "category": "reverse-image",
+      "accessModel": "free",
+      "searchUrl": "https://yandex.com/images/",
+      "optOutUrl": "https://yandex.com/support/search/troubleshooting/delete-snippet.html",
+      "pricing": "Free",
+      "jurisdiction": "Russia",
+      "knownFor": "Russian search engine with the BEST general-purpose reverse image search — including implicit face recognition. Widely used by OSINT researchers for identifying people in photos.",
+      "estimatedSeconds": 30,
+      "signalAsked": "yandex",
+      "notes": "Not officially a face-search tool, but its reverse-image algorithm is strong enough to find 'same face, different photo' matches. Routinely used in OSINT investigations (Bellingcat etc.). Russian jurisdiction is a data sovereignty concern.",
+      "scanWalkthrough": {
+        "steps": [
+          "Open yandex.com/images",
+          "Click the camera icon in the search bar",
+          "Upload a photo or paste URL",
+          "Yandex returns exact + near-matches + 'similar faces' section",
+          "No login needed"
+        ],
+        "verification": "Results include a 'Faces' or 'Similar' section below the exact-match results — this is where face-matching lives."
+      },
+      "optOutWalkthrough": {
+        "targetSetting": "Search result removal request",
+        "steps": [
+          "Open yandex.com/support/search/troubleshooting/delete-snippet.html",
+          "Submit a request to remove specific URLs from search results",
+          "This removes Yandex's indexing but NOT the source website",
+          "For facial signature removal: harder — contact support@yandex-team.ru with identity proof"
+        ],
+        "verification": "Removal from search results typically 7-14 days if justified (copyright, dead link, personal info).",
+        "tierOverrides": "Yandex will NOT delete its underlying face-recognition model based on your request. Only specific indexed pages can be removed."
+      }
+    },
+    "google-lens": {
+      "displayName": "Google Lens",
+      "category": "reverse-image",
+      "accessModel": "free",
+      "searchUrl": "https://lens.google.com/",
+      "optOutUrl": "https://support.google.com/websearch/troubleshooter/3111061",
+      "pricing": "Free",
+      "jurisdiction": "US (global service)",
+      "knownFor": "Google's reverse image search. Deliberately limited face-matching (Google disabled direct face search after 2011 controversy). Still useful for finding duplicate images of you.",
+      "estimatedSeconds": 30,
+      "signalAsked": "google-lens",
+      "notes": "Google intentionally does NOT show 'same face, different photo' results. Will show: the same image on other sites, visually similar objects, products. Limited as a face-scanner but good for image-of-you tracking.",
+      "scanWalkthrough": {
+        "steps": [
+          "Open lens.google.com (or right-click any image in Chrome → 'Search image with Google Lens')",
+          "Upload or paste image",
+          "Scroll results — 'visual matches' and 'exact matches' are the useful sections",
+          "Google does NOT surface face-match results"
+        ],
+        "verification": "Lens shows 'visual matches' grid. If your face appears in a source that's been scraped into Common Crawl / Google index, it'll show up."
+      },
+      "optOutWalkthrough": {
+        "targetSetting": "Remove personal info from Google Search",
+        "steps": [
+          "Open support.google.com/websearch/troubleshooter/3111061 (direct link)",
+          "Use the 'Results about you' tool: myactivity.google.com/results-about-you",
+          "Enter your name, aliases, phone, email, address",
+          "Google flags matching results across its index including images",
+          "Review + approve removal requests (you get notified when new matches appear)"
+        ],
+        "verification": "Google's 'Results about you' tool emails you when new matches are found. Removal from Google search doesn't remove from source sites, but de-indexes them effectively.",
+        "tierOverrides": "This covers Google Search + Google Images + Lens matches. Separate from YouTube/Maps/other Google surfaces."
+      }
+    },
+    "clearview-ai": {
+      "displayName": "Clearview AI",
+      "category": "face-database",
+      "accessModel": "restricted",
+      "searchUrl": null,
+      "optOutUrl": "https://www.clearview.ai/privacy/requests",
+      "pricing": "Law enforcement and private-sector clients only. Price per-seat, enterprise contracts.",
+      "jurisdiction": "US (with offices in multiple countries)",
+      "knownFor": "The most controversial face database. 40+ billion images scraped from social media. Sued + fined in EU, UK, Canada, Australia. Used by 3000+ US police departments. Individual users CANNOT search it.",
+      "estimatedSeconds": 0,
+      "signalAsked": "clearview",
+      "notes": "You can't scan yourself in Clearview — it's LE-only. But you CAN request removal under CCPA (California), GDPR (EU), or similar rights. Clearview is LEGALLY REQUIRED to delete your data upon request in many jurisdictions.",
+      "scanWalkthrough": null,
+      "optOutWalkthrough": {
+        "targetSetting": "CCPA / GDPR deletion request",
+        "steps": [
+          "Open clearview.ai/privacy/requests",
+          "Select your jurisdiction (CA = CCPA, EU/UK = GDPR, etc.)",
+          "Upload 1-2 clear photos of yourself (front-facing)",
+          "Provide government ID for identity verification (passport or driver's license)",
+          "State: 'I request deletion of my biometric data and all associated images under [CCPA §1798.105 / GDPR Article 17]'",
+          "Submit"
+        ],
+        "verification": "Required to respond within 45 days (CCPA) or 30 days (GDPR). Clearview has complied with thousands of requests. Deletion is (reportedly) honored — but verification is difficult since you can't search their index yourself.",
+        "tierOverrides": "Under Illinois BIPA, Clearview is banned from collecting biometric data of IL residents — if you're in Illinois, you have stronger rights. Class action settlements have required blanket deletions (Illinois 2022)."
+      }
+    }
+  }
+}

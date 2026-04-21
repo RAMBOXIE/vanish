@@ -5,6 +5,20 @@ All notable changes to Vanish will be documented here. Format follows [Keep a Ch
 ## [Unreleased]
 
 ### Added
+- **👤 Face-Search Scanner + Opt-Out** (`src/face-scanner/`, new subcommands `vanish face-scan` + `vanish face-opt-out`):
+  - New catalog: 8 face-recognition services (PimEyes, FaceCheck.ID, FindClone, Lenso, TinEye, Yandex Images, Google Lens, Clearview AI)
+  - Each service has: category (face-search / reverse-image / face-database), accessModel (free / freemium / paid / restricted), jurisdiction, pricing, knownFor description
+  - `vanish face-scan` — opens each service's search page in your browser and prints a step-by-step walkthrough of how to upload your selfie + what free vs paid tiers show. **Vanish never handles your photo** — you upload it yourself on each service's own page
+  - `vanish face-opt-out` — browser-assisted opt-out request for all 8 services including Clearview AI (where individuals can't even search themselves but have CCPA/GDPR deletion rights)
+  - Per-service opt-out walkthroughs encode the real form flow (PimEyes: upload 1-3 photos + identity verification + email confirmation; Clearview: CCPA/GDPR request with government ID; Yandex: per-URL removal via search console)
+  - Clearview AI gets 60-day reverify (slower processing); others 30-day reverify
+  - Follow-up entries use `kind: 'face-service'` to distinguish from broker/AI opt-outs — shared queue
+  - HMAC-signed audit trail with jurisdiction field (important for GDPR/CCPA evidence)
+  - `--free-only` flag filters to services without paid tier; `--all` covers every service
+  - Privacy notes built into scan walkthroughs — e.g., "PimEyes retains uploads 48h — create an account and delete after"
+- 21 new tests (`tests/face-scan.test.mjs`). Total test count: 142 → 163
+- Catalog at [`src/face-scanner/face-services-catalog.json`](src/face-scanner/face-services-catalog.json). All 8 services verified April 2026
+
 - **🎯 AI Training Opt-Out** (`scripts/ai-opt-out.mjs`, new subcommand `vanish ai-opt-out`):
   - Browser-assisted opt-out for 26 of the 30 AI platforms (4 are already safe by default)
   - Each platform has a `walkthrough` entry in `ai-platforms-catalog.json` (upgraded to schema v2):

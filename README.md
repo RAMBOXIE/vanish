@@ -1,23 +1,28 @@
 # Vanish
 
-> 🔍 **Scan 210 data brokers + 30 AI-training platforms in 10 seconds.** The only open-source privacy scanner that also checks **AI training exposure** — something DeleteMe ($129+/yr), Optery ($99+/yr), and Incogni ($99+/yr) don't offer at any price.
+> 🔍 **Scan 210 data brokers + 30 AI platforms + 8 face-search engines.** The only open-source privacy scanner that covers **AI training exposure AND face-recognition brokers** (PimEyes, Clearview) — things DeleteMe ($129+/yr), Optery ($99+/yr), and Incogni ($99+/yr) don't offer at any price.
 
-`210 brokers · 30 AI platforms · 58 + 26 browser-assisted opt-outs · all 3 US credit bureaus · 30/60-day verify loops · 0 data leaves your machine`
+`210 brokers · 30 AI platforms · 8 face-search services · 58 + 26 + 8 browser-assisted opt-outs · all 3 US credit bureaus · 30/60-day verify loops · 0 data leaves your machine`
 
 [![Tests](https://github.com/RAMBOXIE/vanish/actions/workflows/test.yml/badge.svg)](https://github.com/RAMBOXIE/vanish/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](https://nodejs.org)
-[![Brokers](https://img.shields.io/badge/data_brokers-210-blue)](#broker-coverage)
+[![Brokers](https://img.shields.io/badge/data_brokers-210-blue)](#broker-coverage-210-brokers)
 [![AI Platforms](https://img.shields.io/badge/AI_platforms-30-purple)](#ai-training-exposure-protection)
-[![Opt-Out](https://img.shields.io/badge/browser--assisted%20opt--out-58+26-green)](#commands)
+[![Face Services](https://img.shields.io/badge/face_services-8-orange)](#face-search-exposure-protection)
+[![Opt-Out](https://img.shields.io/badge/browser--assisted%20opt--out-58+26+8-green)](#commands)
 
-Vanish protects you from **two distinct privacy threats** that both exploded in the last 18 months:
+Vanish protects you from **three distinct privacy threats** that all exploded in the last 24 months:
 
 🏢 **Data brokers** — 210 firms (Spokeo, Whitepages, Acxiom, LexisNexis…) collect + resell your personal data for $200-500/yr per person. DeleteMe charges $129+/yr to fight them. **Vanish does the same — free, self-hosted, and auditable.**
 
-🤖 **AI training exposure** — In 2024-2025, every major platform silently flipped to **opted-in by default**: LinkedIn added AI training toggle ON for all users (Sept 2024), Reddit signed a ~$60M/yr Google training deal, Twitter/X auto-feeds Grok, Meta forced users to file GDPR objections. Commercial privacy services **ignore this entire category**. **Vanish is the first tool to cover it.**
+🤖 **AI training exposure** — In 2024-2025, every major platform silently flipped to **opted-in by default**: LinkedIn added AI training toggle ON for all users (Sept 2024), Reddit signed a ~$60M/yr Google training deal, Twitter/X auto-feeds Grok, Meta forced users to file GDPR objections. Commercial privacy services **ignore this entire category**.
 
-**Try it now — zero-install, covers brokers AND AI:**
+👤 **Face-search exposure** — PimEyes, FaceCheck.ID, Clearview AI, FindClone: upload one selfie, get every web page where your face appears. Used for stalking, doxxing, domestic-abuse tracking, and by law enforcement without warrants. DeleteMe / Optery / Incogni don't touch this either.
+
+**Vanish is the first open-source tool to cover all three.**
+
+**Try it now — zero-install, covers everything:**
 
 🌐 **In your browser**: [ramboxie.github.io/vanish](https://ramboxie.github.io/vanish/) · 100% client-side, nothing transmitted
 
@@ -29,8 +34,14 @@ npx github:RAMBOXIE/vanish scan --name "Your Name"
 # AI training — which of 30 platforms feed your data to LLMs?
 npx github:RAMBOXIE/vanish ai-scan --all
 
-# Bonus: walkthrough opt-out for any of 26 AI platforms
+# Face search — is your selfie on PimEyes or Clearview AI?
+npx github:RAMBOXIE/vanish face-scan --pimeyes --facecheck --findclone
+
+# Opt out of AI training (26 platforms with guided walkthroughs)
 npx github:RAMBOXIE/vanish ai-opt-out --chatgpt --linkedin --cursor
+
+# Opt out of face databases (including Clearview AI under CCPA/GDPR)
+npx github:RAMBOXIE/vanish face-opt-out --pimeyes --clearview
 ```
 
 ---
@@ -227,6 +238,81 @@ All data manually verified April 2026. Catalog at [`src/ai-scanner/ai-platforms-
 
 ---
 
+## 👤 Face-Search Exposure Protection
+
+**Upload a single selfie to PimEyes. You'll be horrified.** The site returns every public web page that contains your face — profile photos, conference group shots, articles, social tags, strangers' Instagram backgrounds, and (for unlucky people) adult sites that misidentified them. The underlying tech indexes **billions of images** and is freely available to any stranger with $5.
+
+Real-world damage from face-search brokers:
+
+- **Domestic abuse**: survivors tracked via PimEyes after relocating
+- **Stalking**: exes finding current locations via workplace headshots in search results
+- **Doxxing**: protesters identified from single photos at demonstrations
+- **Warrantless policing**: Clearview AI used by 3,000+ US police departments, no judicial oversight
+- **Discrimination**: recruiters reverse-searching candidates' faces to find personal life info
+
+Commercial privacy services (DeleteMe / Optery / Incogni) **don't cover a single face-search broker**. Their entire product is text-based data deletion from people-search sites.
+
+### What Vanish does for face exposure
+
+**Two commands, 8 services covered:**
+
+#### `vanish face-scan` — find where your face appears
+
+```bash
+# The essential audit
+vanish face-scan --pimeyes --facecheck --findclone
+
+# Free-tier only (skips FindClone which is paid)
+vanish face-scan --pimeyes --facecheck --tineye --yandex --google-lens --free-only
+
+# Everything
+vanish face-scan --all
+```
+
+Vanish opens each service's search page in your browser and prints the walkthrough — **your photo never passes through Vanish**, you upload it yourself on each service. We just tell you:
+- Which services have the best coverage for your demographic
+- Free vs paid tier differences per service
+- Privacy notes per service (e.g., "PimEyes retains uploads 48 hours — use their Private Search toggle or delete after")
+- Which jurisdiction hosts the service (matters for your legal opt-out rights)
+
+#### `vanish face-opt-out` — request removal, including Clearview
+
+```bash
+vanish face-opt-out --pimeyes --facecheck --clearview
+```
+
+Covers **all 8 services including Clearview AI** — the LE-only face database that you can't search yourself but do have a legal right to remove yourself from (CCPA §1798.105 or GDPR Article 17). The walkthrough includes:
+- Upload 1-2 photos (front-facing, face visible)
+- Government ID verification (where required — Clearview, FaceCheck)
+- Exact legal citation text ("I request deletion under GDPR Article 17")
+- Platform-specific gotchas (PimEyes has a paid PROtect monitoring service separate from free one-time opt-out)
+
+Each submission recorded with **HMAC-signed audit trail + 30-day reverify** (60 days for Clearview, which is slower). The signed audit is admissible as GDPR/CCPA evidence if the service refuses to delete.
+
+### The 8-service catalog
+
+| Service | Category | Access | Jurisdiction | Coverage |
+|---------|----------|--------|-------------|----------|
+| **PimEyes** | face-search | freemium | global | Most infamous; billions of pages indexed |
+| **FaceCheck.ID** | face-search | freemium | US | Growing competitor; romance-scam-detection framing |
+| **FindClone** | face-search | paid | Russia | Best Slavic/Russian coverage (VK.com based) |
+| **Lenso** | face-search | freemium | EU (Poland) | Newer, GDPR-compliant, smaller index |
+| **TinEye** | reverse-image | free | Canada | Exact/near-duplicate image finder (67B+ images) |
+| **Yandex Images** | reverse-image | free | Russia | Best general reverse-image + implicit face matching |
+| **Google Lens** | reverse-image | free | US | Deliberately limited face matching; good for dupe images |
+| **Clearview AI** | face-database | restricted | US | LE-only (not scannable) but has CCPA/GDPR opt-out right |
+
+All data verified April 2026. Catalog at [`src/face-scanner/face-services-catalog.json`](src/face-scanner/face-services-catalog.json). 8-field JSON per service plus `scanWalkthrough` + `optOutWalkthrough` objects with steps/verification/tier-overrides. PRs welcome.
+
+### Why face-search is uniquely damaging
+
+- **Irreversible once indexed.** Removing one photo from one social network doesn't remove it from PimEyes's index. You need opt-out directly.
+- **Consent asymmetry.** You never consented to be in Clearview's 40B-image database. They scraped you regardless.
+- **No market solution.** The ones that charge you money (DeleteMe etc.) don't cover this. There's no "face-search DeleteMe" — Vanish is it.
+- **Legal rights exist but aren't surfaced.** Most people don't know CCPA and GDPR give them deletion rights against even Clearview. Vanish generates the request for you.
+
+---
+
 ## vs. Competitors
 
 | Feature | Vanish | DeleteMe | Optery | Incogni |
@@ -235,6 +321,8 @@ All data manually verified April 2026. Catalog at [`src/ai-scanner/ai-platforms-
 | **Data brokers covered** | 210 | 750+ | 350+ | 180+ |
 | **🤖 AI training exposure scan** | ✅ **30 platforms** | ❌ | ❌ | ❌ |
 | **🤖 AI training opt-out walkthroughs** | ✅ **26 platforms** | ❌ | ❌ | ❌ |
+| **👤 Face-search broker scan (PimEyes etc.)** | ✅ **8 services** | ❌ | ❌ | ❌ |
+| **👤 Face-search opt-out (including Clearview AI)** | ✅ **8 services** | ❌ | ❌ | ❌ |
 | **All 3 US credit bureaus** | ✅ | ❌ | ❌ | ❌ |
 | **Open source** | ✅ | ❌ | ❌ | ❌ |
 | **Self-hosted / local-first** | ✅ | ❌ | ❌ | ❌ |
@@ -243,7 +331,7 @@ All data manually verified April 2026. Catalog at [`src/ai-scanner/ai-platforms-
 | **Encrypted secret store (scrypt)** | ✅ | N/A | N/A | N/A |
 | **Agent-native (conversational)** | ✅ | ❌ | ❌ | ❌ |
 
-**The three commercial services all treat "data brokers" as the full privacy problem.** They haven't added AI training exposure after 18 months of it being the biggest story in digital privacy. Vanish is, as of April 2026, the only tool that covers both.
+**The three commercial services all treat "data brokers" as the full privacy problem.** They haven't added AI training exposure (18 months of default-opt-in policy changes) or face-search broker opt-out (PimEyes, Clearview). Vanish is, as of April 2026, the only tool that covers all three categories.
 
 ---
 
@@ -277,6 +365,12 @@ All data manually verified April 2026. Catalog at [`src/ai-scanner/ai-platforms-
 - **AI Opt-Out Walkthroughs** — browser-assisted guided opt-out for 26 platforms with exact UI string, step-by-step instructions, tier overrides (e.g. "Team plan already safe — skip"), and 60-day re-verify
 - **Signed audit of AI opt-outs** — HMAC-SHA256 receipts admissible as GDPR/CCPA evidence
 
+### 👤 Face-search protection (unique to Vanish)
+
+- **Face-Search Scanner** — directory of 8 face-recognition services (PimEyes, FaceCheck.ID, FindClone, Lenso, TinEye, Yandex Images, Google Lens, Clearview AI) with per-service walkthroughs for checking yourself. Vanish never handles your photo
+- **Face-Search Opt-Out** — browser-assisted deletion requests for all 8 including **Clearview AI** (LE-only database, only accessible via CCPA/GDPR legal right)
+- **Jurisdiction-aware** — CCPA/GDPR legal citations pre-composed per service; 60-day reverify for slow services like Clearview
+
 ### 🏢 Data broker protection
 
 - **Privacy Scanner** — 210 brokers, 0-100 score, instant heuristic (5-factor confidence algorithm)
@@ -290,7 +384,7 @@ All data manually verified April 2026. Catalog at [`src/ai-scanner/ai-platforms-
 - **Persistent Queues** — retry (exponential backoff) / manual-review / dead-letter with SHA-256 dedupe
 - **Local Dashboard** — static HTML, watches queue state, zero backend
 - **Safety Gates** — manual trigger only, triple-confirm for high-risk, export-before-delete, compliance snapshot
-- **142 Tests** — unit + integration + CLI + e2e against `postman-echo.com`, every commit runs on Ubuntu/macOS/Windows × Node 20/22 (6 matrix jobs)
+- **163 Tests** — unit + integration + CLI + e2e against `postman-echo.com`, every commit runs on Ubuntu/macOS/Windows × Node 20/22 (6 matrix jobs)
 
 ---
 
@@ -352,6 +446,25 @@ vanish ai-opt-out --chatgpt --clipboard          # also copies target setting na
 # hint ("toggle shows grey/off"). 60-day re-verify because platforms silently
 # reset settings after policy updates.
 
+# Face-search exposure scan — is your selfie on PimEyes, FaceCheck, etc.?
+# Vanish never handles your photo — opens each service's page, tells you what to do.
+vanish face-scan --pimeyes --facecheck --findclone    # the essential 3
+vanish face-scan --all                                 # all 7 scannable services
+vanish face-scan --free-only                           # skip paid-only services
+vanish face-scan --use pimeyes,tineye,yandex          # CSV alt
+
+# Covered (8 services): PimEyes (freemium), FaceCheck.ID (freemium), FindClone (paid),
+# Lenso (freemium), TinEye (free), Yandex Images (free), Google Lens (free),
+# Clearview AI (restricted — LE-only but has legal opt-out path).
+
+# Face-search opt-out — request removal including from Clearview AI
+vanish face-opt-out --pimeyes --clearview              # the two most important
+vanish face-opt-out --all                              # every service including LE-only databases
+
+# Each walkthrough handles: form upload of photos, government ID verification where
+# required, CCPA/GDPR citation text pre-composed. 30-day reverify default,
+# 60-day for Clearview (slower processing). HMAC-signed audit trail.
+
 # Browser-assisted opt-out (opens browser + guides you through 58 real brokers)
 vanish opt-out --broker spokeo --email you@example.com --full-name "Your Name"
 vanish opt-out --broker spokeo,whitepages,beenverified --email you@example.com --full-name "Your Name"
@@ -412,7 +525,7 @@ vanish dashboard data/queue-state.json
 # Proof report (audit trail in Markdown)
 vanish report ./path/to/execution-result.json
 
-# All 142 tests (109 broker + 20 ai-scan + 13 ai-opt-out)
+# All 163 tests (109 broker + 20 ai-scan + 13 ai-opt-out + 21 face-scan)
 npm test
 ```
 
@@ -433,6 +546,10 @@ src/
 │   ├── ai-platforms-catalog.json   # Single source of truth (30 platforms × walkthroughs)
 │   ├── ai-scan-engine.mjs      # Classifier: exposed / licensed / safe / action-needed
 │   └── ai-scan-report.mjs      # Banner + Markdown renderer
+├── face-scanner/               # 👤 Face-search services engine (8 services)
+│   ├── face-services-catalog.json  # PimEyes, FaceCheck, FindClone, Lenso, Yandex,
+│   │                                # Google Lens, TinEye, Clearview AI
+│   └── face-scan-engine.mjs    # Service directory + scan/opt-out plan builders
 ├── adapters/
 │   ├── registry.mjs            # Catalog-driven adapter registry
 │   └── brokers/
@@ -451,8 +568,8 @@ src/
     └── signature.mjs           # HMAC-SHA256 audit signing
 
 prompts/wizard/                 # 18 .md prompt templates per state
-scripts/                        # CLI entry points (scan, ai-scan, opt-out, ai-opt-out, verify, ...)
-tests/                          # 142 tests across 20 files
+scripts/                        # CLI entry points (scan, ai-scan, face-scan, opt-out, ai-opt-out, face-opt-out, verify, ...)
+tests/                          # 163 tests across 21 files
 web/                            # Static web app (Vite + vanilla JS, shares src/scanner)
 ```
 
@@ -465,13 +582,15 @@ web/                            # Static web app (Vite + vanilla JS, shares src/
 - ✅ **58 browser-assisted broker opt-outs** including all 3 US credit bureaus
 - ✅ **30 AI platforms** cataloged (ChatGPT, Claude, Gemini, LinkedIn, Reddit, Cursor, …)
 - ✅ **26 AI platforms with walkthrough opt-outs** — exact toggle names + tier overrides
+- ✅ **8 face-search services** cataloged (PimEyes, FaceCheck.ID, FindClone, Lenso, TinEye, Yandex, Google Lens, Clearview AI)
+- ✅ **8 face-search opt-out walkthroughs** including Clearview AI CCPA/GDPR request
 - ✅ **Heuristic privacy scanner** (0-100 score, 5-factor confidence, per-broker risk)
 - ✅ **18-state wizard** with scan → handoff → cleanup flow
 - ✅ **30-day HTTP verify loop** for brokers, **60-day reverify** for AI platforms
 - ✅ **Static web app** at [ramboxie.github.io/vanish](https://ramboxie.github.io/vanish/) — zero-install, 100% client-side
 - ✅ **Share card** (1200×630 SVG) — privacy-preserving public boast
 - ✅ **Audit, queues, secret store hardened** (HMAC-SHA256, scrypt KDF, stale-lock detection)
-- ✅ **142 tests** passing across Ubuntu/macOS/Windows × Node 20/22 (6 matrix jobs)
+- ✅ **163 tests** passing across Ubuntu/macOS/Windows × Node 20/22 (6 matrix jobs)
 
 **Next (P2, retention-focused)**:
 - 🔜 **Scan history** (`~/.vanish/history.jsonl` + `vanish history`) — show score drop 72 → 31 over time

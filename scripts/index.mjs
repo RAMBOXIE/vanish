@@ -23,18 +23,20 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const SUBCOMMANDS = {
-  scan:         'scan-demo.mjs',
-  'ai-scan':    'ai-scan.mjs',
-  'opt-out':    'opt-out.mjs',
-  'ai-opt-out': 'ai-opt-out.mjs',
-  verify:       'verify.mjs',
-  cleanup:      'vanish.mjs',
-  wizard:       'wizard-demo.mjs',
-  'b1-live':    'b1-live.mjs',
-  'b1-demo':    'b1-demo.mjs',
-  queue:        'queue-cli.mjs',
-  report:       'generate-proof-report.mjs',
-  dashboard:    'build-dashboard-data.mjs',
+  scan:           'scan-demo.mjs',
+  'ai-scan':      'ai-scan.mjs',
+  'face-scan':    'face-scan.mjs',
+  'opt-out':      'opt-out.mjs',
+  'ai-opt-out':   'ai-opt-out.mjs',
+  'face-opt-out': 'face-opt-out.mjs',
+  verify:         'verify.mjs',
+  cleanup:        'vanish.mjs',
+  wizard:         'wizard-demo.mjs',
+  'b1-live':      'b1-live.mjs',
+  'b1-demo':      'b1-demo.mjs',
+  queue:          'queue-cli.mjs',
+  report:         'generate-proof-report.mjs',
+  dashboard:      'build-dashboard-data.mjs',
   'dashboard:watch': 'dashboard-watch.mjs'
 };
 
@@ -53,6 +55,12 @@ Commands:
 
   ai-opt-out  Browser-assisted AI training opt-out (26 platforms with walkthroughs)
               Example: vanish ai-opt-out --chatgpt --linkedin --cursor
+
+  face-scan   Check if your face appears on PimEyes, FaceCheck, FindClone, etc. (7 services)
+              Example: vanish face-scan --pimeyes --facecheck --findclone
+
+  face-opt-out  Request removal from face-search services + Clearview AI (8 services)
+              Example: vanish face-opt-out --pimeyes --clearview
 
   opt-out     Browser-assisted opt-out for 58 supported brokers
               Example: vanish opt-out --broker spokeo --email you@example.com
