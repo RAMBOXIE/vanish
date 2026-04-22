@@ -570,7 +570,7 @@ Vanish stores **nothing** sensitive:
 - **Persistent Queues** — retry (exponential backoff) / manual-review / dead-letter with SHA-256 dedupe
 - **Local Dashboard** — static HTML, watches queue state, zero backend
 - **Safety Gates** — manual trigger only, triple-confirm for high-risk, export-before-delete, compliance snapshot
-- **293 Tests** — unit + integration + CLI + e2e against `postman-echo.com`, every commit runs on Ubuntu/macOS/Windows × Node 20/22 (6 matrix jobs)
+- **299 Tests** — unit + integration + CLI + e2e against `postman-echo.com`, every commit runs on Ubuntu/macOS/Windows × Node 20/22 (6 matrix jobs)
 
 ### 🛡️ NCII / leak content takedown (unique to Vanish)
 
@@ -708,6 +708,33 @@ vanish cleanup --manual --preset spokeo \
 vanish b1-live run --live --brokers spokeo,thatsthem,peekyou \
   --full-name "Test User"
 
+# ── Advanced AI-era checks (5 additional subcommands) ──
+
+# LLM memorization probe — is your personal info already in GPT-4 / Claude?
+# Requires OPENAI_API_KEY / ANTHROPIC_API_KEY env vars (or --dry-run for CI)
+vanish llm-memory-check --name "Your Name" --email "you@example.com"
+vanish llm-memory-check --name "Your Name" --dry-run    # no API calls
+
+# Training-dataset membership — check if your URL is in Common Crawl / Pile / C4 / ...
+vanish dataset-check --url https://your-site.com --all
+vanish dataset-check --walkthrough-only --all            # no network, research mode
+
+# Third-party AI objection letters (tools OTHERS use on you)
+# Generates jurisdiction-cited objection letters (GDPR / CCPA / HIPAA / Illinois AIVIA / NYC LL144)
+vanish third-party-ai --zoom --otter --jurisdiction EU    # workplace meetings
+vanish third-party-ai --hirevue --jurisdiction IL         # AI interview accommodation
+vanish third-party-ai --abridge --nuance --jurisdiction HIPAA  # medical AI decline
+
+# AI conversation history cleanup across Cursor, VS Code Copilot, Claude/ChatGPT Desktop + 5 web services
+vanish clean-ai-history --cursor --vscode-copilot --chatgpt
+vanish clean-ai-history --all --local-only     # just the files on disk
+
+# NCII / leaked content takedown — DMCA + StopNCII.org + Google intimate-imagery removal
+vanish takedown --stopncii                     # hash-register (most effective free tool)
+vanish takedown --google-intimate              # Google intimate-imagery form
+vanish takedown --dmca-letter --all-leak-sites --name "..." --email "..."
+vanish takedown --support                      # crisis hotlines + legal aid
+
 # Queue management
 vanish queue list
 vanish queue retry --id <retryItemId>
@@ -720,7 +747,7 @@ vanish dashboard data/queue-state.json
 # Proof report (audit trail in Markdown)
 vanish report ./path/to/execution-result.json
 
-# All 293 tests (109 broker + 20 ai-scan + 13 ai-opt-out + 21 face-scan + 30 llm-memory-check + 24 clean-ai-history + 20 dataset-check + 25 third-party-ai + 31 takedown)
+# All 299 tests (109 broker + 19 share-card + 20 ai-scan + 13 ai-opt-out + 21 face-scan + 30 llm-memory-check + 24 clean-ai-history + 20 dataset-check + 25 third-party-ai + 31 takedown — where 109 broker tests include all non-share-card broker-side coverage)
 npm test
 ```
 
@@ -782,8 +809,11 @@ prompts/wizard/                 # 18 .md prompt templates per state
 scripts/                        # CLI entry points (scan, ai-scan, face-scan, llm-memory-check,
                                 #   dataset-check, third-party-ai, opt-out, ai-opt-out,
                                 #   face-opt-out, clean-ai-history, takedown, verify, ...)
-tests/                          # 293 tests across 26 files
-web/                            # Static web app (Vite + vanilla JS, shares src/scanner)
+tests/                          # 299 tests across 26 files
+web/                            # Static web app v2 (Vite + vanilla JS) — 3 tabs: broker scan,
+                                #   AI training checkbox grid, face-search directory. Shares
+                                #   src/scanner + src/ai-scanner + src/face-scanner catalogs.
+                                #   Produces triple-threat 1200×630 share card.
 ```
 
 ---
@@ -805,10 +835,10 @@ web/                            # Static web app (Vite + vanilla JS, shares src/
 - ✅ **Heuristic privacy scanner** (0-100 score, 5-factor confidence, per-broker risk)
 - ✅ **18-state wizard** with scan → handoff → cleanup flow
 - ✅ **30-day HTTP verify loop** for brokers, **60-day reverify** for AI platforms
-- ✅ **Static web app** at [ramboxie.github.io/vanish](https://ramboxie.github.io/vanish/) — zero-install, 100% client-side
-- ✅ **Share card** (1200×630 SVG) — privacy-preserving public boast
+- ✅ **Static web app v2** at [ramboxie.github.io/vanish](https://ramboxie.github.io/vanish/) — zero-install, 100% client-side, now with 3 tabs (broker / AI training / face search)
+- ✅ **Triple-threat share card (v2)** — 1200×630 SVG with 3 columns (broker + AI + face), auto-upgrades when user scans multiple threats in the same session
 - ✅ **Audit, queues, secret store hardened** (HMAC-SHA256, scrypt KDF, stale-lock detection)
-- ✅ **293 tests** passing across Ubuntu/macOS/Windows × Node 20/22 (6 matrix jobs)
+- ✅ **299 tests** passing across Ubuntu/macOS/Windows × Node 20/22 (6 matrix jobs)
 
 **Next (P2, retention-focused)**:
 - 🔜 **Scan history** (`~/.vanish/history.jsonl` + `vanish history`) — show score drop 72 → 31 over time

@@ -5,6 +5,19 @@ All notable changes to Vanish will be documented here. Format follows [Keep a Ch
 ## [Unreleased]
 
 ### Added
+- **🌐 Web App v2 — Tabbed Multi-Threat UI** (`web/`):
+  - Hero rebuilt with 3 tabs: 🏢 Data Brokers · 🤖 AI Training · 👤 Face Search
+  - **Broker tab**: existing identity-form scan (unchanged, 210 brokers)
+  - **AI tab** (new): checkbox grid of 12 priority platforms (ChatGPT, Claude, Gemini, Copilot, LinkedIn, Reddit, Twitter-X, Meta, Cursor, GitHub Copilot, Grammarly, Perplexity) with pre-shown default-consent pill badges; `--all` toggle for worst-case 30-platform scan; results show quick wins / licensed-to-AI / safe platforms with direct opt-out links
+  - **Face tab** (new): read-only directory of 8 face-search services (PimEyes, FaceCheck, FindClone, Lenso, TinEye, Yandex, Google Lens, Clearview AI). Vanish **NEVER uploads the photo** — each "Check yourself" button opens the service's own search page. Clearview shown with restricted-access pill. Pricing + jurisdiction surfaced per card
+  - **Triple-threat share card (v2)**: new `renderTripleThreatCardSvg()` produces a 1200×630 OG-dimensioned SVG with 3 columns (broker / AI / face). Un-scanned columns render as dashed ghosts. Worst-risk color sets the top accent line. When both broker and AI are scanned in a session, the Download PNG / SVG / Copy Text buttons auto-upgrade to the combined card
+  - Copy-share-text now produces multi-line summary when multiple threats have been scanned
+  - Vite aliases added: `@ai-scanner`, `@face-scanner`, `@ai-catalog`, `@face-catalog`
+  - Mobile-responsive breakpoints for tabs + card grids
+- 6 new tests (`tests/share-card.test.mjs` — triple-threat tests): required-score validation, all-three rendering, ghost-column fallback, privacy invariant (no identity leaks), face-only scenario. Total: 293 → 299
+- Bundle impact: JS 145 KB → 201 KB (27 KB → 39 KB gzipped); CSS 7 KB → 12 KB (2 KB → 3 KB gzipped). Total gzipped still <45 KB
+- Deployed automatically to https://ramboxie.github.io/vanish/ on every push to main
+
 - **⚖️ Takedown Orchestrator** (`src/takedown/`, new subcommand `vanish takedown`):
   - For anyone needing to remove non-consensual intimate imagery (NCII): OnlyFans/Patreon pirated content, revenge-posts by ex-partners, unauthorized reposts, deepfakes, content from past careers the user now regrets
   - **Leak site DMCA catalog** (12 sites): coomer.su, kemono.su, thothub.tv, bitchesgirls.com, leakgallery.com, erome.com, Pornhub (has faster non-DMCA form), XVideos, Telegram channels, Discord servers, Reddit subs, Twitter/X — each with abuse contact + takedownDifficulty + recommended approach
