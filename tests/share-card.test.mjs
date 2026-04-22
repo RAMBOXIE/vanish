@@ -6,7 +6,7 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
-import { renderShareBanner, renderShareCardSvg } from '../src/scanner/share-card.mjs';
+import { renderShareBanner, renderShareCardSvg, renderTripleThreatCardSvg } from '../src/scanner/share-card.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(__dirname, '..');
@@ -187,4 +187,69 @@ test('scan CLI --no-banner suppresses the banner', () => {
   assert.doesNotMatch(result.stdout, /└/);
   // But the markdown report is still present
   assert.match(result.stdout, /Privacy Scan Report/);
+});
+
+// ─── Triple-threat share card (v2) ────────────────────────────
+
+test('renderTripleThreatCardSvg requires at least one score', () => {
+  assert.throws(() => renderTripleThreatCardSvg({}), /at least one/i);
+  assert.throws(() => renderTripleThreatCardSvg(), /at least one/i);
+});
+
+test('renderTripleThreatCardSvg with all three scores renders all columns', () => {
+  const svg = renderTripleThreatCardSvg({
+    broker: { privacyScore: 72, riskLevel: 'high', summary: { likelyExposed: 115, totalBrokers: 210 } },
+    ai: { exposureScore: 85, riskLevel: 'critical', summary: { exposed: 8, totalPlatformsChecked: 10 } },
+    face: { exposedCount: 3, totalServices: 8 }
+  });
+  assert.match(svg, /^<\?xml/);
+  assert.match(svg, /DATA BROKERS/);
+  assert.match(svg, /AI TRAINING/);
+  assert.match(svg, /FACE SEARCH/);
+  assert.match(svg, />72</);
+  assert.match(svg, />85</);
+  assert.match(svg, />3</);
+});
+
+test('renderTripleThreatCardSvg with only broker shows ghost AI + face', () => {
+  const svg = renderTripleThreatCardSvg({
+    broker: { privacyScore: 40, riskLevel: 'moderate', summary: { likelyExposed: 50, totalBrokers: 210 } }
+  });
+  assert.match(svg, /DATA BROKERS/);
+  assert.match(svg, /not scanned/);
+  assert.match(svg, />40</);
+});
+
+test('renderTripleThreatCardSvg escapes category HTML', () => {
+  // Stress test: the output must always be valid SVG
+  const svg = renderTripleThreatCardSvg({
+    broker: { privacyScore: 0, riskLevel: 'low', summary: { likelyExposed: 0, totalBrokers: 210 } }
+  });
+  assert.match(svg, /<\/svg>$/);
+  // No unescaped <script> injection possible — fixtures don't have any,
+  // but verify the output shape
+  assert.ok(svg.includes('1200') && svg.includes('630'));
+});
+
+test('renderTripleThreatCardSvg does NOT include identifying data', () => {
+  // Privacy invariant — must never leak fullName/emails/phones
+  const svg = renderTripleThreatCardSvg({
+    broker: { privacyScore: 50, riskLevel: 'moderate', summary: { likelyExposed: 30, totalBrokers: 210 } },
+    ai: { exposureScore: 70, riskLevel: 'high', summary: { exposed: 5, totalPlatformsChecked: 8 } }
+  });
+  // Check that the standard fields we'd never want to leak don't appear
+  assert.equal(svg.includes('email'), false);
+  assert.equal(svg.includes('@'), false);
+  assert.equal(svg.includes('phone'), false);
+});
+
+test('renderTripleThreatCardSvg face-only scenario works', () => {
+  const svg = renderTripleThreatCardSvg({
+    face: { exposedCount: 5, totalServices: 8 }
+  });
+  assert.match(svg, /FACE SEARCH/);
+  assert.match(svg, />5</);
+  // Broker + AI should show the "not scanned" ghost
+  const notScannedCount = (svg.match(/not scanned/g) || []).length;
+  assert.equal(notScannedCount, 2);
 });

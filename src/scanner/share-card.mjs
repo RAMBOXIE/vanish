@@ -197,6 +197,169 @@ export function renderShareCardSvg(scanResult) {
 }
 
 // ──────────────────────────────────────────────────────────────────────────
+// Triple-threat share card — Broker + AI + Face exposure on one 1200×630 SVG
+// ──────────────────────────────────────────────────────────────────────────
+
+/**
+ * Privacy-preserving. Contains ONLY aggregate scores — no identifiers.
+ *
+ * @param {Object} scores
+ * @param {Object} [scores.broker]   Broker scan result (privacyScore, riskLevel, summary)
+ * @param {Object} [scores.ai]       AI scan result (exposureScore, riskLevel, summary)
+ * @param {Object} [scores.face]     Face audit result (checkedCount, totalServices, exposedCount)
+ * @returns {string} SVG markup
+ */
+export function renderTripleThreatCardSvg(scores = {}) {
+  const broker = scores.broker || null;
+  const ai = scores.ai || null;
+  const face = scores.face || null;
+
+  // At least one score is required
+  if (!broker && !ai && !face) {
+    throw new Error('renderTripleThreatCardSvg: at least one of broker/ai/face required');
+  }
+
+  // Overall color = worst risk across all three threats
+  const anyCritical = (broker?.riskLevel === 'critical') || (ai?.riskLevel === 'critical');
+  const anyHigh = (broker?.riskLevel === 'high') || (ai?.riskLevel === 'high');
+  const overallColor = anyCritical ? RISK_COLORS.critical
+                     : anyHigh ? RISK_COLORS.high
+                     : (broker || ai) ? RISK_COLORS.moderate
+                     : RISK_COLORS.moderate;
+
+  const esc = (s) => String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
+  // Column layout — three 300px cards with 75px gutters
+  const cols = [
+    { title: 'DATA BROKERS', subtitle: '210 firms', data: broker, type: 'broker' },
+    { title: 'AI TRAINING', subtitle: '30 platforms', data: ai, type: 'ai' },
+    { title: 'FACE SEARCH', subtitle: '8 services', data: face, type: 'face' }
+  ];
+
+  const colX = [90, 450, 810]; // left edge of each column card
+  const colWidth = 300;
+
+  const renderColumn = (col, x) => {
+    if (!col.data) {
+      // Un-scanned — show ghost state
+      return `
+        <rect x="${x}" y="190" width="${colWidth}" height="300" rx="16"
+          fill="#1a1a28" stroke="#2a2a3f" stroke-width="2" stroke-dasharray="8,4"/>
+        <text x="${x + colWidth/2}" y="235" text-anchor="middle"
+          font-family="system-ui, -apple-system, sans-serif"
+          font-size="18" font-weight="600" fill="#4a4a5f" letter-spacing="2">${esc(col.title)}</text>
+        <text x="${x + colWidth/2}" y="260" text-anchor="middle"
+          font-family="system-ui, -apple-system, sans-serif"
+          font-size="13" fill="#4a4a5f">${esc(col.subtitle)}</text>
+        <text x="${x + colWidth/2}" y="370" text-anchor="middle"
+          font-family="system-ui, -apple-system, sans-serif"
+          font-size="64" font-weight="300" fill="#2a2a3f">—</text>
+        <text x="${x + colWidth/2}" y="420" text-anchor="middle"
+          font-family="system-ui, -apple-system, sans-serif"
+          font-size="14" fill="#4a4a5f">not scanned</text>
+      `;
+    }
+
+    let score, scoreDenom, riskUpper, color, footer;
+    if (col.type === 'broker') {
+      score = col.data.privacyScore;
+      scoreDenom = '/100';
+      riskUpper = (col.data.riskLevel || 'low').toUpperCase();
+      color = RISK_COLORS[col.data.riskLevel] || RISK_COLORS.moderate;
+      const likely = col.data.summary?.likelyExposed || 0;
+      const total = col.data.summary?.totalBrokers || 0;
+      footer = `${likely} of ${total} likely expose you`;
+    } else if (col.type === 'ai') {
+      score = col.data.exposureScore;
+      scoreDenom = '/100';
+      riskUpper = (col.data.riskLevel || 'low').toUpperCase();
+      color = RISK_COLORS[col.data.riskLevel] || RISK_COLORS.moderate;
+      const exposed = col.data.summary?.exposed || 0;
+      const checked = col.data.summary?.totalPlatformsChecked || 0;
+      footer = `${exposed} of ${checked} feed your data to AI`;
+    } else if (col.type === 'face') {
+      score = col.data.exposedCount ?? col.data.checkedCount ?? 0;
+      scoreDenom = `/${col.data.totalServices || 8}`;
+      const frac = (col.data.totalServices || 8) > 0 ? score / (col.data.totalServices || 8) : 0;
+      riskUpper = frac > 0.5 ? 'HIGH' : frac > 0.25 ? 'MODERATE' : 'LOW';
+      color = frac > 0.5 ? RISK_COLORS.high : frac > 0.25 ? RISK_COLORS.moderate : RISK_COLORS.low;
+      footer = col.data.totalServices
+        ? `${score} of ${col.data.totalServices} services where you appear`
+        : 'Face-search audit pending';
+    }
+
+    return `
+      <rect x="${x}" y="190" width="${colWidth}" height="300" rx="16"
+        fill="#1a1a28" stroke="${color}" stroke-width="2" opacity="0.95"/>
+      <text x="${x + colWidth/2}" y="235" text-anchor="middle"
+        font-family="system-ui, -apple-system, sans-serif"
+        font-size="18" font-weight="700" fill="${color}" letter-spacing="2">${esc(col.title)}</text>
+      <text x="${x + colWidth/2}" y="260" text-anchor="middle"
+        font-family="system-ui, -apple-system, sans-serif"
+        font-size="13" fill="#8b8ba7">${esc(col.subtitle)}</text>
+      <text x="${x + colWidth/2}" y="370" text-anchor="middle"
+        font-family="system-ui, -apple-system, sans-serif"
+        font-size="80" font-weight="800" fill="${color}">${score}</text>
+      <text x="${x + colWidth/2}" y="400" text-anchor="middle"
+        font-family="system-ui, -apple-system, sans-serif"
+        font-size="20" font-weight="400" fill="#8b8ba7">${esc(scoreDenom)}</text>
+      <text x="${x + colWidth/2}" y="435" text-anchor="middle"
+        font-family="system-ui, -apple-system, sans-serif"
+        font-size="16" font-weight="700" fill="${color}" letter-spacing="3">${esc(riskUpper)}</text>
+      <text x="${x + colWidth/2}" y="468" text-anchor="middle"
+        font-family="system-ui, -apple-system, sans-serif"
+        font-size="12" fill="#c4c4d6">${esc(footer)}</text>
+    `;
+  };
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg-triple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0f"/>
+      <stop offset="100%" stop-color="#1a1a28"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg-triple)"/>
+
+  <!-- Top accent line — color = worst risk -->
+  <rect x="0" y="0" width="1200" height="4" fill="${overallColor}" opacity="0.9"/>
+
+  <!-- Brand -->
+  <text x="60" y="70" font-family="system-ui, -apple-system, sans-serif"
+    font-size="20" font-weight="500" fill="#8b8ba7" letter-spacing="2">
+    🔍 VANISH · AI-ERA PRIVACY SCORECARD
+  </text>
+
+  <!-- Title -->
+  <text x="60" y="135" font-family="system-ui, -apple-system, sans-serif"
+    font-size="42" font-weight="300" fill="#ffffff">
+    My privacy exposure across three threats
+  </text>
+
+  <!-- Three columns -->
+  ${cols.map((col, i) => renderColumn(col, colX[i])).join('\n')}
+
+  <!-- Footer CTA -->
+  <rect x="0" y="555" width="1200" height="75" fill="#0a0a0f" opacity="0.7"/>
+  <text x="600" y="590" text-anchor="middle"
+    font-family="ui-monospace, SFMono-Regular, Consolas, monospace"
+    font-size="18" font-weight="500" fill="#ffffff">
+    npx github:RAMBOXIE/vanish scan  ·  ai-scan  ·  face-scan
+  </text>
+  <text x="600" y="615" text-anchor="middle"
+    font-family="system-ui, -apple-system, sans-serif"
+    font-size="13" fill="#8b8ba7">
+    github.com/RAMBOXIE/vanish — open-source, local-first, MIT-licensed
+  </text>
+</svg>`;
+}
+
+// ──────────────────────────────────────────────────────────────────────────
 // Helpers
 // ──────────────────────────────────────────────────────────────────────────
 

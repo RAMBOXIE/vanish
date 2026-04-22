@@ -12,7 +12,11 @@ export default defineConfig({
   resolve: {
     alias: {
       '@scanner': path.resolve(__dirname, '..', 'src', 'scanner'),
-      '@catalog': path.resolve(__dirname, '..', 'src', 'adapters', 'brokers', 'config', 'broker-catalog.json')
+      '@ai-scanner': path.resolve(__dirname, '..', 'src', 'ai-scanner'),
+      '@face-scanner': path.resolve(__dirname, '..', 'src', 'face-scanner'),
+      '@catalog': path.resolve(__dirname, '..', 'src', 'adapters', 'brokers', 'config', 'broker-catalog.json'),
+      '@ai-catalog': path.resolve(__dirname, '..', 'src', 'ai-scanner', 'ai-platforms-catalog.json'),
+      '@face-catalog': path.resolve(__dirname, '..', 'src', 'face-scanner', 'face-services-catalog.json')
     }
   },
 

@@ -6,11 +6,11 @@
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
 
     <title>Vanish · Privacy Scanner</title>
-    <meta name="description" content="Free, open-source privacy scanner. Check your exposure across 210 data brokers in 10 seconds. 100% browser-local — no data transmitted." />
+    <meta name="description" content="Free, open-source privacy scanner. Scan 210 data brokers + 30 AI training platforms + 8 face-search engines — all in your browser, no data transmitted." />
 
     <!-- Social preview -->
-    <meta property="og:title" content="Vanish · Privacy Scanner" />
-    <meta property="og:description" content="Scan 210 data brokers in 10 seconds. Free, local-first, MIT-licensed." />
+    <meta property="og:title" content="Vanish · AI-era Privacy Scanner" />
+    <meta property="og:description" content="Scan 210 data brokers + 30 AI platforms + 8 face-search services. Free, local-first, MIT-licensed." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
 
@@ -21,67 +21,111 @@
       <!-- HERO (before scan) -->
       <section id="hero" class="hero">
         <div class="eyebrow">🔍 Vanish · Open Source Privacy Scanner</div>
-        <h1>How exposed is your data?</h1>
+        <h1>How exposed is your data in the AI era?</h1>
         <p class="subhead">
-          Scan <strong>210 data brokers</strong> and <strong>30 AI-training platforms</strong> in 10 seconds.
-          Free alternative to DeleteMe ($129+/yr), Optery ($99+/yr), Incogni ($99+/yr).
-          <strong>Unique:</strong> we check if LinkedIn, Reddit, ChatGPT &amp; 27 others train on your data.
+          Scan <strong>210 data brokers</strong>, <strong>30 AI-training platforms</strong>, and <strong>8 face-search engines</strong> — all in your browser.
+          Free alternative to DeleteMe / Optery / Incogni (all $99-$129+/yr) that also covers what they don't.
         </p>
 
-        <form id="scan-form" class="scan-form" autocomplete="off">
-          <label class="field">
-            <span>Your full name <em>(required)</em></span>
-            <input type="text" name="fullName" placeholder="Jane Doe" required autofocus />
-          </label>
+        <nav class="tabs" role="tablist">
+          <button type="button" class="tab active" data-tab="broker" role="tab" aria-selected="true">🏢 Data Brokers</button>
+          <button type="button" class="tab" data-tab="ai" role="tab" aria-selected="false">🤖 AI Training</button>
+          <button type="button" class="tab" data-tab="face" role="tab" aria-selected="false">👤 Face Search</button>
+        </nav>
 
-          <details class="more-fields">
-            <summary>More fields (improves accuracy)</summary>
-            <div class="field-grid">
-              <label class="field">
-                <span>Email</span>
-                <input type="email" name="email" placeholder="you@example.com" />
-              </label>
-              <label class="field">
-                <span>Phone</span>
-                <input type="tel" name="phone" placeholder="+1 555 123 4567" />
-              </label>
-              <label class="field">
-                <span>City</span>
-                <input type="text" name="city" placeholder="Seattle" />
-              </label>
-              <label class="field">
-                <span>State / Province</span>
-                <input type="text" name="state" placeholder="WA" />
-              </label>
-              <label class="field">
-                <span>Jurisdiction</span>
-                <select name="jurisdiction">
-                  <option value="US" selected>United States</option>
-                  <option value="EU">European Union</option>
-                  <option value="UK">United Kingdom</option>
-                  <option value="CA">Canada</option>
-                  <option value="AU">Australia</option>
-                  <option value="CN">China</option>
-                  <option value="JP">Japan</option>
-                  <option value="OTHER">Other</option>
-                </select>
-              </label>
-            </div>
-          </details>
-
-          <button type="submit" class="cta-scan">
-            Scan now — <span class="arrow">→</span>
-          </button>
-
-          <p class="privacy-note">
-            <strong>Your data never leaves this page.</strong>
-            All computation runs in your browser.
-            <a href="https://github.com/RAMBOXIE/vanish/tree/main/web" target="_blank" rel="noopener">View source</a>.
+        <!-- BROKER TAB -->
+        <div class="tab-panel active" data-panel="broker" role="tabpanel">
+          <p class="panel-intro">
+            Heuristic scan across 210 data brokers (Spokeo, Whitepages, LexisNexis, all 3 US credit bureaus). 0-100 exposure score in 10 seconds.
           </p>
-        </form>
+          <form id="scan-form" class="scan-form" autocomplete="off">
+            <label class="field">
+              <span>Your full name <em>(required)</em></span>
+              <input type="text" name="fullName" placeholder="Jane Doe" required autofocus />
+            </label>
+
+            <details class="more-fields">
+              <summary>More fields (improves accuracy)</summary>
+              <div class="field-grid">
+                <label class="field">
+                  <span>Email</span>
+                  <input type="email" name="email" placeholder="you@example.com" />
+                </label>
+                <label class="field">
+                  <span>Phone</span>
+                  <input type="tel" name="phone" placeholder="+1 555 123 4567" />
+                </label>
+                <label class="field">
+                  <span>City</span>
+                  <input type="text" name="city" placeholder="Seattle" />
+                </label>
+                <label class="field">
+                  <span>State / Province</span>
+                  <input type="text" name="state" placeholder="WA" />
+                </label>
+                <label class="field">
+                  <span>Jurisdiction</span>
+                  <select name="jurisdiction">
+                    <option value="US" selected>United States</option>
+                    <option value="EU">European Union</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="CA">Canada</option>
+                    <option value="AU">Australia</option>
+                    <option value="CN">China</option>
+                    <option value="JP">Japan</option>
+                    <option value="OTHER">Other</option>
+                  </select>
+                </label>
+              </div>
+            </details>
+
+            <button type="submit" class="cta-scan">
+              Scan 210 brokers — <span class="arrow">→</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- AI TRAINING TAB -->
+        <div class="tab-panel" data-panel="ai" role="tabpanel" hidden>
+          <p class="panel-intro">
+            Check which of <strong>30 LLM platforms</strong> train on your data by default. <strong>No personal info collected</strong> — just tell us which platforms you use.
+          </p>
+          <form id="ai-scan-form" class="scan-form" autocomplete="off">
+            <div class="ai-platform-grid" id="ai-platform-grid">
+              <!-- Populated by JS from the catalog -->
+            </div>
+            <label class="ai-all-toggle">
+              <input type="checkbox" name="ai-all" id="ai-all" />
+              <span>Or assume I use <strong>all 30 platforms</strong> (worst-case overview)</span>
+            </label>
+            <button type="submit" class="cta-scan">
+              Check AI exposure — <span class="arrow">→</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- FACE SEARCH TAB -->
+        <div class="tab-panel" data-panel="face" role="tabpanel" hidden>
+          <p class="panel-intro">
+            <strong>Vanish never uploads your photo.</strong> These 8 services let you check yourself on their own pages. Each card opens their search page and explains what to expect.
+          </p>
+          <div class="face-services-grid" id="face-services-grid">
+            <!-- Populated by JS from the face-services catalog -->
+          </div>
+          <p class="face-cta-cli">
+            Need guided opt-out from all 8 (including <strong>Clearview AI</strong> via CCPA/GDPR)?
+            Run <code>npx github:RAMBOXIE/vanish face-opt-out --all</code> in your terminal.
+          </p>
+        </div>
+
+        <p class="privacy-note">
+          <strong>Your data never leaves this page.</strong>
+          All computation runs in your browser.
+          <a href="https://github.com/RAMBOXIE/vanish/tree/main/web" target="_blank" rel="noopener">View source</a>.
+        </p>
       </section>
 
-      <!-- RESULTS (after scan) -->
+      <!-- RESULTS: Broker scan -->
       <section id="results" class="results" hidden>
         <div class="score-card" id="score-card"></div>
         <div class="share-actions" id="share-actions"></div>
@@ -89,6 +133,17 @@
         <div class="broker-list" id="broker-list"></div>
         <div class="cli-upsell" id="cli-upsell"></div>
         <button type="button" class="reset-btn" id="reset-btn">← Start over</button>
+      </section>
+
+      <!-- RESULTS: AI scan -->
+      <section id="ai-results" class="results" hidden>
+        <div class="score-card" id="ai-score-card"></div>
+        <div class="ai-quick-wins" id="ai-quick-wins"></div>
+        <div class="ai-licensed" id="ai-licensed"></div>
+        <div class="ai-safe" id="ai-safe"></div>
+        <div class="share-actions" id="ai-share-actions"></div>
+        <div class="cli-upsell" id="ai-cli-upsell"></div>
+        <button type="button" class="reset-btn" id="ai-reset-btn">← Start over</button>
       </section>
     </main>
 
