@@ -1,15 +1,25 @@
 ---
 name: vanish
-description: Privacy scanner + opt-out orchestrator for 210 data brokers. Scan your exposure in 10s (0-100 score), then remove with a guided 18-step wizard. Free open-source alternative to DeleteMe / Optery / Incogni. Agent-native, audit-signed (HMAC-SHA256), local-first. Triple-confirm safety gates for high-risk actions; user-controlled export decision before any delete; shortest-TTL credentials wiped after task.
-version: 0.2.0
+description: Privacy scanner + opt-out orchestrator covering 210 data brokers, 30 AI training platforms, 8 face-search services, 13 third-party AI tools (incl. workforce-monitoring), 12 NCII-takedown destinations, plus LLM memorization probing, training-dataset membership checks, and AI history cleanup. Free agent-native alternative to DeleteMe / Optery / Incogni that also covers AI-era threats they don't. Audit-signed (HMAC-SHA256), local-first, triple-confirm safety gates for high-risk actions.
+version: 0.3.0
 metadata:
   openclaw:
     requires:
       env:
-        - VANISH_AUDIT_HMAC_KEY
-        - VANISH_SECRET_MASTER_KEY
+        - VANISH_AUDIT_HMAC_KEY       # REQUIRED in production; dev/test warn-and-use-default-key
       bins:
-        - node
+        - node                        # >= 20
+    optionalEnv:
+      - name: VANISH_SECRET_MASTER_KEY
+        when: "when using the encrypted secret-store with --unlock-master-key (AES-GCM fallback path used only when Windows DPAPI unavailable)"
+      - name: OPENAI_API_KEY
+        when: "ONLY for `vanish llm-memory-check` against OpenAI. Not needed for any other subcommand. --dry-run bypass exists."
+      - name: ANTHROPIC_API_KEY
+        when: "ONLY for `vanish llm-memory-check` against Anthropic Claude. Same --dry-run bypass."
+      - name: "<BROKER>_LIVE_ENDPOINT"
+        when: "ONLY for `vanish b1-live` (experimental adapter). Overrides per-broker HTTP submission URL. Default: postman-echo.com test endpoint."
+      - name: "<BROKER>_OFFICIAL_*_ENDPOINT"
+        when: "ONLY for official broker live mode. Compliance-gated — requires termsAccepted, lawfulBasis, operatorId before use."
     primaryEnv: VANISH_AUDIT_HMAC_KEY
     emoji: "🔍"
     homepage: https://github.com/RAMBOXIE/vanish
@@ -17,86 +27,183 @@ metadata:
       - macos
       - linux
       - windows
-    always: false
+    always: false                     # NEVER auto-run. No per-reply hook.
     skillKey: vanish
 ---
 
 # vanish
 
-> Privacy scanner + opt-out orchestrator for 210 data brokers. Free open-source alternative to DeleteMe ($129+/yr), Optery ($99+/yr), Incogni ($99+/yr). Agent-native, audit-signed, local-first.
+> Privacy scanner + opt-out orchestrator. Free open-source alternative to DeleteMe ($129+/yr), Optery ($99+/yr), Incogni ($99+/yr) that **also covers the AI-era threats they don't**. Agent-native, audit-signed, local-first.
 
-## Capabilities
+---
 
-### 🔍 scan — Privacy exposure assessment
-Heuristic scan across 210 brokers in 10 seconds, no external API calls, no data leaves the machine. Produces a 0-100 privacy score, per-broker likelihood (`likely` / `possible` / `unlikely`) and risk tier (`critical` / `high` / `moderate` / `low`), plus prioritized category-grouped recommendations. Markdown + JSON report output.
+## 🔎 Clawhub compliance declaration
 
-### 🗑️ cleanup — Opt-out submission workflow
-18-state conversational wizard for preparing and submitting opt-out requests. Real HTTP submission for 8 brokers via configurable endpoint (default `postman-echo.com` for verifiable closed-loop validation); other 202 brokers are dry-run blueprints with verified opt-out URLs. 58 support browser-assisted opt-out with captcha guidance and email verification prompts. Triple-confirm for high-risk actions, export decision before any delete.
+This skill:
+- **Never runs automatically.** `always: false` in frontmatter. No per-reply hook, no cron install, no scheduled task.
+- **Never sends notifications on its own.** `--notify` flag exists only as a dry-run placeholder (validated against `none|telegram|email|signal`) — no SMTP, Twilio, Signal, Telegram, SendGrid, or similar client library is imported or wired anywhere.
+- **Only writes files to declared paths.** See "Filesystem access" section below for the exhaustive list.
+- **Only makes network calls to declared endpoints.** See "Network access" section for every outbound target.
+- **Declares all environment variables it reads.** See `optionalEnv` in frontmatter for conditional requirements (e.g., `OPENAI_API_KEY` is only read when the user explicitly runs `vanish llm-memory-check` without `--dry-run`).
+- **Never installs system-level daemons** — no `crontab` entries, no `launchctl` services, no `schtasks`, no `systemd` units.
+- **Invokes a fixed allowlist of system binaries** for browser-opening and clipboard ops (see "System binaries invoked").
 
-### ✍️ audit — HMAC-signed event trail
-Every state mutation is HMAC-SHA256 signed over canonical JSON with timing-safe verification. `VANISH_AUDIT_HMAC_KEY` required in production (code warns in dev, silent in test). Proof reports render to Markdown.
+---
 
-### 🔁 queue — Retry / manual-review / dead-letter management
-Three-level queue with SHA-256 dedup. Transient errors (HTTP 5xx/429) → retry with exponential backoff. Captchas / auth failures → manual review queue. Permanent errors or retry-limit exceeded → dead-letter. Queue CLI supports list / retry / resolve.
+## Capabilities — 11 subcommands across 5 threat surfaces
+
+### 🏢 Data brokers (original v0.2 scope)
+- **`scan`** — Heuristic triage across 210 brokers. 0-100 score. Pure local computation, zero network calls. 10-second wall clock.
+- **`opt-out`** — Browser-assisted opt-out walkthrough for 58 brokers (opens browser, pre-fills clipboard, you solve captchas). Records HMAC-signed audit + 30-day verify follow-up.
+- **`verify`** — Re-check past opt-out submissions. Broker entries: HTTP liveness. AI-platform / face-service entries: reminder walkthrough with manual confirm. One-shot kinds (takedown, history) explicitly skipped.
+- **`b1-live`** — ⚠️ **EXPERIMENTAL** live HTTP submission adapter for 8 brokers. Captchas block real use. Defaults to `postman-echo.com` test endpoint. Use `opt-out` for real work.
+- **`cleanup`**, **`wizard`**, **`queue`**, **`report`**, **`dashboard`** — supporting workflow commands (dry-run cleanup, 18-state conversational wizard, queue management, proof-report rendering, static dashboard builder).
+
+### 🤖 AI training exposure (v0.3)
+- **`ai-scan`** — Classify 30 LLM platforms (ChatGPT / Claude / Gemini / LinkedIn / Reddit / Cursor / etc.) as exposed / licensed / safe / action-needed. Zero network calls. Takes only platform names, no personal data.
+- **`ai-opt-out`** — Walkthrough + browser-assisted opt-out for 26 of the 30. Each tool has exact UI toggle name + step-by-step + tier overrides. 60-day reverify (AI platforms silently reset settings).
+
+### 👤 Face-search (v0.3)
+- **`face-scan`** — Directory of 8 face-recognition services (PimEyes, FaceCheck.ID, FindClone, Lenso, TinEye, Yandex, Google Lens, Clearview AI). Vanish never handles your photo — opens each service's own search page + prints walkthrough.
+- **`face-opt-out`** — Guided deletion requests including Clearview (CCPA/GDPR — LE-only DB you can't search). HMAC audit + 30-day (60 for Clearview) reverify.
+
+### 🧠 Advanced AI-era checks (v0.3)
+- **`llm-memory-check`** — Probe OpenAI + Anthropic with 15 stalker-style prompts, detect verbatim leaks of user identifiers. **Requires user's own API keys in env** (optional: `--dry-run` uses a mock provider). ~$0.01/scan.
+- **`dataset-check`** — Check if your URL is in Common Crawl (real CDX API query) / LAION / Pile / C4 / WebText / RedPajama / Dolma / FineWeb (walkthrough). Only outbound call: `index.commoncrawl.org` for CC lookup.
+- **`clean-ai-history`** — Discover where AI tools store conversation history on your disk; prints exact shell command to delete. **Vanish never runs `rm` for you** — you copy-paste. Covers 9 tools (Cursor / VS Code Copilot / Claude Desktop / ChatGPT Desktop + 5 web).
+- **`third-party-ai`** — Catalog + objection-letter generator for 22 AI tools others use on you (workplace meetings, HR/recruiting AI, medical scribes, workforce-monitoring agents). Jurisdiction-cited letters (GDPR Art 21/22/88, CCPA / AB-331, Illinois AIVIA + BIPA, NY Local Law 144 + Electronic Monitoring Act, HIPAA, German BetrVG §87). Includes `--detect-installed` to scan local machine for 8 commercial workforce-monitoring vendors (ActivTrak / Teramind / Hubstaff / Time Doctor / Insightful / Veriato / InterGuard / Viva Insights).
+
+### 🛡️ NCII / leak takedown (v0.3)
+- **`takedown`** — DMCA letters for 12 leak sites + StopNCII.org hash-registry walkthrough + Google intimate-imagery form + 4 legal templates (DMCA §512(c) / C&D / police report / civil pre-suit). Jurisdictions: US federal (DMCA / SHIELD Act / Take It Down Act 2025), EU GDPR, UK OSA, Canada §162.1, Australia OSA. Vanish never submits — drafts only.
+
+---
+
+## Network access (all outbound targets)
+
+**Scan + offline subcommands (zero network)**: `scan`, `ai-scan`, `face-scan`, `third-party-ai` (without `--detect-installed` is offline too), `takedown` (drafts only), `clean-ai-history` (read-only path discovery), `llm-memory-check --dry-run`.
+
+**Subcommands with declared outbound HTTP**:
+
+| Subcommand | Endpoint | When | User consent |
+|-----------|----------|------|-------------|
+| `verify` | Broker profile URLs supplied by previous `opt-out` runs | HTTP liveness check on stored `profileUrl` | User added the URL via prior `opt-out` |
+| `b1-live` | `postman-echo.com` (default) or `<BROKER>_LIVE_ENDPOINT` | EXPERIMENTAL live submission | Explicit `--live` flag required |
+| `dataset-check` | `index.commoncrawl.org` CDX API | Only when `--url` + Common Crawl are selected | User supplies the URL |
+| `llm-memory-check` | `api.openai.com`, `api.anthropic.com` | Only without `--dry-run` | User supplies their own API key + specifies providers |
+| `ai-opt-out`, `face-opt-out`, `face-scan`, `clean-ai-history`, `takedown` | **none** — these only `spawn` the local OS "open URL" binary to launch the user's browser. No HTTP from the Node process. | — | User can pass `--no-open` |
+
+Every outbound request sends a clear `User-Agent: Vanish-Verify/1.0 (opt-out verification; https://github.com/RAMBOXIE/vanish)` for broker verify, or the standard SDK UA for OpenAI/Anthropic.
+
+---
+
+## Filesystem access
+
+### Writes
+| Location | Used by | Data |
+|----------|---------|------|
+| `data/queue-state.json` (default) or `--state-file <path>` | All subcommands producing audit | Follow-up queue + HMAC-signed audit log |
+| `data/queue-state.json.lock` | Queue mutations | Transient lock file (cleaned post-mutation; stale-lock detection has 30s TTL) |
+| `data/*.json` | `dashboard` (build-dashboard-data) | Denormalized queue state for the static dashboard HTML |
+| User-supplied `--output <path>` | `scan`, `ai-scan`, `third-party-ai`, `takedown`, `dataset-check --json` | Report/letter files |
+| `os.tmpdir()/vanish-*` | Tests only | Test isolation dirs (cleaned in `finally` blocks) |
+| Per-secret file under secret-store directory | `auth/secret-store` | scrypt-KDF + AES-GCM (Windows: DPAPI preferred) |
+
+### Reads
+- Catalog JSON files (read-only, bundled in repo): `src/adapters/brokers/config/broker-catalog.json`, `src/ai-scanner/ai-platforms-catalog.json`, `src/face-scanner/face-services-catalog.json`, `src/ai-history/history-catalog.json`, `src/dataset-check/datasets-catalog.json`, `src/third-party-ai/third-party-catalog.json`, `src/takedown/takedown-catalog.json`, `src/llm-memory/probe-catalog.json`.
+- `data/queue-state.json` for audit/verify.
+- User-supplied paths via `--state-file`, `--output-json`, `--output-md`, `--share-card`, `--profile-url`.
+
+### Scans (stat() only, read-only, never modifies)
+- `clean-ai-history` stats per-OS AI-tool cache paths (e.g., `%APPDATA%\Cursor\User\History`, `~/Library/Application Support/Cursor/`) — reports size, prints shell command, **never deletes**.
+- `third-party-ai --detect-installed` stats per-OS workforce-monitoring install paths (e.g., `%PROGRAMFILES%\ActivTrak`, `/Applications/Teramind.app`) — reports what's installed, **never modifies**.
+
+### Never writes outside: user-supplied paths, `data/`, `os.tmpdir()`. No `fs.rename` or `fs.unlink` calls outside the lock-file and session-temp lifecycle.
+
+---
+
+## System binaries invoked
+
+| Binary | Use | Subcommands | Safe? |
+|--------|-----|-------------|-------|
+| `cmd /c start` | Windows — open URL in default browser | `opt-out`, `ai-opt-out`, `face-opt-out`, `face-scan`, `clean-ai-history`, `takedown` | Yes — user-facing browser only |
+| `open` | macOS — open URL | same | Yes |
+| `xdg-open` | Linux — open URL | same | Yes |
+| `clip` | Windows clipboard write | `ai-opt-out --clipboard` | Yes — copies target setting name so user can Ctrl+F on the page |
+| `pbcopy` | macOS clipboard | same | Yes |
+| `xclip` / `xsel` | Linux clipboard | same | Yes (attempts both; silently no-ops if neither installed) |
+
+All browser-open + clipboard invocations honor `--no-open` to skip in scripted/test mode.
+
+---
 
 ## Operating principles
 
-1. Manual trigger only — `--manual` flag required, no scheduled automation
-2. Triple YES confirmation for any high-risk action (3 separate states)
-3. Export decision (yes/no) required before any delete
-4. User-selected notification channel (none is acceptable)
-5. User judges authenticity and legal truth; tool provides workflow capability only
-6. Credentials: minimum scope, shortest TTL, encrypted storage, post-task wipe
-7. HMAC key required in production; code fails loud without `VANISH_AUDIT_HMAC_KEY`
+1. **Manual trigger only** — every subcommand requires explicit invocation. `always: false` in frontmatter. No automation hooks.
+2. **Triple YES confirmation** for any high-risk action (3 separate wizard states, each needing exact `YES`).
+3. **Export decision** (`yes` / `no`) required before any delete.
+4. **User-selected notification** — `--notify` is a dry-run placeholder; no actual sending.
+5. **User owns legal judgment** — Vanish provides workflow capability, not legal advice. Templates cite real law but are not legal representation.
+6. **Credentials**: minimum scope, shortest TTL, encrypted storage, post-task wipe. HMAC key required in production.
+7. **Never submit destructive actions on the user's behalf** — we open pages, show exact commands, record audits. The user clicks submit, runs `rm`, sends the letter.
 
-## Standard flow — 18 states
+---
 
-**Scan phase (5):**
-`SCAN_WELCOME → SCAN_INPUT → SCAN_RUNNING → SCAN_REPORT → SCAN_HANDOFF`
+## Safety gates enforced by code
 
-**Cleanup phase (13):**
-`WELCOME → GOAL → SCOPE → INPUT → AUTH → PLAN → RISK_CONFIRM_1 → RISK_CONFIRM_2 → RISK_CONFIRM_3 → EXPORT_DECISION → EXECUTE → REPORT → CLOSE`
+| Gate | Enforcement |
+|------|-------------|
+| Manual trigger | `--manual` flag required for cleanup; missing flag returns `blocked` with clear `nextActions` |
+| Triple confirmation | Three separate states each require exact `YES`; any mismatch blocks |
+| Export decision | Must be `yes` or `no` before EXECUTE; `ask` without answer = hard block |
+| HMAC signing | Every persisted state mutation signed with `VANISH_AUDIT_HMAC_KEY` |
+| Credential lifetime | TTL enforced by `AuthSession.validate({ minTtlSeconds })` |
+| Secret storage | scrypt KDF + per-secret salt; Windows DPAPI preferred, AES-GCM fallback |
+| Compliance block | `b1-live` official mode requires `termsAccepted`, `lawfulBasis`, `operatorId` |
+| Destructive action gating | `clean-ai-history` only prints commands; `takedown` only drafts letters; `face-scan`/`face-opt-out` never upload photos |
 
-From `SCAN_HANDOFF` the user chooses:
-- `cleanup` → continue to the 13-state cleanup flow
-- `export` → write scan report to file and exit
-- `done` → exit without further action
-
-Global commands available in every state: `status`, `back`, `pause`, `resume`.
-
-Backward compatibility: `createSession({ skipScan: true })` skips the scan phase and starts at `WELCOME` (original 13-state flow).
+---
 
 ## Run examples
 
-### Scan (recommended entry point)
+### Scan (zero network, recommended first step)
 ```bash
 vanish scan --name "John Doe" --email "j@example.com" --phone "+15550101"
 vanish scan --name "..." --output-md ./my-report.md
 ```
 
-### Full interactive wizard (scan → review → cleanup)
+### AI training exposure
+```bash
+vanish ai-scan --linkedin --chatgpt --cursor
+vanish ai-opt-out --chatgpt --linkedin    # browser-assisted walkthrough
+```
+
+### Face search
+```bash
+vanish face-scan --pimeyes --facecheck
+vanish face-opt-out --pimeyes --clearview
+```
+
+### Workforce monitoring
+```bash
+vanish third-party-ai --detect-installed    # local scan for 8 commercial agents
+vanish third-party-ai --context workforce-monitoring \
+  --detect-installed \
+  --jurisdiction US-state-NY-EMA \
+  --company "Acme Corp" \
+  --output workforce-objection.md
+```
+
+### NCII takedown
+```bash
+vanish takedown --stopncii                         # hash-register (most effective free tool)
+vanish takedown --dmca-letter --all-leak-sites \
+  --name "Your Name" --email "legal@you.com" \
+  --output dmca-package.md
+```
+
+### Full interactive wizard
 ```bash
 vanish wizard
-```
-
-### Cleanup with preset
-```bash
-vanish cleanup --manual --preset spokeo \
-  --confirm1 YES --confirm2 YES --confirm3 YES \
-  --export-before-delete ask --export-answer no --notify none
-```
-
-### Live submission (real HTTP against test endpoint)
-```bash
-vanish b1-live run --live --brokers spokeo,thatsthem,peekyou \
-  --full-name "Test User"
-```
-
-### Queue management
-```bash
-vanish queue list
-vanish queue retry --id <retryItemId>
-vanish queue resolve --id <manualReviewId> --resolution resolved
 ```
 
 ### Zero-install via npx
@@ -104,58 +211,55 @@ vanish queue resolve --id <manualReviewId> --resolution resolved
 npx github:RAMBOXIE/vanish scan --name "..." --email "..."
 ```
 
-## Safety gates enforced by code
+---
 
-| Gate | Enforcement |
-|------|-------------|
-| Manual trigger | `--manual` flag required; missing flag returns `blocked` with clear `nextActions` |
-| Triple confirmation | Three separate states each require exact `YES`; any mismatch blocks |
-| Export decision | Must be `yes` or `no` before EXECUTE; `ask` without answer = hard block |
-| HMAC signing | Every persisted state mutation signed with `VANISH_AUDIT_HMAC_KEY` |
-| Credential lifetime | TTL enforced by `AuthSession.validate({ minTtlSeconds })` |
-| Secret storage | scrypt KDF + per-secret salt; Windows DPAPI preferred, AES-GCM fallback |
-| Compliance block | Live official mode requires `termsAccepted`, `lawfulBasis`, `operatorId` |
+## Coverage summary
 
-## Broker coverage — 210 brokers / 12 categories
+| Threat surface | Catalog size | Walkthrough count | Live-adapter count |
+|----------------|:-----------:|:-----------------:|:------------------:|
+| Data brokers | 210 | 58 | 8 (experimental) |
+| AI training platforms | 30 | 26 | 0 |
+| Face-search services | 8 | 8 | 0 |
+| Third-party AI tools (incl. workforce-monitoring) | 22 | — | 0 |
+| NCII takedown destinations | 12 leak sites + 3 hash registries + 3 search engines | — | 0 |
+| Training datasets | 8 | — | 1 (Common Crawl CDX) |
+| AI history locations | 9 (4 local-app + 5 web) | — | 0 |
+| LLM memorization providers | 2 (OpenAI + Anthropic) | — | API-based, user-key |
 
-| Category | Count | Examples |
-|----------|------|----------|
-| People Search | 70 | Spokeo, Whitepages, BeenVerified, Intelius, Radaris, Truecaller, InfoTracer |
-| Public Records | 21 | FamilySearch, Archives, CourtListener, PropertyShark, CityData |
-| Marketing Data | 20 | Acxiom, LiveRamp, Oracle/BlueKai, ZoomInfo, Clearbit, Epsilon |
-| Background Check | 18 | Checkr, GoodHire, Sterling, AccurateBackground, HireRight |
-| Email Data | 15 | Hunter, Lusha, Apollo, RocketReach, LeadIQ |
-| Phone Lookup | 14 | Truecaller, Hiya, RoboKiller, Sync.me |
-| Financial | 12 | LexisNexis, Equifax, Experian, TransUnion, CoreLogic |
-| Social Media | 8 | Lullar, SocialSearcher, Webmii, UserSearch |
-| Location Data | 8 | SafeGraph, Foursquare, PlaceIQ, X-Mode |
-| Reputation | 7 | BrandYourself, Reputation.com, NetReputation |
-| Identity Resolution | 7 | FullContact, Throtle, Tapad, LiveIntent |
+**The three "coverage" columns are NOT the same thing. Triage ≠ walkthrough ≠ automated submission. See the capability matrix in README for the distinction.**
 
-**Live HTTP submission (8)**: Spokeo, Thatsthem, Peekyou, Addresses, CocoFinder, Checkpeople, FamilyTreeNow, USPhoneBook.
-**Dry-run blueprints (192)**: verified opt-out URLs in catalog; add endpoint config per broker to enable live submission.
-
-## Environment variables
-
-| Var | When needed | Purpose |
-|-----|-------------|---------|
-| `VANISH_AUDIT_HMAC_KEY` | Production | Audit event signing. Required in production; warns in dev. |
-| `VANISH_SECRET_MASTER_KEY` | When using encrypted secrets | AES-GCM fallback when Windows DPAPI unavailable |
-| `<BROKER>_LIVE_ENDPOINT` | Live submission | Per-broker HTTP endpoint override (default: `postman-echo.com`) |
-| `<BROKER>_OFFICIAL_*_ENDPOINT` | Official mode | Real broker endpoints (default blocked by compliance gate) |
-
-Scan mode requires zero env vars — pure local computation.
-
-## Boundaries / 边界
-
-- **Authenticity and legal judgment**: belong to the user, not the tool. Tool provides process capability only.
-- **Live official broker mode**: compliance-gated by default; requires `termsAccepted`, `lawfulBasis`, `operatorId` before submission. Without configured endpoints, defaults to test/echo mode.
-- **No background automation**: every run requires explicit manual trigger.
-- **Credential persistence**: only via the encrypted secret store with TTL enforcement; no plaintext storage.
-- **Dry-run by default**: 202 of 210 brokers remain dry-run until endpoint config is added. 58 support browser-assisted opt-out.
+---
 
 ## Tests
 
-109 tests across 17 files covering: safety gates, queue state persistence, retry/dead-letter routing, secret encryption, audit signing, wizard state transitions, scan scoring, 210-broker registration, live HTTP round-trip against postman-echo, follow-up verify classification, browser-assisted opt-out flows, share card rendering.
+**334 tests** across 26 files. Every commit runs 6-job matrix: Ubuntu/macOS/Windows × Node 20/22.
+
+Coverage includes: safety gates · queue state persistence · retry/dead-letter routing · secret encryption (scrypt KDF) · HMAC audit signing with canonical JSON · timing-safe verification · wizard state transitions · scan scoring heuristic · 210-broker catalog registration · live HTTP round-trip against postman-echo · 30/60-day verify reverification · browser-assisted opt-out flows · share card rendering (broker + triple-threat v2) · AI training classification · face-scan service directory · LLM leak detection with mock fetch · Common Crawl CDX query with mock fetch · AI history cross-platform path expansion · third-party AI objection-letter rendering · workforce-monitoring detection with mock filesystem · takedown DMCA letter substitution · legal-jurisdiction clause dispatch across 10 jurisdictions.
 
 Run: `npm test`
+
+---
+
+## Non-goals (explicit scope boundaries)
+
+Vanish does **NOT**:
+- Run as a background service or scheduled task
+- Send email, SMS, or push notifications
+- Kill processes, terminate services, or alter system configuration
+- Block phone-home traffic from monitoring tools
+- Provide anti-detection or anti-forensics against monitoring software
+- Auto-submit legal documents or send letters for you
+- Auto-delete files from your disk (print commands; you execute)
+- Upload your photos, emails, documents, or identity information anywhere
+
+These are deliberate. Every capability is scoped to **identification + documentation + evidence + drafted-request generation**. The user is always the final actor.
+
+---
+
+## Attribution
+
+**DeleteMe®**, **Optery®**, and **Incogni®** are trademarks of their respective owners (Abine, Inc.; Optery, Inc.; Surfshark B.V.). Vanish is not affiliated with, endorsed by, or sponsored by any of these services. References exist solely for factual comparison (truthful comparative advertising permitted under US Lanham Act §43(a), EU Directive 2006/114/EC).
+
+Pricing references ($99+/yr, $129+/yr) are entry-tier and approximate as of April 2026.
+
+MIT-licensed — see LICENSE.

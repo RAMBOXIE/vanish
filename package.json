@@ -1,7 +1,7 @@
 {
   "name": "vanish",
-  "version": "0.2.0",
-  "description": "Open-source privacy scanner + opt-out orchestrator for 210 data brokers. Free alternative to DeleteMe, Optery, Incogni. Local-first, audit-signed, MIT-licensed.",
+  "version": "0.3.0",
+  "description": "Open-source privacy scanner + opt-out orchestrator covering 210 data brokers, 30 AI training platforms, 8 face-search services, 13 third-party AI tools (incl. workforce-monitoring agents), 12 NCII-takedown destinations, plus LLM memorization probing, training-dataset membership checks, and AI history cleanup. Free alternative to DeleteMe / Optery / Incogni that also covers AI-era threats they don't. Local-first, audit-signed, MIT-licensed.",
   "keywords": [
     "privacy",
     "data-broker",
