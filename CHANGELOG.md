@@ -5,6 +5,27 @@ All notable changes to Vanish will be documented here. Format follows [Keep a Ch
 ## [Unreleased]
 
 ### Added
+- **🧪 Clawhub compliance guard** (`tests/skill-compliance.test.mjs`) — 12 new tests
+  that catch SKILL.md ↔ code drift automatically, so future `process.env.X`
+  additions or new network endpoints fail CI if they aren't declared:
+  - Every `process.env.X` in `src/` + `scripts/` must be listed in SKILL.md
+    (or in the allowlist for standard env vars like NODE_ENV / APPDATA / HOME)
+  - No notification client libraries imported (nodemailer / sendgrid /
+    mailgun / twilio / slack / telegram / signal) — prevents accidental
+    introduction of "undeclared notification credentials" red-line
+  - No `crontab` / `schtasks` / `launchctl` / `systemctl enable` invocation
+    in code — prevents accidental system-scheduler install
+  - `always: false` present in SKILL.md frontmatter
+  - SKILL.md version matches package.json version
+  - Required sections exist: Clawhub compliance declaration / Network access
+    / Filesystem access / System binaries invoked / Non-goals
+  - Network section mentions the real endpoints: api.openai.com, api.anthropic.com,
+    index.commoncrawl.org, postman-echo
+  - System binaries section mentions: cmd /c start, open, xdg-open, clip,
+    pbcopy, xclip
+  - Coverage matrix numbers (broker 210, AI 30, face 8) match catalog reality
+- Total test count: 334 → 346
+
 - **⚖️ Workforce-monitoring coverage in `vanish third-party-ai`** — addresses the
   emerging threat reported around Meta/Salesforce: employers installing desktop
   agents that capture mouse/keystroke/screen telemetry to train AI agents on

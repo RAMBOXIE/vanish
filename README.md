@@ -638,7 +638,7 @@ Vanish stores **nothing** sensitive:
 - **Persistent Queues** — retry (exponential backoff) / manual-review / dead-letter with SHA-256 dedupe
 - **Local Dashboard** — static HTML, watches queue state, zero backend
 - **Safety Gates** — manual trigger only, triple-confirm for high-risk, export-before-delete, compliance snapshot
-- **334 Tests** — unit + integration + CLI + e2e against `postman-echo.com`, every commit runs on Ubuntu/macOS/Windows × Node 20/22 (6 matrix jobs)
+- **346 Tests** — unit + integration + CLI + e2e against `postman-echo.com` + SKILL.md/Clawhub compliance checks, every commit runs on Ubuntu/macOS/Windows × Node 20/22 (6 matrix jobs)
 
 ### 🛡️ NCII / leak content takedown (unique to Vanish)
 
@@ -815,7 +815,7 @@ vanish dashboard data/queue-state.json
 # Proof report (audit trail in Markdown)
 vanish report ./path/to/execution-result.json
 
-# All 334 tests (109 broker + 19 share-card + 22 ai-scan + 13 ai-opt-out + 23 face-scan + 30 llm-memory-check + 24 clean-ai-history + 20 dataset-check + 44 third-party-ai incl. workforce-monitoring + 31 takedown + 26 verify incl. kind dispatch)
+# All 346 tests (109 broker + 19 share-card + 22 ai-scan + 13 ai-opt-out + 23 face-scan + 30 llm-memory-check + 24 clean-ai-history + 20 dataset-check + 44 third-party-ai incl. workforce-monitoring + 31 takedown + 26 verify incl. kind dispatch + 12 Clawhub compliance guard)
 npm test
 ```
 
@@ -877,7 +877,7 @@ prompts/wizard/                 # 18 .md prompt templates per state
 scripts/                        # CLI entry points (scan, ai-scan, face-scan, llm-memory-check,
                                 #   dataset-check, third-party-ai, opt-out, ai-opt-out,
                                 #   face-opt-out, clean-ai-history, takedown, verify, ...)
-tests/                          # 334 tests across 26 files
+tests/                          # 346 tests across 27 files (includes Clawhub compliance guard)
 web/                            # Static web app v2 (Vite + vanilla JS) — 3 tabs: broker scan,
                                 #   AI training checkbox grid, face-search directory. Shares
                                 #   src/scanner + src/ai-scanner + src/face-scanner catalogs.
