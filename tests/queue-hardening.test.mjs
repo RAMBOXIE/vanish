@@ -1,10 +1,24 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 
 import { RetryQueue } from '../src/queue/retry-queue.mjs';
 import { ManualReviewQueue } from '../src/queue/manual-review-queue.mjs';
 import { DeadLetterQueue } from '../src/queue/dead-letter-queue.mjs';
 import { runB1Pipeline } from '../src/orchestrator/b1-runner.mjs';
+import { createDefaultStore } from '../src/queue/state-store.mjs';
+import { AuthSession } from '../src/auth/session-auth.mjs';
+
+const noAuth = new AuthSession({});
+
+// F-4 isolation: see tests/b1-queue.test.mjs for context.
+function isolatedStore() {
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'vanish-queue-hardening-'));
+  const store = createDefaultStore({ filePath: path.join(tmpDir, 'queue-state.json') });
+  return { store, cleanup: () => fs.rmSync(tmpDir, { recursive: true, force: true }) };
+}
 
 const input = {
   requestId: 'queue-hardening-1',
@@ -32,31 +46,40 @@ test('retry and manual queues deduplicate broker request reason hash', () => {
 });
 
 test('max attempts and non retryable errors are routed to dead letter queue', async () => {
-  const retryQueue = new RetryQueue({ maxAttempts: 1, baseDelayMs: 10 });
-  const manualReviewQueue = new ManualReviewQueue();
-  const deadLetterQueue = new DeadLetterQueue();
+  const { store, cleanup } = isolatedStore();
+  try {
+    const retryQueue = new RetryQueue({ maxAttempts: 1, baseDelayMs: 10 });
+    const manualReviewQueue = new ManualReviewQueue();
+    const deadLetterQueue = new DeadLetterQueue();
 
-  const transient = await runB1Pipeline({
-    brokers: ['spokeo'],
-    input: { ...input, simulate: { spokeo: 'transient-error' } },
-    retryQueue,
-    manualReviewQueue,
-    deadLetterQueue
-  });
+    const transient = await runB1Pipeline({
+      brokers: ['spokeo'],
+      input: { ...input, simulate: { spokeo: 'transient-error' } },
+      retryQueue,
+      manualReviewQueue,
+      deadLetterQueue,
+      store,
+      auth: noAuth
+    });
 
-  assert.equal(transient.summary.deadLetterQueued, 1);
-  assert.equal(deadLetterQueue.items[0].reason, 'retry_limit_reached');
-  assert.equal(manualReviewQueue.items.length, 0);
+    assert.equal(transient.summary.deadLetterQueued, 1);
+    assert.equal(deadLetterQueue.items[0].reason, 'retry_limit_reached');
+    assert.equal(manualReviewQueue.items.length, 0);
 
-  const permanent = await runB1Pipeline({
-    brokers: ['whitepages'],
-    input: { ...input, requestId: 'queue-hardening-2', simulate: { whitepages: 'permanent-error' } },
-    retryQueue,
-    manualReviewQueue,
-    deadLetterQueue
-  });
+    const permanent = await runB1Pipeline({
+      brokers: ['whitepages'],
+      input: { ...input, requestId: 'queue-hardening-2', simulate: { whitepages: 'permanent-error' } },
+      retryQueue,
+      manualReviewQueue,
+      deadLetterQueue,
+      store,
+      auth: noAuth
+    });
 
-  assert.equal(permanent.summary.deadLetterQueued, 1);
-  assert.equal(deadLetterQueue.items.length, 2);
-  assert.equal(deadLetterQueue.items[1].reason, 'submit_failed');
+    assert.equal(permanent.summary.deadLetterQueued, 1);
+    assert.equal(deadLetterQueue.items.length, 2);
+    assert.equal(deadLetterQueue.items[1].reason, 'submit_failed');
+  } finally {
+    cleanup();
+  }
 });

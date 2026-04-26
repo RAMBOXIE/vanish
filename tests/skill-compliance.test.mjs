@@ -157,6 +157,61 @@ test('scan-report.mjs REPORT_VERSION matches package.json version', async () => 
     `src/scanner/scan-report.mjs REPORT_VERSION (${REPORT_VERSION}) does not match package.json (${PACKAGE_JSON.version}). Bump them together.`);
 });
 
+// ─── F-4 regression guard: tests must not pollute data/queue-state.json ──
+
+test('every test that spawns an audit-writing CLI passes --state-file', () => {
+  // F-4: a previous bug let `npm test` write submit_error / completed /
+  // ai_opt_out_submitted_by_user audit events into the user's real
+  // data/queue-state.json. Each test that spawns one of these CLIs must
+  // pass --state-file pointing at a tmpDir to stay isolated.
+  const auditWritingScripts = new Set([
+    'opt-out.mjs', 'ai-opt-out.mjs', 'face-opt-out.mjs',
+    'takedown.mjs', 'queue-cli.mjs', 'verify.mjs'
+  ]);
+
+  const testFiles = jsFilesIn(path.join(PROJECT_ROOT, 'tests'));
+  const violations = [];
+
+  for (const file of testFiles) {
+    const text = fs.readFileSync(file, 'utf8');
+    // Tokenise into individual `test('...', () => {...})` bodies. Crude but
+    // good enough — we only need to know whether each spawnSync sits inside
+    // a body that also contains --state-file or mkdtempSync.
+    const testBodies = [];
+    let depth = 0, start = -1;
+     for (let i = 0; i < text.length; i += 1) {
+      if (text[i] === '{') {
+        if (depth === 0) start = i;
+        depth += 1;
+      } else if (text[i] === '}') {
+        depth -= 1;
+        if (depth === 0 && start >= 0) {
+          testBodies.push(text.slice(start, i + 1));
+          start = -1;
+        }
+      }
+    }
+
+    for (const body of testBodies) {
+      // Find every spawnSync(process.execPath, [SCRIPT, ...]) in this body
+      const spawnMatches = [...body.matchAll(/spawnSync\s*\(\s*process\.execPath/g)];
+      if (spawnMatches.length === 0) continue;
+
+      const usesStateFile = body.includes('--state-file') || body.includes('mkdtempSync');
+      if (!usesStateFile) {
+        // Check whether the body actually invokes one of the audit-writing scripts
+        const usesAuditScript = [...auditWritingScripts].some(s => body.includes(s));
+        if (usesAuditScript) {
+          violations.push(`${path.relative(PROJECT_ROOT, file)}: test spawns audit-writing CLI without --state-file`);
+        }
+      }
+    }
+  }
+
+  assert.equal(violations.length, 0,
+    `F-4 regression: tests must not let CLI writes pollute data/queue-state.json:\n  ${violations.join('\n  ')}`);
+});
+
 // ─── Required compliance sections exist ───────────────────────
 
 test('SKILL.md has the Clawhub compliance section', () => {

@@ -22,9 +22,9 @@
 | ID | Severity | Subcommand | Title | Status |
 |----|----------|-----------|-------|--------|
 | F-1 | **P0** | `scan` (markdown report) | Markdown report footer reads "v0.1" instead of "v0.3.0" | ✅ **Fixed** in commit (added `REPORT_VERSION` constant + skill-compliance regression test) |
-| F-2 | P1 | `queue` | `queue list` dumps raw JSON instead of human-friendly table | ⏳ Open |
+| F-2 | P1 | `queue` | `queue list` dumps raw JSON instead of human-friendly table | ✅ **Fixed** in commit (`queue-cli.mjs` renders a table by default; `--json` preserves raw output; added `tests/queue-cli.test.mjs` with 5 regression tests) |
 | F-3 | P1 | `takedown` (catalog) | Coomer / Kemono `abuseContact` field is a vague pointer ("DMCA via coomer.su/dmca") instead of a concrete email — letters tell user to "send to DMCA via X" without an actionable address | ✅ **Fixed** in commit (URLs now `https://coomer.su/dmca` + `https://kemono.su/contact`; added catalog schema test enforcing URL or email pattern) |
-| F-4 | P1 | (multiple tests) | Some test files don't isolate state writes — `npm test` pollutes `data/queue-state.json` with `submit_error` and other test events | ⏳ Open |
+| F-4 | P1 | (multiple tests) | Some test files don't isolate state writes — `npm test` pollutes `data/queue-state.json` with `submit_error` and other test events | ✅ **Fixed** in commit (`b1-queue.test.mjs` + `queue-hardening.test.mjs` now pass isolated `store` + empty `AuthSession`; `ai-opt-out.test.mjs` + `takedown.test.mjs` SHIELD test now use `mkdtempSync` + `--state-file`; added `skill-compliance.test.mjs` static-analysis guard that scans test bodies for unprotected spawnSync calls) |
 | F-5 | P2 | All `--no-open` flows | HMAC-key warning fires once per persisted state mutation (3-4× per CLI invocation), creating noise. Should fire once per process. | ⏳ Open |
 | F-6 | P2 | `clean-ai-history` | Reports "0 B" for paths that have non-trivial item counts (e.g., 10 items in `Cursor/logs`) — the `statPath` walk is depth-1 only, so deeply-nested file sizes don't roll up. | ⏳ Open |
 | F-7 | P2 | `opt-out` (BeenVerified flow) | Step 3 prompt says "○ State (you need to provide)" even though the operator passed `--full-name` — there's no `--state` flag wired up for broker forms that require it. | ⏳ Open |
@@ -36,6 +36,18 @@ follow-up commit. Both have regression tests (`skill-compliance.test.mjs`
 locks `REPORT_VERSION` to package.json; `takedown.test.mjs` asserts every
 `abuseContact` matches URL or email regex). 1 P1 + 3 P2 remain open;
 **known P0 count = 0**.
+
+**Update 2026-04-26 (B+C fix commit)**: F-2 and F-4 fixed.
+- F-2: `queue list` now renders a table by default (`--json` preserves
+  raw output for scripts). 5 regression tests in
+  `tests/queue-cli.test.mjs`.
+- F-4: every test that spawns an audit-writing CLI or calls
+  `runB1Pipeline` now uses an isolated state file. After
+  `rm -rf data && npm test`, `data/queue-state.json` is no longer
+  created. A static-analysis test in `skill-compliance.test.mjs`
+  scans test bodies and fails if any future test forgets `--state-file`.
+- Total tests: 354 (was 348). All P0 + P1 from the synthetic pass are
+  now resolved; only 3 P2 remain. **known P0 + P1 count = 0**.
 
 ---
 

@@ -296,11 +296,19 @@ test('CLI --google-intimate --no-open records audit + shows form URL', () => {
 });
 
 test('CLI --cease-and-desist --jurisdiction SHIELD cites Shield Act', () => {
-  const result = spawnSync(process.execPath, [
-    SCRIPT, '--cease-and-desist', '--jurisdiction', 'SHIELD',
-    '--name', 'Alice', '--no-open'
-  ], { encoding: 'utf8', env: { ...process.env, NODE_ENV: 'test' } });
-  assert.equal(result.status, 0);
-  // Either Shield Act or 2261A — selectJurisdictionClause returns one of them
-  assert.match(result.stdout, /Shield Act|2261A/);
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'vanish-takedown-'));
+  const stateFile = path.join(tmpDir, 'queue-state.json');
+
+  try {
+    const result = spawnSync(process.execPath, [
+      SCRIPT, '--cease-and-desist', '--jurisdiction', 'SHIELD',
+      '--name', 'Alice', '--no-open',
+      '--state-file', stateFile
+    ], { encoding: 'utf8', env: { ...process.env, NODE_ENV: 'test' } });
+    assert.equal(result.status, 0);
+    // Either Shield Act or 2261A — selectJurisdictionClause returns one of them
+    assert.match(result.stdout, /Shield Act|2261A/);
+  } finally {
+    fs.rmSync(tmpDir, { recursive: true, force: true });
+  }
 });

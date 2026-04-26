@@ -171,14 +171,22 @@ test('CLI --all covers all non-safe platforms', () => {
 });
 
 test('CLI warns on unknown platform in --use list', () => {
-  const result = spawnSync(process.execPath, [
-    SCRIPT, '--use', 'chatgpt,does-not-exist,linkedin', '--no-open'
-  ], { encoding: 'utf8', env: { ...process.env, NODE_ENV: 'test' } });
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'vanish-ai-optout-'));
+  const stateFile = path.join(tmpDir, 'queue-state.json');
 
-  assert.equal(result.status, 0);
-  assert.match(result.stderr, /unknown platform "does-not-exist"/);
-  // The two valid ones should still be processed
-  assert.match(result.stdout, /Recorded: 2/);
+  try {
+    const result = spawnSync(process.execPath, [
+      SCRIPT, '--use', 'chatgpt,does-not-exist,linkedin', '--no-open',
+      '--state-file', stateFile
+    ], { encoding: 'utf8', env: { ...process.env, NODE_ENV: 'test' } });
+
+    assert.equal(result.status, 0);
+    assert.match(result.stderr, /unknown platform "does-not-exist"/);
+    // The two valid ones should still be processed
+    assert.match(result.stdout, /Recorded: 2/);
+  } finally {
+    fs.rmSync(tmpDir, { recursive: true, force: true });
+  }
 });
 
 // ─── Follow-up entry shape ─────────────────────────────────────
