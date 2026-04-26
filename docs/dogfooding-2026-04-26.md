@@ -19,17 +19,23 @@
 
 ## Findings summary
 
-| ID | Severity | Subcommand | Title |
-|----|----------|-----------|-------|
-| F-1 | **P0** | `scan` (markdown report) | Markdown report footer reads "v0.1" instead of "v0.3.0" |
-| F-2 | P1 | `queue` | `queue list` dumps raw JSON instead of human-friendly table |
-| F-3 | P1 | `takedown` (catalog) | Coomer / Kemono `abuseContact` field is a vague pointer ("DMCA via coomer.su/dmca") instead of a concrete email — letters tell user to "send to DMCA via X" without an actionable address |
-| F-4 | P1 | (multiple tests) | Some test files don't isolate state writes — `npm test` pollutes `data/queue-state.json` with `submit_error` and other test events |
-| F-5 | P2 | All `--no-open` flows | HMAC-key warning fires once per persisted state mutation (3-4× per CLI invocation), creating noise. Should fire once per process. |
-| F-6 | P2 | `clean-ai-history` | Reports "0 B" for paths that have non-trivial item counts (e.g., 10 items in `Cursor/logs`) — the `statPath` walk is depth-1 only, so deeply-nested file sizes don't roll up. |
-| F-7 | P2 | `opt-out` (BeenVerified flow) | Step 3 prompt says "○ State (you need to provide)" even though the operator passed `--full-name` — there's no `--state` flag wired up for broker forms that require it. |
+| ID | Severity | Subcommand | Title | Status |
+|----|----------|-----------|-------|--------|
+| F-1 | **P0** | `scan` (markdown report) | Markdown report footer reads "v0.1" instead of "v0.3.0" | ✅ **Fixed** in commit (added `REPORT_VERSION` constant + skill-compliance regression test) |
+| F-2 | P1 | `queue` | `queue list` dumps raw JSON instead of human-friendly table | ⏳ Open |
+| F-3 | P1 | `takedown` (catalog) | Coomer / Kemono `abuseContact` field is a vague pointer ("DMCA via coomer.su/dmca") instead of a concrete email — letters tell user to "send to DMCA via X" without an actionable address | ✅ **Fixed** in commit (URLs now `https://coomer.su/dmca` + `https://kemono.su/contact`; added catalog schema test enforcing URL or email pattern) |
+| F-4 | P1 | (multiple tests) | Some test files don't isolate state writes — `npm test` pollutes `data/queue-state.json` with `submit_error` and other test events | ⏳ Open |
+| F-5 | P2 | All `--no-open` flows | HMAC-key warning fires once per persisted state mutation (3-4× per CLI invocation), creating noise. Should fire once per process. | ⏳ Open |
+| F-6 | P2 | `clean-ai-history` | Reports "0 B" for paths that have non-trivial item counts (e.g., 10 items in `Cursor/logs`) — the `statPath` walk is depth-1 only, so deeply-nested file sizes don't roll up. | ⏳ Open |
+| F-7 | P2 | `opt-out` (BeenVerified flow) | Step 3 prompt says "○ State (you need to provide)" even though the operator passed `--full-name` — there's no `--state` flag wired up for broker forms that require it. | ⏳ Open |
 
 **Verdict**: 1 P0, 3 P1, 3 P2. The P0 is doc-only (a stale "v0.1" string in the markdown report footer) and trivially fixable. The 3 P1s are launch-quality issues that should be addressed but don't block.
+
+**Update 2026-04-26 (post-findings commit)**: F-1 and F-3 fixed in
+follow-up commit. Both have regression tests (`skill-compliance.test.mjs`
+locks `REPORT_VERSION` to package.json; `takedown.test.mjs` asserts every
+`abuseContact` matches URL or email regex). 1 P1 + 3 P2 remain open;
+**known P0 count = 0**.
 
 ---
 

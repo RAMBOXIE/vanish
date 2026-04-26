@@ -47,6 +47,24 @@ test('every leak site has required fields', () => {
   }
 });
 
+test('every leak-site abuseContact is a concrete URL or email (F-3 regression guard)', () => {
+  // Earlier versions had vague pointers like "DMCA via coomer.su/dmca (varies by mirror)"
+  // which made generated DMCA letters unactionable. Enforce that abuseContact is either:
+  //   - a URL beginning with https?://
+  //   - an email address (contains @, no spaces in the local part)
+  //   - a URL + email combo separated by "or" (Pornhub uses both)
+  const urlRe = /^https?:\/\/[^\s]+/;
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  for (const [key, s] of Object.entries(catalog.leakSites)) {
+    const c = s.abuseContact;
+    // Split on "or" to handle "URL or email" combo entries
+    const parts = c.split(/\s+or\s+/i).map(p => p.trim());
+    const allValid = parts.every(p => urlRe.test(p) || emailRe.test(p));
+    assert.ok(allValid,
+      `${key}.abuseContact "${c}" is not a URL or email — it must be directly actionable from the generated DMCA letter`);
+  }
+});
+
 test('catalog has all 4 legal templates', () => {
   assert.ok(catalog.legalTemplates['dmca-takedown']);
   assert.ok(catalog.legalTemplates['cease-and-desist']);

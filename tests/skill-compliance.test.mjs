@@ -149,6 +149,14 @@ test('SKILL.md version matches package.json version', () => {
     `SKILL.md version (${skillVersion}) does not match package.json version (${PACKAGE_JSON.version})`);
 });
 
+test('scan-report.mjs REPORT_VERSION matches package.json version', async () => {
+  // F-1 regression guard: the markdown report footer used to hardcode "v0.1"
+  // for two minor versions. Lock REPORT_VERSION to package.json so it can't drift.
+  const { REPORT_VERSION } = await import('../src/scanner/scan-report.mjs');
+  assert.equal(REPORT_VERSION, PACKAGE_JSON.version,
+    `src/scanner/scan-report.mjs REPORT_VERSION (${REPORT_VERSION}) does not match package.json (${PACKAGE_JSON.version}). Bump them together.`);
+});
+
 // ─── Required compliance sections exist ───────────────────────
 
 test('SKILL.md has the Clawhub compliance section', () => {

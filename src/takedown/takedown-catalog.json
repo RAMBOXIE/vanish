@@ -25,8 +25,8 @@
     "coomer": {
       "displayName": "coomer.su / coomer.party",
       "category": "aggregator",
-      "abuseContact": "DMCA via coomer.su/dmca (varies by mirror)",
-      "notes": "Reposts paid subscription content from OnlyFans/Fansly/Patreon. Frequently changes domain due to takedowns. Multiple mirror sites.",
+      "abuseContact": "https://coomer.su/dmca",
+      "notes": "Reposts paid subscription content from OnlyFans/Fansly/Patreon. Frequently changes domain due to takedowns. Multiple mirror sites — if coomer.su returns 404 try coomer.party / coomer.st / current mirror via the official Telegram. The /dmca page is a form, not an email; their backend then forwards to abuse@<currenthost>.",
       "takedownDifficulty": "hard",
       "approach": "DMCA to host + Cloudflare + registrar. Cloudflare (abuse@cloudflare.com) often effective for identifying upstream host.",
       "signalAsked": "coomer"
@@ -34,8 +34,8 @@
     "kemono": {
       "displayName": "kemono.su / kemono.party",
       "category": "aggregator",
-      "abuseContact": "contact via kemono.su/contact",
-      "notes": "Sister site to coomer.party, focused on Patreon/Fanbox/similar creator platforms. Same DMCA approach.",
+      "abuseContact": "https://kemono.su/contact",
+      "notes": "Sister site to coomer.party, focused on Patreon/Fanbox/similar creator platforms. Same DMCA approach. The /contact page is a web form; same domain-rotation caveat as coomer applies.",
       "takedownDifficulty": "hard",
       "approach": "DMCA via their form + escalate to Cloudflare if they host.",
       "signalAsked": "kemono"
