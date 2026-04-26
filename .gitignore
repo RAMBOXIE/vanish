@@ -10,3 +10,6 @@ dashboard/data/
 
 # Web app build output (rebuilt by CI)
 web/dist/
+
+# dogfooding artifacts (kept locally, not committed)
+docs/dogfood/
