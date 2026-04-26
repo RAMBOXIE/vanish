@@ -870,7 +870,7 @@ vanish b1-demo
 # Dashboard auto-refresh (rebuilds dashboard JSON when state file changes)
 vanish dashboard:watch
 
-# All 346 tests (109 broker + 19 share-card + 22 ai-scan + 13 ai-opt-out + 23 face-scan + 30 llm-memory-check + 24 clean-ai-history + 20 dataset-check + 44 third-party-ai incl. workforce-monitoring + 31 takedown + 26 verify incl. kind dispatch + 12 Clawhub compliance guard)
+# All 365 tests (109 broker + 19 share-card + 22 ai-scan + 13 ai-opt-out + 23 face-scan + 30 llm-memory-check + 24 clean-ai-history + 20 dataset-check + 44 third-party-ai incl. workforce-monitoring + 31 takedown + 26 verify incl. kind dispatch + 12 Clawhub compliance guard + 3 command-manifest + 2 readme-manifest compliance)
 npm test
 ```
 
