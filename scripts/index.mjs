@@ -1,122 +1,73 @@
 #!/usr/bin/env node
 
-// Vanish unified CLI router.
-// Usage:
-//   vanish <subcommand> [args...]
-//   npx github:RAMBOXIE/vanish <subcommand> [args...]
-//   npx vanish <subcommand> [args...]  (after npm publish)
-//
-// Subcommands:
-//   scan       Run the privacy scan across 210 data brokers
-//   cleanup    Run the opt-out wizard / dry-run submission
-//   wizard     Interactive conversation wizard (scan + cleanup)
-//   b1-live    Live HTTP submission against configured endpoints
-//   queue      Queue CLI (list / retry / resolve)
-//   report     Generate a Markdown proof report
-//   dashboard  Build dashboard data from queue state
-//   help       Show this help (default when no subcommand given)
-
 import { spawn } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  BINARY_ALIASES,
+  commandsForTier,
+  COMMAND_MANIFEST,
+  EVIDENCE_METADATA,
+  SUBCOMMANDS,
+  TIER_METADATA,
+  TIER_ORDER
+} from '../src/command-manifest.mjs';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const SUBCOMMANDS = {
-  scan:                'scan-demo.mjs',
-  'ai-scan':           'ai-scan.mjs',
-  'face-scan':         'face-scan.mjs',
-  'llm-memory-check':  'llm-memory-check.mjs',
-  'dataset-check':     'dataset-check.mjs',
-  'third-party-ai':    'third-party-ai.mjs',
-  'opt-out':           'opt-out.mjs',
-  'ai-opt-out':        'ai-opt-out.mjs',
-  'face-opt-out':      'face-opt-out.mjs',
-  'clean-ai-history':  'clean-ai-history.mjs',
-  takedown:            'takedown.mjs',
-  verify:              'verify.mjs',
-  cleanup:             'vanish.mjs',
-  wizard:              'wizard-demo.mjs',
-  'b1-live':           'b1-live.mjs',
-  'b1-demo':           'b1-demo.mjs',
-  queue:               'queue-cli.mjs',
-  report:              'generate-proof-report.mjs',
-  dashboard:           'build-dashboard-data.mjs',
-  'dashboard:watch':   'dashboard-watch.mjs'
-};
+function renderTierSection(tier, width) {
+  const tierMeta = TIER_METADATA[tier];
+  const lines = [`${tierMeta.heading} (${tierMeta.description})`];
 
-const HELP = `
-Vanish — privacy scanner + opt-out orchestrator for 210 data brokers
+  for (const command of commandsForTier(tier)) {
+    lines.push(`  ${command.id.padEnd(width)} [${command.evidence}] ${command.description}`);
+    lines.push(`    Example: ${command.example}`);
+  }
 
-Usage:
-  vanish <command> [options]
+  return lines;
+}
 
-Commands:
-  scan        Scan 210 brokers for your privacy exposure (0-100 score)
-              Example: vanish scan --name "John Doe" --email "j@x.com"
+function renderHelp() {
+  const width = Math.max(...COMMAND_MANIFEST.map(({ id }) => id.length));
+  const aliasLine = BINARY_ALIASES
+    .map(({ binary, command }) => `${binary} -> vanish ${command}`)
+    .join(', ');
 
-  ai-scan     Check which LLM companies train on your data (30 platforms)
-              Example: vanish ai-scan --linkedin --twitter --chatgpt
+  const lines = [
+    'Vanish - privacy scanner + opt-out orchestrator for 210 data brokers',
+    '',
+    'Usage:',
+    '  vanish <command> [options]',
+    '  vanish help',
+    '',
+    'Command tiers:',
+    ...TIER_ORDER.map((tier) => `  ${TIER_METADATA[tier].heading} - ${TIER_METADATA[tier].description}`),
+    '',
+    'Evidence legend:',
+    ...Object.entries(EVIDENCE_METADATA).map(([grade, description]) => `  ${grade} - ${description}`),
+    '',
+    'Commands:',
+    ''
+  ];
 
-  ai-opt-out  Browser-assisted AI training opt-out (26 platforms with walkthroughs)
-              Example: vanish ai-opt-out --chatgpt --linkedin --cursor
+  for (const tier of TIER_ORDER) {
+    lines.push(...renderTierSection(tier, width));
+    lines.push('');
+  }
 
-  face-scan   Check if your face appears on PimEyes, FaceCheck, FindClone, etc. (7 services)
-              Example: vanish face-scan --pimeyes --facecheck --findclone
+  lines.push(`Alias: ${aliasLine}`);
+  lines.push('');
+  lines.push('Quick start:');
+  lines.push('  vanish scan --name "Your Name" --email "you@example.com"');
+  lines.push('');
+  lines.push('Docs: https://github.com/RAMBOXIE/vanish');
+  lines.push('');
 
-  face-opt-out  Request removal from face-search services + Clearview AI (8 services)
-              Example: vanish face-opt-out --pimeyes --clearview
+  return lines.join('\n');
+}
 
-  llm-memory-check  Test whether GPT-4/Claude/Gemini memorized your personal info
-              Example: vanish llm-memory-check --name "Your Name" --email "you@ex.com"
-
-  clean-ai-history  Discover where AI tools store your history + exact delete commands
-              Example: vanish clean-ai-history --cursor --chatgpt --claude
-
-  dataset-check   Check if your content is in Common Crawl / LAION / Pile / C4 / etc.
-              Example: vanish dataset-check --url https://your-site.com --all
-
-  third-party-ai  Generate objection letters for AI tools OTHERS use on you
-              Example: vanish third-party-ai --zoom --otter --jurisdiction EU
-
-  takedown    Remove leaked/NCII content — DMCA + StopNCII + Google intimate-imagery form
-              Example: vanish takedown --stopncii --google-intimate
-                       vanish takedown --dmca-letter --all-leak-sites --name "X"
-
-  opt-out     Browser-assisted opt-out for 58 supported brokers
-              Example: vanish opt-out --broker spokeo --email you@example.com
-
-  verify      Check if past opt-out submissions actually removed your data
-              Example: vanish verify          (check entries past recheckAt)
-                       vanish verify --all    (check everything)
-
-  cleanup     Run the opt-out submission workflow (dry-run by default)
-              Example: vanish cleanup --manual --preset spokeo \\
-                       --confirm1 YES --confirm2 YES --confirm3 YES \\
-                       --export-before-delete ask --export-answer no
-
-  wizard      Full interactive wizard (scan → review → cleanup)
-              Example: vanish wizard
-
-  b1-live     Submit live opt-out requests to configured endpoints
-              Example: vanish b1-live run --live --brokers spokeo,peekyou
-
-  queue       Manage retry / manual-review / dead-letter queues
-              Example: vanish queue list
-
-  report      Generate a Markdown proof report from execution JSON
-              Example: vanish report ./path/to/result.json
-
-  dashboard   Build dashboard JSON from persisted queue state
-              Example: vanish dashboard data/queue-state.json
-
-  help        Show this help
-
-Quick start:
-  vanish scan --name "Your Name" --email "you@example.com"
-
-Docs: https://github.com/RAMBOXIE/vanish
-`;
+const HELP = renderHelp();
 
 async function main() {
   const [subcommand, ...rest] = process.argv.slice(2);
@@ -149,4 +100,8 @@ async function main() {
   });
 }
 
-main();
+if (process.argv[1] && path.resolve(process.argv[1]) === __filename) {
+  main();
+}
+
+export { HELP, renderHelp, SUBCOMMANDS };
