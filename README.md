@@ -1,6 +1,6 @@
 # Vanish
 
-> 🔍 **Scan 210 data brokers + 30 AI platforms + 8 face-search engines.** The only open-source privacy scanner that covers **AI training exposure AND face-recognition brokers** (PimEyes, Clearview) — things DeleteMe ($129+/yr), Optery ($99+/yr), and Incogni ($99+/yr) don't offer at any price.
+> **Find privacy exposure. Act on it through real opt-out flows. Verify outcomes locally and keep the proof.**
 
 `210 brokers · 30 AI platforms · 8 face-search services · 58 + 26 + 8 browser-assisted opt-outs · all 3 US credit bureaus · 30/60-day verify loops · 0 data leaves your machine`
 
@@ -12,17 +12,11 @@
 [![Face Services](https://img.shields.io/badge/face_services-8-orange)](#face-search-exposure-protection)
 [![Opt-Out](https://img.shields.io/badge/browser--assisted%20opt--out-58+26+8-green)](#commands)
 
-Vanish protects you from **three distinct privacy threats** that all exploded in the last 24 months:
+Vanish opens the right pages, drafts the right letters, and records HMAC-signed audit proof on your machine. **You're the one legally submitting** — so captchas, ToS gates, and account-verification loops all work correctly. Vanish does not auto-submit destructive actions on your behalf.
 
-🏢 **Data brokers** — 210 firms (Spokeo, Whitepages, Acxiom, LexisNexis…) collect + resell your personal data for $200-500/yr per person. DeleteMe charges $129+/yr to fight them. **Vanish does the same — free, self-hosted, and auditable.**
+For why this matters in 2026 — the AI training inversion, the face-search broker explosion, and how Vanish compares to DeleteMe / Optery / Incogni — see [vs. Competitors](#vs-competitors) below.
 
-🤖 **AI training exposure** — In 2024-2025, every major platform silently flipped to **opted-in by default**: LinkedIn added AI training toggle ON for all users (Sept 2024), Reddit signed a ~$60M/yr Google training deal, Twitter/X auto-feeds Grok, Meta forced users to file GDPR objections. Commercial privacy services **ignore this entire category**.
-
-👤 **Face-search exposure** — PimEyes, FaceCheck.ID, Clearview AI, FindClone: upload one selfie, get every web page where your face appears. Used for stalking, doxxing, domestic-abuse tracking, and by law enforcement without warrants. DeleteMe / Optery / Incogni don't touch this either.
-
-**Vanish is the first open-source tool to cover all three.**
-
-**Try it now — zero-install, covers everything:**
+**Try it now — zero-install:**
 
 🌐 **In your browser**: [ramboxie.github.io/vanish](https://ramboxie.github.io/vanish/) · 100% client-side, nothing transmitted
 
@@ -46,33 +40,62 @@ npx github:RAMBOXIE/vanish face-opt-out --pimeyes --clearview
 
 ---
 
-## 🎯 Capability matrix — what actually works
+## What you actually get
 
-Vanish deliberately draws sharp lines between what's **triaged** (scored),
-**walkthrough** (you execute with guidance), and **automated** (Vanish submits).
-Most privacy tools blur these. We don't.
+Vanish delivers value in three acts. Each command in the [capability matrix](#capability-matrix) below maps to one of these.
 
-| Capability | Coverage | Method | Reliability |
-|-----------|---------|--------|-------------|
-| **Broker exposure triage** (`vanish scan`) | 210 brokers | Local heuristic scoring, zero HTTP | 100% (it's a local model — no network dependency) |
-| **Broker opt-out walkthrough** (`vanish opt-out`) | **58 brokers** | Opens browser + pre-fills clipboard; you solve captcha | High — you're the one submitting, so broker ToS / captcha / email verify all work |
-| **Broker live HTTP submission** (`vanish b1-live`) | 8 brokers | Programmatic POST to configured endpoint | ⚠️ **Experimental** — captchas block real submissions. Infrastructure test only (runs against postman-echo by default) |
-| **AI training exposure scan** (`vanish ai-scan`) | 30 platforms | Local classification from catalog | 100% (local) |
-| **AI opt-out walkthrough** (`vanish ai-opt-out`) | 26 platforms | Browser-assisted + exact toggle name | High — you click the toggle |
-| **Face-search audit** (`vanish face-scan`) | 8 services | Opens each service's own search page | You run the search — Vanish never handles your photo |
-| **Face-search opt-out** (`vanish face-opt-out`) | 8 services | Form guidance + CCPA/GDPR citations | High — you submit; Vanish records audit |
-| **LLM memorization probe** (`vanish llm-memory-check`) | 2 providers (OpenAI, Anthropic) | User's own API key | Depends on model + your identity |
-| **Training-dataset membership** (`vanish dataset-check`) | 8 datasets | Common Crawl CDX = live query; others = walkthrough | CC is automated + accurate; rest need you to visit |
-| **Third-party AI objection letters** (`vanish third-party-ai`) | 22 tools across 5 contexts, 5 letter templates | Jurisdiction-cited letter generator | Legal templates — you send |
-| **Workforce-monitoring scan + AI-training objection** (`third-party-ai --detect-installed`) | 8 commercial agents (ActivTrak/Teramind/Hubstaff/Time Doctor/Insightful/Veriato/InterGuard/Viva Insights) + generic employer-internal | Local best-effort file scan + NY EMA / IL BIPA / DE works-council / GDPR Art 88 letter | Detection is best-effort (stealth installs evade); letters you send |
-| **AI history cleanup** (`vanish clean-ai-history`) | 9 tools (4 local + 5 web) | Prints paths + commands; you copy-paste | Safer than auto-delete |
-| **NCII / leak takedown** (`vanish takedown`) | 12 leak sites + StopNCII + Google intimate-imagery | DMCA + legal letter drafting | You send the letters; audit is HMAC-signed evidence |
-| **Re-verify any of the above** (`vanish verify`) | All kinds | HTTP liveness for brokers, manual reminder for AI/face | Automated for brokers, reminder for the rest |
+### 1. Find it
 
-**Core philosophy**: Vanish does not submit destructive actions on your behalf.
-We open the right page, show you exactly what to click, and record an
-HMAC-signed audit of what you confirmed. You're the one legally submitting,
-so captchas, IP bans, and account-verification loops all work correctly.
+Priority-ranked exposure across data brokers, AI platforms, face-search services, and (for sites you own) training datasets. **This is triage, not confirmation.** `scan`, `ai-scan`, and `face-scan` give you a ranked list of *where to act first* — not proof that any specific record exists. `verify` is what answers "is the record actually there?".
+
+### 2. Act on it
+
+Real removal and objection-request flows. `opt-out`, `ai-opt-out`, and `face-opt-out` open the broker's actual opt-out page, pre-fill what they accept, and walk you through captchas, ID verification, and ToS gates. `takedown` drafts DMCA / NCII / cease-and-desist letters. `third-party-ai` generates jurisdiction-cited objection letters for AI used *by other people on you*. **You're the one submitting** — so the broker's response works correctly.
+
+### 3. Verify it and keep proof
+
+`verify` re-checks brokers via HTTP liveness (automated for the 58 with adapters, reminder-only for AI/face). `report` builds an HMAC-signed audit chain you can keep locally and produce as evidence under GDPR Article 21, CCPA, or in legal disputes. **The proof stays on your machine.** Nothing gets uploaded to a backend — there is no backend.
+
+---
+
+## Capability matrix
+
+Three stability tiers. **Core** are stable, in the hero, and what most users should run. **Specialist** are stable but narrower (NCII takedown, dataset-membership probes, third-party AI letters). **Labs / Research** is either experimental infrastructure (`b1-live`), low-confidence research probes (`llm-memory-check`), or UX layers that aren't capabilities themselves (`wizard`, `dashboard`).
+
+**Evidence legend** — `A`: result is locally verifiable (audit chain, HTTP liveness, generated artifact). `B`: action is provable, result needs follow-up confirmation. `C`: classification / triage / user-self-confirmation. `D`: research probe, not a strong claim.
+
+### Core (stable, in hero)
+
+| Command | What you get | Type | Evidence | Coverage |
+|---|---|---|---|---|
+| `scan` | Priority-ranked broker exposure list | Risk discovery | C | 210 brokers |
+| `opt-out` | Real removal requests submitted via your browser | Removal request | B | 58 brokers |
+| `verify` | Answer to "did the removal go through?" | Outcome check | A (HTTP) / B (manual) | All kinds |
+| `report` | Local evidence chain + appeal material | Evidence output | A | All kinds |
+| `ai-scan` | Which platforms default-train on your data | Risk discovery | C | 30 platforms |
+| `ai-opt-out` | Future training/improvement toggles flipped off | Future-exposure reduction | B/C | 26 platforms |
+| `face-scan` | Self-check whether your face is searchable | Risk discovery | C | 8 services |
+| `face-opt-out` | Real removal requests to face-search services | Removal request | B | 8 services |
+
+### Specialist (stable, narrower scope)
+
+| Command | What you get | Type | Evidence | Coverage |
+|---|---|---|---|---|
+| `takedown` | DMCA / NCII removal letters + StopNCII hash registration | Removal request | B | 12 leak sites + StopNCII + Google form |
+| `dataset-check` | Whether content appears in training data / index | Risk discovery | B (Common Crawl) / C (others) | 8 datasets |
+| `third-party-ai` | Objection letters to employer / 3rd-party AI use | Future-exposure reduction | B | 22 tools, 5 contexts, 5 letter templates |
+| `clean-ai-history` | Local AI-tool conversation hygiene | Local hygiene | B/C | 9 tools (4 local + 5 web) |
+
+### Labs / Research (not core promises)
+
+| Command | What you get | Type | Evidence | Coverage |
+|---|---|---|---|---|
+| `llm-memory-check` | Probe of whether models seem to have memorized you | Research probe | D | 2 providers (OpenAI, Anthropic) |
+| `b1-live` | Live-adapter HTTP submission (infrastructure test) | Experimental capability | D | 8 brokers (Spokeo only verifiable in MVP; rest dry-run — see [`REAL_LOOP_STATUS.md`](REAL_LOOP_STATUS.md)) |
+| `wizard` | Interactive scan→review→cleanup flow | UX layer | C | All kinds |
+| `dashboard` | Static HTML dashboard from queue state | UX layer | C | All kinds |
+
+**Internal helpers** (not user-facing capabilities, documented in [Commands](#commands)): `b1-demo` (B1 runner demo mode), `queue` (queue list / retry / resolve), `dashboard:watch` (auto-refresh dashboard data), `cleanup` (low-level dry-run alternative to `opt-out`).
 
 ---
 
@@ -666,6 +689,10 @@ Vanish stores **nothing** sensitive:
 
 All subcommands work via `vanish <cmd>` (after `npm link` or publish) or `node scripts/index.mjs <cmd>` (local) or `npx -p github:RAMBOXIE/vanish vanish <cmd>` (zero-install).
 
+Commands are grouped by [stability tier](#capability-matrix): **Core** (stable, in hero), **Specialist** (stable, narrower scope), **Labs / Research** (experimental, low-evidence, or UX layers), and **Internal helpers**.
+
+### Core
+
 ```bash
 # Privacy scan (no removal, no API calls, 10 seconds)
 vanish scan --name "John Doe" --email "j@x.com"
@@ -694,21 +721,6 @@ vanish ai-scan --all --output-md ./ai-report.md
 # Each entry shows: default consent (opted-in/opted-out/licensed), opt-out URL,
 # estimated time, and difficulty.
 
-# Browser-assisted AI training opt-out (opens each settings page + walkthrough)
-# For 26 platforms with known UI walkthroughs — prints exact toggle name,
-# opens the URL, waits for confirmation, records HMAC-signed audit trail.
-vanish ai-opt-out --chatgpt                      # single platform
-vanish ai-opt-out --chatgpt --linkedin --cursor  # batch
-vanish ai-opt-out --use chatgpt,linkedin,cursor  # CSV alt
-vanish ai-opt-out --all                          # all 26 non-safe platforms
-vanish ai-opt-out --chatgpt --clipboard          # also copies target setting name
-                                                 #   → paste into Ctrl/Cmd+F on page
-
-# Each walkthrough includes: exact UI string to find, step-by-step instructions,
-# tier overrides (e.g., "ChatGPT Team/Enterprise already opted-out"), verification
-# hint ("toggle shows grey/off"). 60-day re-verify because platforms silently
-# reset settings after policy updates.
-
 # Face-search exposure scan — is your selfie on PimEyes, FaceCheck, etc.?
 # Vanish never handles your photo — opens each service's page, tells you what to do.
 vanish face-scan --pimeyes --facecheck --findclone    # the essential 3
@@ -720,27 +732,9 @@ vanish face-scan --use pimeyes,tineye,yandex          # CSV alt
 # Lenso (freemium), TinEye (free), Yandex Images (free), Google Lens (free),
 # Clearview AI (restricted — LE-only but has legal opt-out path).
 
-# Face-search opt-out — request removal including from Clearview AI
-vanish face-opt-out --pimeyes --clearview              # the two most important
-vanish face-opt-out --all                              # every service including LE-only databases
-
-# Each walkthrough handles: form upload of photos, government ID verification where
-# required, CCPA/GDPR citation text pre-composed. 30-day reverify default,
-# 60-day for Clearview (slower processing). HMAC-signed audit trail.
-
-# Browser-assisted opt-out (opens browser + guides you through 58 real brokers)
+# Browser-assisted broker opt-out (opens browser + guides you through 58 real brokers)
 vanish opt-out --broker spokeo --email you@example.com --full-name "Your Name"
 vanish opt-out --broker spokeo,whitepages,beenverified --email you@example.com --full-name "Your Name"
-
-# Verify whether past opt-out submissions actually worked (30-day re-check loop)
-vanish verify                  # check entries past recheckAt date
-vanish verify --all            # check every followUp entry (ignore schedule)
-vanish verify --broker spokeo  # check specific broker(s)
-vanish verify --no-fetch       # dry-run, just list pending
-
-# Verify output: ✅ removed / ❌ still-present / ❓ unknown (captcha/timeout/etc)
-# Updates queue state with verification results + writes HMAC-signed audit events.
-# Suggests re-submitting opt-out for still-present brokers.
 
 # Supported brokers (58 total — now covering all 3 credit bureaus + top B2B data firms):
 #   People search (27): spokeo, whitepages, beenverified, intelius, peoplefinder,
@@ -764,24 +758,53 @@ vanish verify --no-fetch       # dry-run, just list pending
 # tells you what captcha/email verification to expect, then records a
 # follow-up for 30-day re-verification.
 
-# Full interactive wizard (scan → review → cleanup)
-vanish wizard
+# Browser-assisted AI training opt-out (opens each settings page + walkthrough)
+# For 26 platforms with known UI walkthroughs — prints exact toggle name,
+# opens the URL, waits for confirmation, records HMAC-signed audit trail.
+vanish ai-opt-out --chatgpt                      # single platform
+vanish ai-opt-out --chatgpt --linkedin --cursor  # batch
+vanish ai-opt-out --use chatgpt,linkedin,cursor  # CSV alt
+vanish ai-opt-out --all                          # all 26 non-safe platforms
+vanish ai-opt-out --chatgpt --clipboard          # also copies target setting name
+                                                 #   → paste into Ctrl/Cmd+F on page
 
-# Dry-run cleanup with presets
-vanish cleanup --manual --preset spokeo \
-  --confirm1 YES --confirm2 YES --confirm3 YES \
-  --export-before-delete ask --export-answer no
+# Each walkthrough includes: exact UI string to find, step-by-step instructions,
+# tier overrides (e.g., "ChatGPT Team/Enterprise already opted-out"), verification
+# hint ("toggle shows grey/off"). 60-day re-verify because platforms silently
+# reset settings after policy updates.
 
-# Live submission (real HTTP against test endpoint)
-vanish b1-live run --live --brokers spokeo,thatsthem,peekyou \
-  --full-name "Test User"
+# Face-search opt-out — request removal including from Clearview AI
+vanish face-opt-out --pimeyes --clearview              # the two most important
+vanish face-opt-out --all                              # every service including LE-only databases
 
-# ── Advanced AI-era checks (5 additional subcommands) ──
+# Each walkthrough handles: form upload of photos, government ID verification where
+# required, CCPA/GDPR citation text pre-composed. 30-day reverify default,
+# 60-day for Clearview (slower processing). HMAC-signed audit trail.
 
-# LLM memorization probe — is your personal info already in GPT-4 / Claude?
-# Requires OPENAI_API_KEY / ANTHROPIC_API_KEY env vars (or --dry-run for CI)
-vanish llm-memory-check --name "Your Name" --email "you@example.com"
-vanish llm-memory-check --name "Your Name" --dry-run    # no API calls
+# Verify whether past opt-out submissions actually worked (30-day re-check loop)
+vanish verify                  # check entries past recheckAt date
+vanish verify --all            # check every followUp entry (ignore schedule)
+vanish verify --broker spokeo  # check specific broker(s)
+vanish verify --no-fetch       # dry-run, just list pending
+
+# Verify output: ✅ removed / ❌ still-present / ❓ unknown (captcha/timeout/etc)
+# Updates queue state with verification results + writes HMAC-signed audit events.
+# Suggests re-submitting opt-out for still-present brokers.
+
+# Proof report (HMAC-signed audit trail in Markdown)
+vanish report ./path/to/execution-result.json
+```
+
+Subcommand shortcut: `vanish-scan` is an alias for `vanish scan`.
+
+### Specialist
+
+```bash
+# NCII / leaked content takedown — DMCA + StopNCII.org + Google intimate-imagery removal
+vanish takedown --stopncii                     # hash-register (most effective free tool)
+vanish takedown --google-intimate              # Google intimate-imagery form
+vanish takedown --dmca-letter --all-leak-sites --name "..." --email "..."
+vanish takedown --support                      # crisis hotlines + legal aid
 
 # Training-dataset membership — check if your URL is in Common Crawl / Pile / C4 / ...
 vanish dataset-check --url https://your-site.com --all
@@ -796,30 +819,60 @@ vanish third-party-ai --abridge --nuance --jurisdiction HIPAA  # medical AI decl
 # AI conversation history cleanup across Cursor, VS Code Copilot, Claude/ChatGPT Desktop + 5 web services
 vanish clean-ai-history --cursor --vscode-copilot --chatgpt
 vanish clean-ai-history --all --local-only     # just the files on disk
+```
 
-# NCII / leaked content takedown — DMCA + StopNCII.org + Google intimate-imagery removal
-vanish takedown --stopncii                     # hash-register (most effective free tool)
-vanish takedown --google-intimate              # Google intimate-imagery form
-vanish takedown --dmca-letter --all-leak-sites --name "..." --email "..."
-vanish takedown --support                      # crisis hotlines + legal aid
+### Labs / Research
 
+⚠️ Labs commands are either experimental infrastructure (`b1-live`), low-confidence research probes (`llm-memory-check`), or UX layers that aren't capabilities themselves (`wizard`, `dashboard`). Read their output as hints, not strong claims.
+
+```bash
+# LLM memorization probe — is your personal info already in GPT-4 / Claude?
+# Requires OPENAI_API_KEY / ANTHROPIC_API_KEY env vars (or --dry-run for CI).
+# Evidence strength D — a positive signal hints at scraped data, but a clean
+# result does NOT prove safety (paraphrased knowledge slips through).
+vanish llm-memory-check --name "Your Name" --email "you@example.com"
+vanish llm-memory-check --name "Your Name" --dry-run    # no API calls
+
+# Live HTTP submission against a configurable test endpoint.
+# ⚠️ Experimental — captchas block real submissions. Default endpoint is
+# postman-echo for closed-loop validation. Only Spokeo has a verifiable
+# endpoint in MVP; Whitepages/BeenVerified remain dry-run.
+# See REAL_LOOP_STATUS.md for the precise scope.
+vanish b1-live run --live --brokers spokeo,thatsthem,peekyou \
+  --full-name "Test User"
+
+# Full interactive wizard (scan → review → cleanup). UX layer over the
+# Core commands above — useful for first-run onboarding, not a capability.
+vanish wizard
+
+# Local dashboard (static HTML, no backend) — read-only view of queue state.
+vanish dashboard data/queue-state.json
+# Open dashboard/index.html in browser
+```
+
+### Internal helpers
+
+```bash
 # Queue management
 vanish queue list
 vanish queue retry --id <retryItemId>
 vanish queue resolve --id <manualReviewId> --resolution resolved
 
-# Local dashboard (static HTML, no backend)
-vanish dashboard data/queue-state.json
-# Open dashboard/index.html in browser
+# Dry-run cleanup with presets (low-level alternative to vanish opt-out;
+# requires triple-confirmation flags — most users want vanish opt-out instead)
+vanish cleanup --manual --preset spokeo \
+  --confirm1 YES --confirm2 YES --confirm3 YES \
+  --export-before-delete ask --export-answer no
 
-# Proof report (audit trail in Markdown)
-vanish report ./path/to/execution-result.json
+# B1 runner demo mode (internal test path for the live-adapter pipeline)
+vanish b1-demo
+
+# Dashboard auto-refresh (rebuilds dashboard JSON when state file changes)
+vanish dashboard:watch
 
 # All 346 tests (109 broker + 19 share-card + 22 ai-scan + 13 ai-opt-out + 23 face-scan + 30 llm-memory-check + 24 clean-ai-history + 20 dataset-check + 44 third-party-ai incl. workforce-monitoring + 31 takedown + 26 verify incl. kind dispatch + 12 Clawhub compliance guard)
 npm test
 ```
-
-Subcommand shortcut: `vanish-scan` is an alias for `vanish scan`.
 
 ---
 
@@ -887,6 +940,8 @@ web/                            # Static web app v2 (Vite + vanilla JS) — 3 ta
 ---
 
 ## Status & Roadmap
+
+> Vanish uses three stability tiers — **Core** (stable, in hero), **Specialist** (stable, narrower scope), and **Labs / Research** (experimental, low-evidence, or UX layers). See [Capability matrix](#capability-matrix) above. The Shipped / Next / Future timeline below tracks delivery, not stability.
 
 **Shipped (v0.3-unreleased)**:
 - ✅ **210-broker catalog** with verified opt-out URLs (up from 23 in v0.1)
