@@ -35,7 +35,8 @@ let state = {
   brokerResult: null,
   brokerShareSvg: null,
   aiResult: null,
-  aiShareSvg: null
+  aiShareSvg: null,
+  identity: null  // PR 2.5: { fullName, email } — fed into walkthrough prefill
 };
 
 // ─── Tabs ───────────────────────────────────────────────────────
@@ -86,6 +87,10 @@ function runBrokerScanAndRender(identity) {
   const result = runScan(identity);
   state.brokerResult = result;
   state.brokerShareSvg = buildShareCardSvg(result);
+  state.identity = {
+    fullName: identity.fullName || '',
+    email: (identity.emails && identity.emails[0]) || ''
+  };
 
   $('#hero').hidden = true;
   $('#results').hidden = false;
@@ -353,6 +358,7 @@ function openAiWalkthrough(platformKey) {
     serviceName: data.serviceName,
     optOutUrl: data.optOutUrl,
     walkthrough: data.walkthrough,
+    identity: state.identity,
     onClose: () => { host.hidden = true; }
   });
   host.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -443,6 +449,7 @@ function openFaceWalkthrough(serviceKey) {
     serviceName: data.serviceName,
     optOutUrl: data.optOutUrl,
     walkthrough: data.walkthrough,
+    identity: state.identity,
     onClose: () => { host.hidden = true; }
   });
   host.scrollIntoView({ behavior: 'smooth', block: 'start' });

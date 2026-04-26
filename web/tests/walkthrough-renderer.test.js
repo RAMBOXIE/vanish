@@ -1,8 +1,8 @@
 // Tests for walkthrough-renderer.js — the shared step-by-step UI for
 // AI / Face opt-out flows. Uses jsdom (configured in vite.config.js).
 
-import { describe, test, expect, beforeEach } from 'vitest';
-import { renderWalkthrough, clearWalkthroughState } from '../src/lib/walkthrough-renderer.js';
+import { describe, test, expect, beforeEach, vi } from 'vitest';
+import { renderWalkthrough, clearWalkthroughState, PREFILL_TEXTS } from '../src/lib/walkthrough-renderer.js';
 
 // Real catalog fixtures lifted from src/ai-scanner/ai-platforms-catalog.json
 // and src/face-scanner/face-services-catalog.json. Kept inline so the test
@@ -246,5 +246,125 @@ describe('renderWalkthrough', () => {
 
     expect(sessionStorage.getItem('vanish:walkthrough:ai:test')).toBeNull();
     expect(sessionStorage.getItem('vanish:walkthrough-persist:ai:test')).toBeNull();
+  });
+
+  // ─── PR 2.5: clipboard prefill ─────────────────────────────────────
+
+  test('prefill section renders with all 4 copy buttons', () => {
+    const host = makeContainer();
+    renderWalkthrough(host, {
+      flowKey: 'ai:test',
+      serviceName: 'Test',
+      walkthrough: CHATGPT_WALKTHROUGH
+    });
+
+    expect(host.querySelector('.walkthrough-prefill')).toBeTruthy();
+    expect(host.querySelectorAll('.walkthrough-copy-btn').length).toBe(4);
+    expect(host.querySelector('[data-copy="name"]')).toBeTruthy();
+    expect(host.querySelector('[data-copy="email"]')).toBeTruthy();
+    expect(host.querySelector('[data-copy="gdpr"]')).toBeTruthy();
+    expect(host.querySelector('[data-copy="ccpa"]')).toBeTruthy();
+  });
+
+  test('identity option pre-fills the name and email inputs', () => {
+    const host = makeContainer();
+    renderWalkthrough(host, {
+      flowKey: 'ai:test',
+      serviceName: 'Test',
+      walkthrough: CHATGPT_WALKTHROUGH,
+      identity: { fullName: 'Jane Doe', email: 'jane@example.com' }
+    });
+
+    expect(host.querySelector('.walkthrough-prefill-name').value).toBe('Jane Doe');
+    expect(host.querySelector('.walkthrough-prefill-email').value).toBe('jane@example.com');
+  });
+
+  test('inputs default to empty when no identity provided', () => {
+    const host = makeContainer();
+    renderWalkthrough(host, {
+      flowKey: 'ai:test',
+      serviceName: 'Test',
+      walkthrough: CHATGPT_WALKTHROUGH
+    });
+
+    expect(host.querySelector('.walkthrough-prefill-name').value).toBe('');
+    expect(host.querySelector('.walkthrough-prefill-email').value).toBe('');
+  });
+
+  test('GDPR copy button copies the canonical Article 17 text', async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.assign(navigator, { clipboard: { writeText } });
+
+    const host = makeContainer();
+    renderWalkthrough(host, {
+      flowKey: 'ai:test',
+      serviceName: 'Test',
+      walkthrough: CHATGPT_WALKTHROUGH
+    });
+
+    const btn = host.querySelector('[data-copy="gdpr"]');
+    btn.click();
+    await new Promise((r) => setTimeout(r, 0));
+
+    expect(writeText).toHaveBeenCalledWith(PREFILL_TEXTS.gdprArticle17);
+    expect(PREFILL_TEXTS.gdprArticle17).toMatch(/Article 17/);
+  });
+
+  test('CCPA copy button copies the §1798.105 text', async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.assign(navigator, { clipboard: { writeText } });
+
+    const host = makeContainer();
+    renderWalkthrough(host, {
+      flowKey: 'ai:test',
+      serviceName: 'Test',
+      walkthrough: CHATGPT_WALKTHROUGH
+    });
+
+    host.querySelector('[data-copy="ccpa"]').click();
+    await new Promise((r) => setTimeout(r, 0));
+
+    expect(writeText).toHaveBeenCalledWith(PREFILL_TEXTS.ccpaDeletion);
+    expect(PREFILL_TEXTS.ccpaDeletion).toMatch(/1798\.105/);
+  });
+
+  test('Copy name reads the current input value (not the original identity)', async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.assign(navigator, { clipboard: { writeText } });
+
+    const host = makeContainer();
+    renderWalkthrough(host, {
+      flowKey: 'ai:test',
+      serviceName: 'Test',
+      walkthrough: CHATGPT_WALKTHROUGH,
+      identity: { fullName: 'Original Name', email: '' }
+    });
+
+    // User edits the input after render
+    const nameInput = host.querySelector('.walkthrough-prefill-name');
+    nameInput.value = 'Edited Name';
+
+    host.querySelector('[data-copy="name"]').click();
+    await new Promise((r) => setTimeout(r, 0));
+
+    expect(writeText).toHaveBeenCalledWith('Edited Name');
+  });
+
+  test('Empty input shows warning, does not call clipboard', async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.assign(navigator, { clipboard: { writeText } });
+
+    const host = makeContainer();
+    renderWalkthrough(host, {
+      flowKey: 'ai:test',
+      serviceName: 'Test',
+      walkthrough: CHATGPT_WALKTHROUGH
+    });
+
+    const btn = host.querySelector('[data-copy="email"]');
+    btn.click();
+    // synchronous branch — no clipboard call when empty
+    expect(writeText).not.toHaveBeenCalled();
+    expect(btn.textContent).toMatch(/Empty/);
   });
 });
