@@ -15,9 +15,11 @@ export default defineConfig({
       '@scanner': path.resolve(__dirname, '..', 'src', 'scanner'),
       '@ai-scanner': path.resolve(__dirname, '..', 'src', 'ai-scanner'),
       '@face-scanner': path.resolve(__dirname, '..', 'src', 'face-scanner'),
+      '@takedown': path.resolve(__dirname, '..', 'src', 'takedown'),
       '@catalog': path.resolve(__dirname, '..', 'src', 'adapters', 'brokers', 'config', 'broker-catalog.json'),
       '@ai-catalog': path.resolve(__dirname, '..', 'src', 'ai-scanner', 'ai-platforms-catalog.json'),
-      '@face-catalog': path.resolve(__dirname, '..', 'src', 'face-scanner', 'face-services-catalog.json')
+      '@face-catalog': path.resolve(__dirname, '..', 'src', 'face-scanner', 'face-services-catalog.json'),
+      '@takedown-catalog': path.resolve(__dirname, '..', 'src', 'takedown', 'takedown-catalog.json')
     }
   },
 

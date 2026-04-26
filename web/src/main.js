@@ -16,6 +16,16 @@ import {
 } from './lib/scan-runner.js';
 import { svgToPngBlob, downloadBlob, svgStringToDataUrl } from './lib/svg-to-png.js';
 import { renderWalkthrough } from './lib/walkthrough-renderer.js';
+import {
+  JURISDICTION_OPTIONS,
+  getLeakSites,
+  getCrisisSupport,
+  getStopNciiWalkthrough,
+  getGoogleIntimateWalkthrough,
+  getLegalTemplates,
+  generateDmcaBatch,
+  generateLetter
+} from './lib/takedown-letter.js';
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => [...document.querySelectorAll(sel)];
@@ -456,6 +466,306 @@ function openFaceWalkthrough(serviceKey) {
 }
 
 populateFaceGrid();
+
+// ─── Takedown (PR 2: complete OF-creator content-removal flow) ──
+
+// 4 legal templates exist; DMCA is driven by the batch form in step 3,
+// so step 4 only surfaces the escalation templates.
+const STEP_4_TEMPLATES = new Set(['cease-and-desist', 'police-report', 'civil-pre-suit']);
+
+const LEGAL_TEMPLATE_FIELDS = {
+  'cease-and-desist': [
+    { id: 'recipientName', label: 'Recipient name (the person reposting)', placeholder: 'Their full name or handle' },
+    { id: 'recipientEmail', label: 'Recipient email or address', placeholder: 'their@email.com — or postal address if known' }
+  ],
+  'police-report': [
+    { id: 'incidentDate', label: 'Date you discovered the content', placeholder: '2026-04-26' },
+    { id: 'channelsList', label: 'URLs / platforms where content appeared', type: 'textarea', placeholder: 'https://coomer.su/...\nhttps://thothub.tv/...' },
+    { id: 'suspectInfo', label: 'Suspect info', placeholder: 'Name + contact info if known, otherwise "unknown — subpoena required"' },
+    { id: 'stateStatute', label: 'Your state NCII statute', placeholder: 'Cal. Penal Code §647(j)(4) — see cybercivilrights.org/map' }
+  ],
+  'civil-pre-suit': [
+    { id: 'recipientName', label: 'Recipient (individual or platform)', placeholder: 'Defendant name' },
+    { id: 'recipientEmail', label: 'Service address (email or postal)', placeholder: 'For formal notice' }
+  ]
+};
+
+function populateTakedownTab() {
+  populateCrisisGrid();
+  populateLeakSiteGrid();
+  populateJurisdictionDropdown();
+  populateLegalTemplateGrid();
+  wireStopNciiButton();
+  wireGoogleIntimateButton();
+  wireDmcaForm();
+}
+
+function populateCrisisGrid() {
+  const grid = $('#crisis-grid');
+  if (!grid) return;
+  const items = getCrisisSupport();
+  grid.innerHTML = items.map((c) => {
+    const contactHtml = c.contact ? `<div class="crisis-contact"><strong>${escape(c.contact)}</strong></div>` : '';
+    const countriesHtml = c.countries?.length ? `<div class="crisis-countries">${escape(c.countries.join(' · '))}</div>` : '';
+    return `
+      <article class="crisis-card">
+        <h4>${escape(c.displayName)}</h4>
+        <p class="crisis-desc">${escape(c.description || '')}</p>
+        ${contactHtml}
+        ${countriesHtml}
+        <a class="crisis-link" href="${escape(c.url)}" target="_blank" rel="noopener">More info ↗</a>
+      </article>
+    `;
+  }).join('');
+}
+
+function populateLeakSiteGrid() {
+  const grid = $('#leak-site-grid');
+  if (!grid) return;
+  const sites = getLeakSites();
+  grid.innerHTML = sites.map((s) => `
+    <label class="leak-site-checkbox">
+      <input type="checkbox" name="leak-site" value="${escape(s.key)}" />
+      <span class="leak-site-name">${escape(s.displayName)}</span>
+      <span class="leak-site-difficulty leak-difficulty-${escape(s.takedownDifficulty?.split('-')[0] || 'medium')}">${escape(s.takedownDifficulty || 'medium')}</span>
+    </label>
+  `).join('');
+}
+
+function populateJurisdictionDropdown() {
+  const sel = $('#dmca-jurisdiction');
+  if (!sel) return;
+  sel.innerHTML = JURISDICTION_OPTIONS.map((opt) =>
+    `<option value="${escape(opt.value)}">${escape(opt.label)}</option>`
+  ).join('');
+}
+
+function populateLegalTemplateGrid() {
+  const grid = $('#legal-template-grid');
+  if (!grid) return;
+  const templates = getLegalTemplates().filter((t) => STEP_4_TEMPLATES.has(t.key));
+  grid.innerHTML = templates.map((t) => `
+    <button type="button" class="legal-template-card" data-template-key="${escape(t.key)}">
+      <h4>${escape(t.displayName)}</h4>
+      <p>${escape(t.purpose)}</p>
+    </button>
+  `).join('');
+  grid.querySelectorAll('.legal-template-card').forEach((btn) => {
+    btn.addEventListener('click', () => openLegalTemplateForm(btn.dataset.templateKey));
+  });
+}
+
+function wireStopNciiButton() {
+  const btn = $('#open-stopncii-walkthrough');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    const data = getStopNciiWalkthrough();
+    const host = $('#stopncii-walkthrough-host');
+    if (!data || !host) return;
+    host.hidden = false;
+    renderWalkthrough(host, {
+      flowKey: 'takedown:stopncii',
+      serviceName: data.serviceName,
+      optOutUrl: data.optOutUrl,
+      walkthrough: data.walkthrough,
+      identity: state.identity,
+      onClose: () => { host.hidden = true; }
+    });
+    host.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+}
+
+function wireGoogleIntimateButton() {
+  const btn = $('#open-google-intimate-walkthrough');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    const data = getGoogleIntimateWalkthrough();
+    const host = $('#google-intimate-walkthrough-host');
+    if (!data || !host) return;
+    host.hidden = false;
+    renderWalkthrough(host, {
+      flowKey: 'takedown:google-intimate',
+      serviceName: data.serviceName,
+      optOutUrl: data.optOutUrl,
+      walkthrough: data.walkthrough,
+      identity: state.identity,
+      onClose: () => { host.hidden = true; }
+    });
+    host.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+}
+
+function wireDmcaForm() {
+  const form = $('#dmca-form');
+  if (!form) return;
+
+  // Pre-fill from broker-scan identity if present
+  if (state.identity) {
+    const nameInput = $('#dmca-name');
+    const emailInput = $('#dmca-email');
+    if (nameInput && state.identity.fullName) nameInput.value = state.identity.fullName;
+    if (emailInput && state.identity.email) emailInput.value = state.identity.email;
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const siteKeys = [...form.querySelectorAll('input[name="leak-site"]:checked')].map((cb) => cb.value);
+    if (siteKeys.length === 0) {
+      alert('Pick at least one leak site to send to.');
+      return;
+    }
+    const identity = {
+      fullName: ($('#dmca-name')?.value || '').trim(),
+      email: ($('#dmca-email')?.value || '').trim()
+    };
+    const infringingUrls = ($('#dmca-urls')?.value || '').trim();
+    const jurisdiction = $('#dmca-jurisdiction')?.value || 'DMCA';
+    const notices = generateDmcaBatch({ siteKeys, identity, infringingUrls, jurisdiction });
+    renderDmcaOutput(notices);
+  });
+}
+
+function renderDmcaOutput(notices) {
+  const out = $('#dmca-output');
+  if (!out) return;
+  if (notices.length === 0) {
+    out.innerHTML = '';
+    return;
+  }
+  out.innerHTML = `
+    <h3>Generated ${notices.length} DMCA letter${notices.length === 1 ? '' : 's'}</h3>
+    <p class="dmca-output-hint">Review each one, then send via the abuse contact shown. Letters are not stored anywhere.</p>
+    <div class="dmca-notice-list">
+      ${notices.map((n, i) => renderNoticeCard(n, i)).join('')}
+    </div>
+  `;
+  out.querySelectorAll('[data-action="copy-letter"]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const idx = Number(btn.dataset.index);
+      const notice = notices[idx];
+      await copyToClipboardWithFeedback(btn, notice.letter);
+    });
+  });
+  out.querySelectorAll('[data-action="download-letter"]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const idx = Number(btn.dataset.index);
+      const notice = notices[idx];
+      const blob = new Blob([notice.letter], { type: 'text/plain' });
+      downloadBlob(blob, `dmca-${notice.site}.txt`);
+    });
+  });
+}
+
+function renderNoticeCard(notice, index) {
+  const contactBlock = notice.abuseContactIsEmail
+    ? `<a class="notice-contact mailto" href="mailto:${escape(notice.abuseContact)}?subject=${encodeURIComponent('DMCA §512(c) takedown notice')}&body=${encodeURIComponent(notice.letter)}">📧 Open in email — ${escape(notice.abuseContact)}</a>`
+    : `<a class="notice-contact" href="${escape(notice.abuseContact)}" target="_blank" rel="noopener">${escape(notice.abuseContact)} ↗</a>`;
+  return `
+    <article class="notice-card">
+      <header class="notice-head">
+        <h4>${escape(notice.displayName)}</h4>
+        <span class="notice-difficulty notice-difficulty-${escape((notice.takedownDifficulty || 'medium').split('-')[0])}">${escape(notice.takedownDifficulty || 'medium')}</span>
+      </header>
+      <p class="notice-approach"><strong>Approach:</strong> ${escape(notice.approach || 'Send to the abuse contact below.')}</p>
+      <div class="notice-contact-row">${contactBlock}</div>
+      <pre class="letter-output">${escape(notice.letter)}</pre>
+      <div class="notice-actions">
+        <button type="button" class="walkthrough-copy-btn" data-action="copy-letter" data-index="${index}">📋 Copy letter</button>
+        <button type="button" class="walkthrough-copy-btn" data-action="download-letter" data-index="${index}">💾 Download .txt</button>
+      </div>
+    </article>
+  `;
+}
+
+function openLegalTemplateForm(templateKey) {
+  const fields = LEGAL_TEMPLATE_FIELDS[templateKey] || [];
+  const host = $('#legal-letter-form-host');
+  if (!host) return;
+  host.hidden = false;
+  host.innerHTML = `
+    <form id="legal-letter-form" class="takedown-form">
+      <h4>${escape(getLegalTemplates().find((t) => t.key === templateKey)?.displayName || 'Letter')}</h4>
+      <div class="takedown-form-row">
+        <label class="field">
+          <span>Your name</span>
+          <input type="text" id="ll-yourName" value="${escape(state.identity?.fullName || '')}" />
+        </label>
+        <label class="field">
+          <span>Your email</span>
+          <input type="email" id="ll-yourEmail" value="${escape(state.identity?.email || '')}" />
+        </label>
+      </div>
+      <label class="field">
+        <span>Jurisdiction</span>
+        <select id="ll-jurisdiction">
+          ${JURISDICTION_OPTIONS.map((opt) => `<option value="${escape(opt.value)}">${escape(opt.label)}</option>`).join('')}
+        </select>
+      </label>
+      ${fields.map((f) => `
+        <label class="field">
+          <span>${escape(f.label)}</span>
+          ${f.type === 'textarea'
+            ? `<textarea id="ll-${escape(f.id)}" rows="3" placeholder="${escape(f.placeholder || '')}"></textarea>`
+            : `<input type="text" id="ll-${escape(f.id)}" placeholder="${escape(f.placeholder || '')}" />`}
+        </label>
+      `).join('')}
+      <button type="submit" class="takedown-cta-primary">Generate letter →</button>
+    </form>
+  `;
+  host.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  $('#legal-letter-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const vars = {
+      yourName: $('#ll-yourName')?.value?.trim() || '',
+      yourEmail: $('#ll-yourEmail')?.value?.trim() || ''
+    };
+    for (const f of fields) {
+      vars[f.id] = $(`#ll-${f.id}`)?.value?.trim() || '';
+    }
+    const jurisdiction = $('#ll-jurisdiction')?.value || '';
+    const result = generateLetter({ templateKey, jurisdiction, vars });
+    renderLegalLetterOutput(result);
+  });
+}
+
+function renderLegalLetterOutput(result) {
+  const out = $('#legal-letter-output');
+  if (!out) return;
+  out.innerHTML = `
+    <article class="notice-card">
+      <header class="notice-head">
+        <h4>${escape(result.displayName)}</h4>
+      </header>
+      <p class="notice-approach"><strong>Purpose:</strong> ${escape(result.purpose || '')}</p>
+      <pre class="letter-output">${escape(result.letter)}</pre>
+      <div class="notice-actions">
+        <button type="button" class="walkthrough-copy-btn" id="ll-copy-btn">📋 Copy letter</button>
+        <button type="button" class="walkthrough-copy-btn" id="ll-download-btn">💾 Download .txt</button>
+      </div>
+    </article>
+  `;
+  $('#ll-copy-btn')?.addEventListener('click', async (e) => {
+    await copyToClipboardWithFeedback(e.currentTarget, result.letter);
+  });
+  $('#ll-download-btn')?.addEventListener('click', () => {
+    const blob = new Blob([result.letter], { type: 'text/plain' });
+    downloadBlob(blob, `${result.templateKey}.txt`);
+  });
+  out.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+async function copyToClipboardWithFeedback(btn, text) {
+  const original = btn.textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+    btn.textContent = '✓ Copied';
+  } catch {
+    btn.textContent = '✗ Copy failed';
+  }
+  setTimeout(() => { btn.textContent = original; }, 1400);
+}
+
+populateTakedownTab();
 
 // ─── Share card actions (shared broker + AI) ────────────────────
 

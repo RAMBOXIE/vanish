@@ -31,6 +31,7 @@
           <button type="button" class="tab active" data-tab="broker" role="tab" aria-selected="true">🏢 Data Brokers</button>
           <button type="button" class="tab" data-tab="ai" role="tab" aria-selected="false">🤖 AI Training</button>
           <button type="button" class="tab" data-tab="face" role="tab" aria-selected="false">👤 Face Search</button>
+          <button type="button" class="tab" data-tab="takedown" role="tab" aria-selected="false">🛡️ Takedown</button>
         </nav>
 
         <!-- BROKER TAB -->
@@ -118,6 +119,94 @@
           <p class="face-cta-cli">
             Need the same flow with HMAC-signed local audit trail?
             Run <code>npx github:RAMBOXIE/vanish face-opt-out --all</code> in your terminal.
+          </p>
+        </div>
+
+        <!-- TAKEDOWN TAB -->
+        <div class="tab-panel" data-panel="takedown" role="tabpanel" hidden>
+          <p class="panel-intro">
+            <strong>Removing leaked / pirated / non-consensual content.</strong>
+            Vanish drafts the right letters and walks you through the right forms — you send them.
+            Your URLs and content stay local. Nothing is logged or transmitted.
+          </p>
+
+          <!-- Crisis support — top of tab so it's the first thing seen -->
+          <section class="takedown-section takedown-crisis-section">
+            <h3>🆘 Crisis support — talk to someone now</h3>
+            <p class="takedown-section-intro">If you're in distress, these resources answer immediately. Free, confidential.</p>
+            <div class="crisis-grid" id="crisis-grid"></div>
+          </section>
+
+          <!-- Step 1: StopNCII hash registration -->
+          <section class="takedown-section">
+            <h3>1. Hash-register first <span class="takedown-step-badge">preventive</span></h3>
+            <p class="takedown-section-intro">
+              StopNCII generates cryptographic hashes of your images <strong>locally</strong> — the images never leave your device.
+              Meta / TikTok / Bumble / Reddit / OnlyFans / Pornhub / Snap then auto-block re-uploads matching your hashes.
+            </p>
+            <button type="button" class="takedown-cta" id="open-stopncii-walkthrough">Walk me through StopNCII →</button>
+            <div class="walkthrough-host" id="stopncii-walkthrough-host" hidden></div>
+          </section>
+
+          <!-- Step 2: Google search delisting -->
+          <section class="takedown-section">
+            <h3>2. Remove from Google search <span class="takedown-step-badge">24-72h</span></h3>
+            <p class="takedown-section-intro">
+              Google's dedicated form for intimate-imagery removal — faster than DMCA, works even if the source site refuses takedown.
+            </p>
+            <button type="button" class="takedown-cta" id="open-google-intimate-walkthrough">Walk me through Google's form →</button>
+            <div class="walkthrough-host" id="google-intimate-walkthrough-host" hidden></div>
+          </section>
+
+          <!-- Step 3: DMCA batch generator -->
+          <section class="takedown-section">
+            <h3>3. DMCA letters for leak sites <span class="takedown-step-badge">core action</span></h3>
+            <p class="takedown-section-intro">
+              Pick the sites where your content was reposted. Vanish drafts a DMCA §512(c) notice per site
+              with the right abuse contact + jurisdiction-specific legal language.
+            </p>
+            <form id="dmca-form" class="takedown-form" autocomplete="off">
+              <div class="takedown-form-row">
+                <label class="field">
+                  <span>Your name (signs the letter)</span>
+                  <input type="text" id="dmca-name" placeholder="Your Stage Name" />
+                </label>
+                <label class="field">
+                  <span>Your email (where the host replies)</span>
+                  <input type="email" id="dmca-email" placeholder="legal@yourdomain.com" />
+                </label>
+              </div>
+              <label class="field">
+                <span>Jurisdiction</span>
+                <select id="dmca-jurisdiction"></select>
+              </label>
+              <label class="field">
+                <span>Infringing URLs (one per line)</span>
+                <textarea id="dmca-urls" rows="4" placeholder="https://coomer.su/onlyfans/user/your-stage-name&#10;https://thothub.tv/videos/..."></textarea>
+              </label>
+              <fieldset class="takedown-leak-sites">
+                <legend>Send to:</legend>
+                <div class="leak-site-grid" id="leak-site-grid"></div>
+              </fieldset>
+              <button type="submit" class="takedown-cta-primary">Generate DMCA letters →</button>
+            </form>
+            <div class="dmca-output" id="dmca-output"></div>
+          </section>
+
+          <!-- Step 4: Other legal letters -->
+          <section class="takedown-section">
+            <h3>4. Escalation — other legal letters <span class="takedown-step-badge">when DMCA isn't enough</span></h3>
+            <p class="takedown-section-intro">
+              For specific reposters (Cease & Desist), filing a police report (NCII statute), or pre-suit notice (civil case prep).
+            </p>
+            <div class="legal-template-grid" id="legal-template-grid"></div>
+            <div class="legal-letter-form-host" id="legal-letter-form-host" hidden></div>
+            <div class="legal-letter-output" id="legal-letter-output"></div>
+          </section>
+
+          <p class="cli-upsell-mini">
+            All of the above also works on the command line:
+            <code>npx github:RAMBOXIE/vanish takedown --help</code>
           </p>
         </div>
 
