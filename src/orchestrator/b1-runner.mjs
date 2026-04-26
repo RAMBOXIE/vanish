@@ -42,6 +42,7 @@ export async function runB1Pipeline({
 
   const results = [];
   const queued = { retry: [], manualReview: [], deadLetter: [] };
+  let blockedCount = 0;
 
   try {
     for (const adapter of getBrokerAdapters(brokers)) {
@@ -55,6 +56,25 @@ export async function runB1Pipeline({
         });
         const parsed = adapter.parseResult(submission, request);
         results.push(parsed);
+
+        if (parsed.status === 'blocked') {
+          blockedCount += 1;
+          failed.push({
+            broker: adapter.name,
+            requestId: request.requestId,
+            reason: parsed.reason || 'blocked',
+            at: new Date().toISOString()
+          });
+          audit.push({
+            at: new Date().toISOString(),
+            event: 'blocked',
+            broker: adapter.name,
+            requestId: request.requestId,
+            reason: parsed.reason || 'blocked'
+          });
+          continue;
+        }
+
         completed.push({
           broker: adapter.name,
           requestId: request.requestId,
@@ -111,7 +131,7 @@ export async function runB1Pipeline({
     }));
 
     return {
-      status: queued.manualReview.length > 0 ? 'needs_review' : 'ok',
+      status: blockedCount > 0 ? 'blocked' : queued.manualReview.length > 0 ? 'needs_review' : 'ok',
       mode: live ? 'live' : 'dry-run',
       inputRequestId: input?.requestId || null,
       brokers,
@@ -119,7 +139,8 @@ export async function runB1Pipeline({
       queues: { retry: rq.items, manualReview: mq.items, deadLetter: dlq.items, completed, failed },
       summary: {
         attempted: brokers.length,
-        successful: results.length,
+        successful: completed.length,
+        blocked: blockedCount,
         retryQueued: queued.retry.length,
         manualReviewQueued: queued.manualReview.length,
         deadLetterQueued: queued.deadLetter.length

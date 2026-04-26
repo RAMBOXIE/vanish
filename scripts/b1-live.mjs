@@ -47,6 +47,10 @@ function parseArgs(argv) {
   return out;
 }
 
+function isEnabled(value) {
+  return value === true || value === 'true' || value === '1' || value === 'yes';
+}
+
 const args = parseArgs(process.argv.slice(2));
 
 if (args.help) {
@@ -70,6 +74,12 @@ Flags:
   --live                 Enable live mode (required; dry-run is the default)
   --brokers <csv>        Comma-separated broker list (default: all 8)
   --live-endpoint <url>  Override submission URL (default: postman-echo test)
+  --official-mode        Route through the guarded official-endpoint path
+  --terms-accepted       Confirm operator accepted terms for official mode
+  --lawful-basis <text>  Legal basis string for official mode
+  --operator-id <id>     Operator identifier for official mode
+  --official-endpoint <url> Override official endpoint URL
+  --official-endpoint-mode <mode> Select official endpoint mode (form/api)
   --simulate <mode>      Simulate a failure mode for testing
   --full-name "..."      Full name
   --email "..."          Email
@@ -117,10 +127,18 @@ const input = {
   authScopes: args['auth-scopes'],
   authExpiresAt: args['auth-expires-at'],
   authFile: args['auth-file'],
-  liveEndpoint: args['live-endpoint']
+  liveEndpoint: args['live-endpoint'],
+  officialMode: isEnabled(args['official-mode']),
+  useOfficialEndpoint: isEnabled(args['use-official-endpoint']),
+  termsAccepted: isEnabled(args['terms-accepted']),
+  lawfulBasis: args['lawful-basis'],
+  operatorId: args['operator-id'],
+  officialEndpoint: args['official-endpoint'],
+  officialEndpointMode: args['official-endpoint-mode'],
+  captchaDetected: isEnabled(args['captcha-detected'])
 };
 
-const live = Boolean(args.live);
+const live = isEnabled(args.live);
 const brokers = args.brokers
   ? args.brokers.split(',').map(b => b.trim()).filter(Boolean)
   : undefined;

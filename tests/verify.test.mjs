@@ -18,11 +18,30 @@ function makeMockFetch() {
   return async (url) => {
     const match = String(url).match(/\/status\/(\d+)/);
     const status = match ? Number(match[1]) : 200;
-    const finalUrl = String(url).includes('/redirect/root') ? 'https://example.com/' : url;
+    let finalUrl = url;
+    let body = '<title>Profile</title><main>Current address Possible relatives</main>';
+
+    if (String(url).includes('/redirect/root')) {
+      finalUrl = 'https://example.com/';
+      body = '<title>Search People</title><main>Find people and public records</main>';
+    } else if (String(url).includes('/redirect/canonical')) {
+      finalUrl = 'https://mock.test/person/jane-doe-seattle-wa/12345';
+      body = '<title>Jane Doe in Seattle, WA</title><main>Current address Possible relatives Phone numbers</main>';
+    } else if (String(url).includes('/html/removed')) {
+      body = '<title>Record not found</title><main>Sorry, this page is unavailable. Record not found.</main>';
+    } else if (String(url).includes('/html/captcha')) {
+      body = '<title>Security Check</title><main>Please verify you are human to continue. captcha required.</main>';
+    } else if (String(url).includes('/html/profile')) {
+      body = '<title>Jane Doe</title><main>Current address Previous addresses Possible relatives</main>';
+    }
+
     return {
       status,
       url: finalUrl,
-      ok: status >= 200 && status < 400
+      ok: status >= 200 && status < 400,
+      async text() {
+        return body;
+      }
     };
   };
 }
@@ -45,11 +64,35 @@ test('checkLiveness: 200 same URL → still-present', async () => {
   assert.equal(result.httpStatus, 200);
 });
 
+test('checkLiveness: 200 with removed HTML marker shows removed', async () => {
+  const result = await checkLiveness('https://mock.test/profile/html/removed/status/200', { fetchImpl: makeMockFetch() });
+  assert.equal(result.status, 'removed');
+  assert.match(result.reason, /html-removed-record-not-found/);
+  assert.equal(result.pageTitle, 'Record not found');
+});
+
+test('checkLiveness: 200 with captcha HTML marker stays unknown', async () => {
+  const result = await checkLiveness('https://mock.test/profile/html/captcha/status/200', { fetchImpl: makeMockFetch() });
+  assert.equal(result.status, 'unknown');
+  assert.match(result.reason, /html-captcha/);
+  assert.equal(result.pageTitle, 'Security Check');
+});
+
+test('checkLiveness: canonical redirect with profile signals stays present', async () => {
+  const result = await checkLiveness(
+    'https://mock.test/profile/jane-doe-seattle-wa/12345/redirect/canonical/status/200',
+    { fetchImpl: makeMockFetch() }
+  );
+  assert.equal(result.status, 'still-present');
+  assert.equal(result.reason, 'redirected-to-canonical-profile');
+  assert.equal(result.redirected, true);
+});
+
 test('checkLiveness: 403 → unknown (captcha/ratelimit)', async () => {
   const result = await checkLiveness('https://mock.test/profile/status/403', { fetchImpl: makeMockFetch() });
   assert.equal(result.status, 'unknown');
   assert.equal(result.httpStatus, 403);
-  assert.match(result.reason, /captcha-or-ratelimit/);
+  assert.match(result.reason, /captcha-or-ratelimit|access-blocked/);
 });
 
 test('checkLiveness: 429 → unknown', async () => {
@@ -99,6 +142,7 @@ test('verifyEntries: updates entries with verification fields', async () => {
 
   assert.equal(updated[1].verificationResult, 'still-present');
   assert.equal(updated[1].status, 'still-present');
+  assert.equal(updated[1].verificationPageTitle, 'Profile');
 });
 
 test('verify CLI --no-fetch lists pending without HTTP', () => {

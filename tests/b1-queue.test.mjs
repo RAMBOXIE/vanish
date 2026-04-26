@@ -14,6 +14,11 @@ import { AuthSession } from '../src/auth/session-auth.mjs';
 // Empty session bypasses the default SecretStore creation (which would
 // otherwise touch data/secret-store.json). Dry-run pipeline doesn't validate.
 const noAuth = new AuthSession({});
+const liveAuth = new AuthSession({
+  token: 'demo-token',
+  scopes: ['submit:spokeo'],
+  expiresAt: '2026-12-31T00:00:00.000Z'
+});
 
 const sampleInput = {
   requestId: 'b1-test-001',
@@ -120,5 +125,31 @@ test('success path uses no queue', async () => {
     assert.equal(manualReviewQueue.items.length, 0);
     assert.equal(result.results[0].broker, 'beenverified');
     assert.equal(result.results[0].status, 'success');
+  });
+});
+
+test('official-mode compliance block is not recorded as completed', async () => {
+  await withIsolatedStore(async (store) => {
+    const result = await runB1Pipeline({
+      brokers: ['spokeo'],
+      input: {
+        ...sampleInput,
+        requestId: 'b1-test-official-block',
+        officialMode: true,
+        operatorId: 'operator-1',
+        lawfulBasis: 'consumer-request'
+      },
+      store,
+      live: true,
+      auth: liveAuth
+    });
+
+    assert.equal(result.status, 'blocked');
+    assert.equal(result.summary.successful, 0);
+    assert.equal(result.summary.blocked, 1);
+    assert.equal(result.queues.completed.length, 0);
+    assert.equal(result.queues.failed.length, 1);
+    assert.equal(result.results[0].status, 'blocked');
+    assert.equal(result.results[0].reason, 'compliance_not_confirmed');
   });
 });
