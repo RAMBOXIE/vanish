@@ -50,31 +50,33 @@ This skill:
 
 ---
 
-## Capabilities — 11 subcommands across 5 threat surfaces
+## Capabilities — 20 subcommands across 5 threat surfaces
+
+**Stability tiers**: Vanish classifies every routed subcommand into one of four tiers — **Core** (8: stable, in hero), **Specialist** (4: stable, narrower scope), **Labs** (4: experimental / low-evidence / UX layers), and **Internal helpers** (4: plumbing). The canonical mapping with tier + evidence grade (A/B/C/D) per command lives in [`src/command-manifest.mjs`](src/command-manifest.mjs); README's [Capability matrix](README.md#capability-matrix) and CLI's `vanish --help` both render from it. The threat-surface grouping below is for narrative; cross-reference the manifest for the stability call.
 
 ### 🏢 Data brokers (original v0.2 scope)
-- **`scan`** — Heuristic triage across 210 brokers. 0-100 score. Pure local computation, zero network calls. 10-second wall clock.
-- **`opt-out`** — Browser-assisted opt-out walkthrough for 58 brokers (opens browser, pre-fills clipboard, you solve captchas). Records HMAC-signed audit + 30-day verify follow-up.
-- **`verify`** — Re-check past opt-out submissions. Broker entries: HTTP liveness. AI-platform / face-service entries: reminder walkthrough with manual confirm. One-shot kinds (takedown, history) explicitly skipped.
-- **`b1-live`** — ⚠️ **EXPERIMENTAL** live HTTP submission adapter for 8 brokers. Captchas block real use. Defaults to `postman-echo.com` test endpoint. Use `opt-out` for real work.
-- **`cleanup`**, **`wizard`**, **`queue`**, **`report`**, **`dashboard`** — supporting workflow commands (dry-run cleanup, 18-state conversational wizard, queue management, proof-report rendering, static dashboard builder).
+- **`scan`** [Core, evidence C] — Heuristic triage across 210 brokers. 0-100 score. Pure local computation, zero network calls. 10-second wall clock.
+- **`opt-out`** [Core, evidence B] — Browser-assisted opt-out walkthrough for 58 brokers (opens browser, pre-fills clipboard, you solve captchas). Records HMAC-signed audit + 30-day verify follow-up.
+- **`verify`** [Core, evidence A/B] — Re-check past opt-out submissions. Broker entries: HTTP liveness (A). AI-platform / face-service entries: reminder walkthrough with manual confirm (B). One-shot kinds (takedown, history) explicitly skipped.
+- **`b1-live`** [Labs, evidence D] — ⚠️ **Labs / experimental** live HTTP submission adapter for 8 brokers. Captchas block real use. Defaults to `postman-echo.com` test endpoint; only Spokeo has a verifiable substitute path in MVP. Use `opt-out` for real work.
+- **`cleanup`** [Internal helper], **`wizard`** [Labs, UX layer], **`queue`** [Internal helper], **`report`** [Core, evidence A], **`dashboard`** [Labs, UX layer] — supporting workflow commands (dry-run cleanup, 18-state conversational wizard, queue management, proof-report rendering, static dashboard builder). Plus `b1-demo` and `dashboard:watch` as Internal helpers.
 
 ### 🤖 AI training exposure (v0.3)
-- **`ai-scan`** — Classify 30 LLM platforms (ChatGPT / Claude / Gemini / LinkedIn / Reddit / Cursor / etc.) as exposed / licensed / safe / action-needed. Zero network calls. Takes only platform names, no personal data.
-- **`ai-opt-out`** — Walkthrough + browser-assisted opt-out for 26 of the 30. Each tool has exact UI toggle name + step-by-step + tier overrides. 60-day reverify (AI platforms silently reset settings).
+- **`ai-scan`** [Core, evidence C] — Classify 30 LLM platforms (ChatGPT / Claude / Gemini / LinkedIn / Reddit / Cursor / etc.) as exposed / licensed / safe / action-needed. Zero network calls. Takes only platform names, no personal data.
+- **`ai-opt-out`** [Core, evidence B] — Walkthrough + browser-assisted opt-out for 26 of the 30. Each tool has exact UI toggle name + step-by-step + tier overrides. 60-day reverify (AI platforms silently reset settings).
 
 ### 👤 Face-search (v0.3)
-- **`face-scan`** — Directory of 8 face-recognition services (PimEyes, FaceCheck.ID, FindClone, Lenso, TinEye, Yandex, Google Lens, Clearview AI). Vanish never handles your photo — opens each service's own search page + prints walkthrough.
-- **`face-opt-out`** — Guided deletion requests including Clearview (CCPA/GDPR — LE-only DB you can't search). HMAC audit + 30-day (60 for Clearview) reverify.
+- **`face-scan`** [Core, evidence C] — Directory of 8 face-recognition services (PimEyes, FaceCheck.ID, FindClone, Lenso, TinEye, Yandex, Google Lens, Clearview AI). Vanish never handles your photo — opens each service's own search page + prints walkthrough.
+- **`face-opt-out`** [Core, evidence B] — Guided deletion requests including Clearview (CCPA/GDPR — LE-only DB you can't search). HMAC audit + 30-day (60 for Clearview) reverify.
 
 ### 🧠 Advanced AI-era checks (v0.3)
-- **`llm-memory-check`** — Probe OpenAI + Anthropic with 15 stalker-style prompts, detect verbatim leaks of user identifiers. **Requires user's own API keys in env** (optional: `--dry-run` uses a mock provider). ~$0.01/scan.
-- **`dataset-check`** — Check if your URL is in Common Crawl (real CDX API query) / LAION / Pile / C4 / WebText / RedPajama / Dolma / FineWeb (walkthrough). Only outbound call: `index.commoncrawl.org` for CC lookup.
-- **`clean-ai-history`** — Discover where AI tools store conversation history on your disk; prints exact shell command to delete. **Vanish never runs `rm` for you** — you copy-paste. Covers 9 tools (Cursor / VS Code Copilot / Claude Desktop / ChatGPT Desktop + 5 web).
-- **`third-party-ai`** — Catalog + objection-letter generator for 22 AI tools others use on you (workplace meetings, HR/recruiting AI, medical scribes, workforce-monitoring agents). Jurisdiction-cited letters (GDPR Art 21/22/88, CCPA / AB-331, Illinois AIVIA + BIPA, NY Local Law 144 + Electronic Monitoring Act, HIPAA, German BetrVG §87). Includes `--detect-installed` to scan local machine for 8 commercial workforce-monitoring vendors (ActivTrak / Teramind / Hubstaff / Time Doctor / Insightful / Veriato / InterGuard / Viva Insights).
+- **`llm-memory-check`** [Labs, evidence D] — Probe OpenAI + Anthropic with 15 stalker-style prompts, detect verbatim leaks of user identifiers. **Requires user's own API keys in env** (optional: `--dry-run` uses a mock provider). ~$0.01/scan. A clean result does NOT prove safety — paraphrased knowledge slips through.
+- **`dataset-check`** [Specialist, evidence B (Common Crawl) / C (others)] — Check if your URL is in Common Crawl (real CDX API query) / LAION / Pile / C4 / WebText / RedPajama / Dolma / FineWeb (walkthrough). Only outbound call: `index.commoncrawl.org` for CC lookup.
+- **`clean-ai-history`** [Specialist, evidence B/C] — Discover where AI tools store conversation history on your disk; prints exact shell command to delete. **Vanish never runs `rm` for you** — you copy-paste. Covers 9 tools (Cursor / VS Code Copilot / Claude Desktop / ChatGPT Desktop + 5 web).
+- **`third-party-ai`** [Specialist, evidence B] — Catalog + objection-letter generator for 22 AI tools others use on you (workplace meetings, HR/recruiting AI, medical scribes, workforce-monitoring agents). Jurisdiction-cited letters (GDPR Art 21/22/88, CCPA / AB-331, Illinois AIVIA + BIPA, NY Local Law 144 + Electronic Monitoring Act, HIPAA, German BetrVG §87). Includes `--detect-installed` to scan local machine for 8 commercial workforce-monitoring vendors (ActivTrak / Teramind / Hubstaff / Time Doctor / Insightful / Veriato / InterGuard / Viva Insights).
 
 ### 🛡️ NCII / leak takedown (v0.3)
-- **`takedown`** — DMCA letters for 12 leak sites + StopNCII.org hash-registry walkthrough + Google intimate-imagery form + 4 legal templates (DMCA §512(c) / C&D / police report / civil pre-suit). Jurisdictions: US federal (DMCA / SHIELD Act / Take It Down Act 2025), EU GDPR, UK OSA, Canada §162.1, Australia OSA. Vanish never submits — drafts only.
+- **`takedown`** [Specialist, evidence B] — DMCA letters for 12 leak sites + StopNCII.org hash-registry walkthrough + Google intimate-imagery form + 4 legal templates (DMCA §512(c) / C&D / police report / civil pre-suit). Jurisdictions: US federal (DMCA / SHIELD Act / Take It Down Act 2025), EU GDPR, UK OSA, Canada §162.1, Australia OSA. Vanish never submits — drafts only.
 
 ---
 

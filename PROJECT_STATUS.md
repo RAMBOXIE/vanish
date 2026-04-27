@@ -1,6 +1,17 @@
 # PROJECT STATUS — vanish
 
-_Last updated: 2026-04-15_
+_Last updated: 2026-04-26_
+
+## 0) Stability tier system (current as of 2026-04)
+
+Vanish classifies all 20 routed subcommands into 4 stability tiers. The canonical mapping is in [`src/command-manifest.mjs`](src/command-manifest.mjs); the README's [Capability matrix](README.md#capability-matrix) and CLI's `vanish --help` both render from it (`tests/command-manifest.test.mjs` + `tests/readme-manifest-compliance.test.mjs` lock the consistency).
+
+- **Core (8)** — stable, primary product surface, in hero: `scan`, `opt-out`, `verify`, `report`, `ai-scan`, `ai-opt-out`, `face-scan`, `face-opt-out`
+- **Specialist (4)** — stable, narrower scope: `takedown`, `dataset-check`, `third-party-ai`, `clean-ai-history`
+- **Labs (4)** — experimental / low-evidence / UX layers: `llm-memory-check` (D), `b1-live` (D, real HTTP but only Spokeo verifiable), `wizard` (UX layer), `dashboard` (UX layer)
+- **Internal helpers (4)** — plumbing: `cleanup`, `b1-demo`, `queue`, `dashboard:watch`
+
+Evidence grade legend: A=locally verifiable, B=action provable / result needs follow-up, C=classification or self-confirm, D=research probe.
 
 ## 1) Executive summary
 vanish now includes a **hardened minimum viable real execution loop** for B1: user input → auth validation/secret-store loading → live HTTP submit or official-mode compliance block → persistent queueing (retry/manual review/DLQ) → signed audit trail → proof report.

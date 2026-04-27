@@ -1,6 +1,9 @@
 # B1 STATUS
 
-_Last updated: 2026-04-15_
+_Last updated: 2026-04-26_
+
+## Stability tier
+`b1-live` sits in **Labs** (evidence D) per [`src/command-manifest.mjs`](src/command-manifest.mjs). It is a real HTTP submission path but uses a configurable substitute endpoint (default postman-echo) for closed-loop validation; only Spokeo has a verifiable path in MVP. Captchas remain the primary blocker for production submission. See README's [Capability matrix](README.md#capability-matrix) for cross-reference.
 
 ## Summary
 B1 now ships a **real execution loop MVP** (not dry-run only):
