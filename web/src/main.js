@@ -374,6 +374,8 @@ function openAiWalkthrough(platformKey) {
     flowKey: `ai:${platformKey}`,
     serviceName: data.serviceName,
     optOutUrl: data.optOutUrl,
+    optOutEmail: data.optOutEmail,
+    optOutEmailSubject: data.optOutEmailSubject,
     walkthrough: data.walkthrough,
     identity: state.identity,
     onClose: () => { host.hidden = true; }
@@ -465,6 +467,8 @@ function openFaceWalkthrough(serviceKey) {
     flowKey: `face:${serviceKey}:opt-out`,
     serviceName: data.serviceName,
     optOutUrl: data.optOutUrl,
+    optOutEmail: data.optOutEmail,
+    optOutEmailSubject: data.optOutEmailSubject,
     walkthrough: data.walkthrough,
     identity: state.identity,
     onClose: () => { host.hidden = true; }

@@ -64,6 +64,8 @@ export function getAiWalkthrough(platformKey) {
   return {
     serviceName: platform.displayName,
     optOutUrl: platform.optOutUrl || null,
+    optOutEmail: platform.optOutEmail || null,
+    optOutEmailSubject: platform.optOutEmailSubject || null,
     walkthrough: platform.walkthrough
   };
 }
@@ -78,6 +80,8 @@ export function getFaceWalkthrough(serviceKey) {
   return {
     serviceName: service.displayName,
     optOutUrl: service.optOutUrl || null,
+    optOutEmail: service.optOutEmail || null,
+    optOutEmailSubject: service.optOutEmailSubject || null,
     walkthrough: service.optOutWalkthrough
   };
 }

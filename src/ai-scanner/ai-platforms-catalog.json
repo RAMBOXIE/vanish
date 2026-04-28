@@ -263,6 +263,8 @@
       "category": "content",
       "defaultConsent": "licensed",
       "optOutUrl": "https://stackoverflow.com/legal/privacy-policy",
+      "optOutEmail": "privacy@stackoverflow.com",
+      "optOutEmailSubject": "GDPR Article 21 objection — AI training data processing",
       "optOutMethod": "gdpr-ccpa-request",
       "optOutDifficulty": "hard",
       "estimatedSeconds": 900,

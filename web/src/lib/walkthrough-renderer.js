@@ -79,6 +79,8 @@ function saveCompletion(flowKey, completion) {
  *                                   (e.g. "ai:openai-chatgpt", "face:pimeyes:opt-out")
  * @param {string} options.serviceName - display name (e.g. "OpenAI ChatGPT")
  * @param {string} [options.optOutUrl] - URL the user opens in a new tab
+ * @param {string} [options.optOutEmail] - opt-out email contact (PR 2.6: enables mailto: button)
+ * @param {string} [options.optOutEmailSubject] - subject line for mailto link (defaults if not provided)
  * @param {Object} options.walkthrough - walkthrough object from catalog
  * @param {string} [options.walkthrough.targetSetting]
  * @param {string[]} options.walkthrough.steps
@@ -91,7 +93,10 @@ function saveCompletion(flowKey, completion) {
  */
 export function renderWalkthrough(container, options) {
   if (!container) return;
-  const { flowKey, serviceName, optOutUrl, walkthrough, identity, onClose } = options || {};
+  const {
+    flowKey, serviceName, optOutUrl, optOutEmail, optOutEmailSubject,
+    walkthrough, identity, onClose
+  } = options || {};
 
   if (!walkthrough || !Array.isArray(walkthrough.steps) || walkthrough.steps.length === 0) {
     container.innerHTML = '';
@@ -115,10 +120,18 @@ export function renderWalkthrough(container, options) {
         <h3>Walk-through: ${escape(serviceName || 'opt-out')}</h3>
         ${onClose ? '<button type="button" class="walkthrough-close" aria-label="Close walkthrough">×</button>' : ''}
       </header>
+      ${optOutEmail ? `
+        <p class="walkthrough-mailto">
+          <a class="walkthrough-mailto-link" href="${buildMailtoHref({ email: optOutEmail, subject: optOutEmailSubject, serviceName, identity })}">
+            📧 Open in email — ${escape(optOutEmail)}
+          </a>
+          <span class="walkthrough-link-hint">Skips the web form entirely. Pre-filled subject + body open in your default email client.</span>
+        </p>
+      ` : ''}
       ${optOutUrl ? `
         <p class="walkthrough-link">
-          <a href="${escape(optOutUrl)}" target="_blank" rel="noopener">Open opt-out page ↗</a>
-          <span class="walkthrough-link-hint">Opens in a new tab; come back here to follow the steps.</span>
+          <a href="${escape(optOutUrl)}" target="_blank" rel="noopener">${optOutEmail ? 'Or open the privacy page ↗' : 'Open opt-out page ↗'}</a>
+          <span class="walkthrough-link-hint">${optOutEmail ? 'Use this if you prefer a web form over email.' : 'Opens in a new tab; come back here to follow the steps.'}</span>
         </p>
       ` : ''}
       ${walkthrough.targetSetting ? `
@@ -244,6 +257,49 @@ export function renderWalkthrough(container, options) {
       setTimeout(() => { btn.textContent = original; }, 1400);
     });
   });
+}
+
+/**
+ * Build a mailto: href with prefilled subject + body. Uses encodeURIComponent
+ * (NOT escape() — escape() is for HTML-attribute safety; mailto query strings
+ * need URI encoding instead). The result is then HTML-escaped at the call site
+ * to defend against `&` corruption when interpolated into innerHTML.
+ *
+ * @param {{ email: string, subject?: string, serviceName?: string, identity?: { fullName?: string, email?: string } }} args
+ * @returns {string} HTML-escaped mailto: href safe to interpolate into innerHTML
+ */
+export function buildMailtoHref({ email, subject, serviceName, identity }) {
+  if (!email) return '';
+  const finalSubject = subject || `Privacy / opt-out request — ${serviceName || 'your platform'}`;
+  const lines = [
+    'Hello,',
+    '',
+    `I am submitting a formal request to opt out of my data being used by ${serviceName || 'your platform'} for AI training, model improvement, or any similar processing not strictly required to provide the service to me.`,
+    '',
+    'I am exercising my rights under, as applicable:',
+    ' - GDPR Article 21 (right to object) and Article 17 (right to erasure) — EU/UK/Swiss/EEA users',
+    ' - California Civil Code §1798.105 (right to deletion) and §1798.120 (right to opt out of sale/sharing) — California users',
+    ' - Equivalent rights under PIPEDA (Canada), LGPD (Brazil), or local data-protection law',
+    '',
+    'Please:',
+    ' 1. Stop processing my data for AI training and confirm in writing.',
+    ' 2. Confirm receipt within 30 days (GDPR Article 12(3)) or 45 days (CCPA §1798.130).',
+    ' 3. Provide a case reference number for follow-up.',
+    ''
+  ];
+  if (identity?.fullName) lines.push(`Account name: ${identity.fullName}`);
+  if (identity?.email) lines.push(`Account email: ${identity.email}`);
+  lines.push('');
+  lines.push('Thank you,');
+  lines.push(identity?.fullName || '[your name]');
+  lines.push('');
+  lines.push('— Drafted with vanish (https://github.com/RAMBOXIE/vanish). Signed and sent by me.');
+
+  const body = lines.join('\n');
+  const href = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(finalSubject)}&body=${encodeURIComponent(body)}`;
+  // HTML-attribute escape so `&` etc. don't break the href when injected via innerHTML.
+  return String(href).replace(/[&<>"']/g, (c) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
 /** Clear all walkthrough state for a single flow key. */

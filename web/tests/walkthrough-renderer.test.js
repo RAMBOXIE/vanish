@@ -2,7 +2,7 @@
 // AI / Face opt-out flows. Uses jsdom (configured in vite.config.js).
 
 import { describe, test, expect, beforeEach, vi } from 'vitest';
-import { renderWalkthrough, clearWalkthroughState, PREFILL_TEXTS } from '../src/lib/walkthrough-renderer.js';
+import { renderWalkthrough, clearWalkthroughState, PREFILL_TEXTS, buildMailtoHref } from '../src/lib/walkthrough-renderer.js';
 
 // Real catalog fixtures lifted from src/ai-scanner/ai-platforms-catalog.json
 // and src/face-scanner/face-services-catalog.json. Kept inline so the test
@@ -348,6 +348,80 @@ describe('renderWalkthrough', () => {
     await new Promise((r) => setTimeout(r, 0));
 
     expect(writeText).toHaveBeenCalledWith('Edited Name');
+  });
+
+  // ─── PR 2.6: mailto support ─────────────────────────────────────
+
+  test('walkthrough renders mailto button when optOutEmail is provided', () => {
+    const host = makeContainer();
+    renderWalkthrough(host, {
+      flowKey: 'ai:stack-overflow',
+      serviceName: 'Stack Overflow',
+      optOutUrl: 'https://stackoverflow.com/legal/privacy-policy',
+      optOutEmail: 'privacy@stackoverflow.com',
+      optOutEmailSubject: 'GDPR Article 21 objection',
+      walkthrough: { steps: ['Email them'] }
+    });
+
+    const mailtoLink = host.querySelector('.walkthrough-mailto-link');
+    expect(mailtoLink).toBeTruthy();
+    expect(mailtoLink.getAttribute('href')).toMatch(/^mailto:/);
+    expect(mailtoLink.getAttribute('href')).toContain('privacy%40stackoverflow.com');
+    expect(mailtoLink.textContent).toContain('privacy@stackoverflow.com');
+
+    // URL link should also still render (as fallback) but with different label
+    const urlLink = host.querySelector('.walkthrough-link a');
+    expect(urlLink).toBeTruthy();
+    expect(urlLink.textContent).toContain('Or open the privacy page');
+  });
+
+  test('walkthrough does NOT render mailto when optOutEmail is missing', () => {
+    const host = makeContainer();
+    renderWalkthrough(host, {
+      flowKey: 'face:pimeyes:opt-out',
+      serviceName: 'PimEyes',
+      optOutUrl: 'https://pimeyes.com/en/opt-out-form',
+      walkthrough: { steps: ['Open form'] }
+    });
+
+    expect(host.querySelector('.walkthrough-mailto-link')).toBeFalsy();
+    // URL link uses the default label
+    expect(host.querySelector('.walkthrough-link a').textContent).toContain('Open opt-out page');
+  });
+
+  test('buildMailtoHref encodes subject + body and identity', () => {
+    const href = buildMailtoHref({
+      email: 'privacy@example.com',
+      subject: 'Test subject',
+      serviceName: 'TestPlatform',
+      identity: { fullName: 'Jane Doe', email: 'jane@example.com' }
+    });
+    // The href is HTML-attribute escaped; decode the &amp; back for parsing
+    const decoded = href.replace(/&amp;/g, '&');
+    const url = new URL(decoded);
+    expect(url.protocol).toBe('mailto:');
+    expect(decodeURIComponent(url.pathname)).toBe('privacy@example.com');
+    expect(decodeURIComponent(url.searchParams.get('subject') || '')).toBe('Test subject');
+    const body = decodeURIComponent(url.searchParams.get('body') || '');
+    expect(body).toMatch(/TestPlatform/);
+    expect(body).toMatch(/GDPR Article 21/);
+    expect(body).toMatch(/CCPA/);
+    expect(body).toMatch(/Jane Doe/);
+    expect(body).toMatch(/jane@example\.com/);
+  });
+
+  test('buildMailtoHref returns empty string when email missing', () => {
+    expect(buildMailtoHref({ email: '' })).toBe('');
+    expect(buildMailtoHref({})).toBe('');
+  });
+
+  test('buildMailtoHref defaults subject when not provided', () => {
+    const href = buildMailtoHref({ email: 'privacy@x.com', serviceName: 'X' });
+    const decoded = href.replace(/&amp;/g, '&');
+    const url = new URL(decoded);
+    const subject = decodeURIComponent(url.searchParams.get('subject') || '');
+    expect(subject).toMatch(/Privacy.*opt-out/i);
+    expect(subject).toMatch(/X/);
   });
 
   test('Empty input shows warning, does not call clipboard', async () => {
